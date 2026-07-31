@@ -1,3 +1,4 @@
+import "../global.css";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SplashScreen, Stack, ThemeProvider, DefaultTheme } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
