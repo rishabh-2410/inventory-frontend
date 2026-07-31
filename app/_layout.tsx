@@ -3,9 +3,12 @@ import { SplashScreen, Stack, ThemeProvider, DefaultTheme } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 // import { useFonts } from 'expo-font';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 
 // import { useEffect, useState } from 'react';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from '@/lib/queryclient';
 
 
 // import {
@@ -23,66 +26,69 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 
-//   const [sessionReady, setSessionReady] = useState(false);
-//   const accessToken = useAuthStore((state) => state.accessToken);
+  //   const [sessionReady, setSessionReady] = useState(false);
+  //   const accessToken = useAuthStore((state) => state.accessToken);
   const isSignedIn = false
 
 
-//   const [fontsLoaded] = useFonts({
-//     LeagueSpartan_700Bold,
-//     'sans-medium': LeagueSpartan_500Medium,
-//     'sans-regular': LeagueSpartan_400Regular,
-//     'sans-semibold': LeagueSpartan_600SemiBold,
-//     'sans-extrabold': LeagueSpartan_800ExtraBold,
-//     'sans-light': LeagueSpartan_300Light
-//   })
+  //   const [fontsLoaded] = useFonts({
+  //     LeagueSpartan_700Bold,
+  //     'sans-medium': LeagueSpartan_500Medium,
+  //     'sans-regular': LeagueSpartan_400Regular,
+  //     'sans-semibold': LeagueSpartan_600SemiBold,
+  //     'sans-extrabold': LeagueSpartan_800ExtraBold,
+  //     'sans-light': LeagueSpartan_300Light
+  //   })
 
-//   useEffect(() => {
-//     let mounted = true;
+  //   useEffect(() => {
+  //     let mounted = true;
 
-//     async function bootstrap() {
-       
-      
-//     }
-
-//     bootstrap();
-
-//     // Cleanup
-//     return () => {
-//       mounted = false
-//     }
-
-//   }, []);
+  //     async function bootstrap() {
 
 
-//   useEffect(() => {
-//     if (fontsLoaded && sessionReady) {
-//       SplashScreen.hideAsync();
-//     }
-//   }, [fontsLoaded, sessionReady])
+  //     }
 
-//   if (!fontsLoaded || !sessionReady) {
-//     return null;
-//   }
+  //     bootstrap();
+
+  //     // Cleanup
+  //     return () => {
+  //       mounted = false
+  //     }
+
+  //   }, []);
+
+
+  //   useEffect(() => {
+  //     if (fontsLoaded && sessionReady) {
+  //       SplashScreen.hideAsync();
+  //     }
+  //   }, [fontsLoaded, sessionReady])
+
+  //   if (!fontsLoaded || !sessionReady) {
+  //     return null;
+  //   }
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={queryClient}>
         <BottomSheetModalProvider>
           <ThemeProvider value={DefaultTheme}>
-              <Stack
-                key={isSignedIn ? "app-stack" : "auth-stack"}
-                screenOptions={{ headerShown: false }}
-              >
-                <Stack.Screen name="index" />
-                {isSignedIn ? (
-                  <Stack.Screen name="(tabs)" />
-                ) : (
-                  <Stack.Screen name="(auth)" />
-                )}
-              </Stack>
+            <Stack
+              key={isSignedIn ? "app-stack" : "auth-stack"}
+              screenOptions={{ headerShown: false }}
+            >
+              <Stack.Screen name="index" />
+              {isSignedIn ? (
+                <Stack.Screen name="(tabs)" />
+              ) : (
+                <Stack.Screen name="(auth)" />
+              )}
+            </Stack>
             <StatusBar style="dark" />
+            <Toast />
           </ThemeProvider>
         </BottomSheetModalProvider>
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }
