@@ -4,11 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import {Controller, useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginRequestSchema } from '@/models/schemas/auth.schema'
-import { LoginRequest, LoginResponse } from '@/models/types/auth.type'
+import { loginRequestSchema } from '@/models/zodSchema/login.schema'
+import { LoginRequest, LoginResponse, User } from '@/models/types/auth.type'
 import { useLogin } from '@/hooks/mutation/useLogin'
 import { queryClient } from '@/lib/queryclient'
 import { useState } from 'react';
+import { saveRefreshToken } from '@/store/token.store';
+import { useAuthStore } from '@/store/auth.store';
 
 
 
@@ -21,6 +23,7 @@ export default function LoginScreen() {
       password: "",
     },
   });
+  const setSession = useAuthStore((state) => state.setSession)
 
   const [loginRes, setLoginRes] = useState<LoginResponse>()
 
@@ -32,10 +35,27 @@ export default function LoginScreen() {
     console.debug("LoginRequest:", data)
     loginMutation.mutate(data, {
       onSuccess: async(data: LoginResponse) => {
+        await handleSession(data)
         console.debug("LoginResponse:", data)
-        setLoginRes(data)
+        router.navigate("/")
       }
     })
+  }
+
+
+  const handleSession = async(data: LoginResponse) => {
+    let user: User ={
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      business_id: data.business_id,
+      role: data.role,
+      is_active: data.is_active,
+      created_at: data.created_at,
+    }
+
+    await saveRefreshToken(data.refresh_token)
+    setSession(user, data.access_token)
   }
 
   return (

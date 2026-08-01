@@ -10,6 +10,7 @@ import Toast from 'react-native-toast-message';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from '@/lib/queryclient';
+import { useAuthStore } from "@/store/auth.store";
 
 
 // import {
@@ -28,8 +29,8 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
 
   //   const [sessionReady, setSessionReady] = useState(false);
-  //   const accessToken = useAuthStore((state) => state.accessToken);
-  const isSignedIn = false
+  const accessToken = useAuthStore.getState().accessToken;
+  const isSignedIn = !!accessToken
 
 
   //   const [fontsLoaded] = useFonts({

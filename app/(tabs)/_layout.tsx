@@ -1,8 +1,9 @@
+import { useAuthStore } from "@/store/auth.store";
 import { Redirect, Tabs } from "expo-router";
 
 export default function TabLayout() {
-  // const accessToken = useAuthStore((state) => state.accessToken);
-  const isSignedIn = false
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const isSignedIn = !!accessToken
 
   if (!isSignedIn) {
     return <Redirect href="/(auth)/login" />;
