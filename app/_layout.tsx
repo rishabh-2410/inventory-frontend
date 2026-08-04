@@ -10,7 +10,11 @@ import Toast from 'react-native-toast-message';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from '@/lib/queryclient';
-import { useAuthStore } from "@/store/auth.store";
+import { useAuthStore, useHasHydrated } from "@/store/auth.store";
+import { useEffect, useState, useRef } from "react";
+import { ActivityIndicator } from "react-native";
+import { useSessionRefresh } from "@/hooks/useSessionRefrest";
+import { refreshUserToken } from "@/services/auth.service";
 
 
 // import {
@@ -27,48 +31,68 @@ import { useAuthStore } from "@/store/auth.store";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-
-  //   const [sessionReady, setSessionReady] = useState(false);
-  const accessToken = useAuthStore.getState().accessToken;
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const refreshToken = useAuthStore((state) => state.refreshToken);
   const isSignedIn = !!accessToken
+  const hasHydrated = useHasHydrated();
+  const [isRestoring, setIsRestoring] = useState(false);
+  const hasRestoredRef = useRef(false);
 
+  useSessionRefresh();
 
-  //   const [fontsLoaded] = useFonts({
-  //     LeagueSpartan_700Bold,
-  //     'sans-medium': LeagueSpartan_500Medium,
-  //     'sans-regular': LeagueSpartan_400Regular,
-  //     'sans-semibold': LeagueSpartan_600SemiBold,
-  //     'sans-extrabold': LeagueSpartan_800ExtraBold,
-  //     'sans-light': LeagueSpartan_300Light
-  //   })
+  // Restore session if refresh token is present and hydration is completed.
+  useEffect(() => {
+    if (!hasHydrated) return;
+    if (!refreshToken) return;
+    if (hasRestoredRef.current) return;
+  
+    hasRestoredRef.current = true;
+  
+    const restoreSession = async () => {
+      try {
+        setIsRestoring(true);
+  
+        const response = await refreshUserToken(refreshToken);
 
-  //   useEffect(() => {
-  //     let mounted = true;
+        console.log('response', response);
+        console.log('response.access_token_expires_at', response.access_token_expires_at);
+  
+        const user = {
+          id: response.id,
+          name: response.name,
+          email: response.email,
+          role: response.role as "owner" | "employee",
+          is_active: response.is_active,
+          business_id: response.business_id,
+          created_at: response.created_at,
+        };
+  
+        useAuthStore.getState().setSession(
+          user,
+          response.access_token,
+          response.refresh_token,
+          response.access_token_expires_at
+        );
+      } catch (err) {
+        console.error(err);
+        useAuthStore.getState().clearSession();
+      } finally {
+        setIsRestoring(false);
+      }
+    };
+  
+    restoreSession();
+  }, [hasHydrated]);
 
-  //     async function bootstrap() {
+  useEffect(() => {
+     if(hasHydrated && !isRestoring) {
+      SplashScreen.hideAsync();
+     }
+  }, [hasHydrated, isRestoring])
 
-
-  //     }
-
-  //     bootstrap();
-
-  //     // Cleanup
-  //     return () => {
-  //       mounted = false
-  //     }
-
-  //   }, []);
-
-
-  //   useEffect(() => {
-  //     if (fontsLoaded && sessionReady) {
-  //       SplashScreen.hideAsync();
-  //     }
-  //   }, [fontsLoaded, sessionReady])
-
-  //   if (!fontsLoaded || !sessionReady) {
-  //     return null;
-  //   }
+  if (!hasHydrated || isRestoring) {
+    return <ActivityIndicator size="large" color={DefaultTheme.colors.primary} className="flex-1 justify-center items-center" />;
+  }
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

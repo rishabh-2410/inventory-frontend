@@ -9,6 +9,7 @@ export const queryKeys = {
     warehouses: ["warehouses"],
 
     inventory: ["inventory"],
+    inventoryStats: ["inventoryStats"],
 
     stockMovements: ["stockMovements"],
 };

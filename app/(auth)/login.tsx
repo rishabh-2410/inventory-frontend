@@ -53,9 +53,8 @@ export default function LoginScreen() {
       is_active: data.is_active,
       created_at: data.created_at,
     }
-
-    await saveRefreshToken(data.refresh_token)
-    setSession(user, data.access_token)
+    
+    setSession(user, data.access_token, data.refresh_token, data.access_token_expires_at)
   }
 
   return (

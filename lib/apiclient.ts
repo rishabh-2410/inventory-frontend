@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/auth.store";
 import axios, { create } from "axios";
 import { router } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
@@ -11,7 +12,7 @@ export const apiClient = create({
 })
 
 apiClient.interceptors.request.use(async (config) => {
-    const token = await SecureStore.getItemAsync('token');
+    const token = useAuthStore.getState().accessToken;
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
