@@ -1,3 +1,4 @@
+import { InventoryFilters } from "@/models/types/inventoryFilters";
 import { StockMovementFilters } from "@/models/types/stockMovement.type";
 
 export const queryKeys = {
@@ -10,7 +11,7 @@ export const queryKeys = {
 
     warehouses: ["warehouses"],
 
-    inventory: ["inventory"],
+    inventory: (filters: InventoryFilters) => ["inventory", filters],
     inventoryStats: ["inventoryStats"],
 
     stockMovements: (filters: StockMovementFilters) => ["stockMovements", filters],
