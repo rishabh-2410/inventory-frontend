@@ -1,3 +1,5 @@
+import { StockMovementFilters } from "@/models/types/stockMovement.type";
+
 export const queryKeys = {
     dashboard: ["dashboard"],
 
@@ -11,5 +13,5 @@ export const queryKeys = {
     inventory: ["inventory"],
     inventoryStats: ["inventoryStats"],
 
-    stockMovements: ["stockMovements"],
+    stockMovements: (filters: StockMovementFilters) => ["stockMovements", filters],
 };

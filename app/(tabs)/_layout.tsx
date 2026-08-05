@@ -20,23 +20,19 @@ export default function TabLayout() {
 
           tabBarStyle: {
             position: "absolute",
-            borderColor: 'red',
-            borderWidth: 2,
             marginBottom: 30,
             marginHorizontal: 30,
-            height: 72,
+            height: 56,
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-
+            paddingTop: 10,
             borderRadius: 28,
-
-            borderTopWidth: 0,
 
             elevation: 0,
 
             backgroundColor: "transparent",
-
+            borderTopWidth: 0,  // ← Add this to remove the line
             shadowColor: "#000",
 
             shadowOpacity: 0.12,

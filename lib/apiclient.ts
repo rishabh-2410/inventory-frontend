@@ -22,34 +22,46 @@ apiClient.interceptors.request.use(async (config) => {
 apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
-        switch(error.response?.status) {
+        // No response means request never reached the server
+        if (!error.response) {
+            if (error.code === "ECONNABORTED") {
+                Toast.show({
+                    type: "error",
+                    text1: "Request timed out",
+                    position: "bottom",
+                });
+            } else {
+                Toast.show({
+                    type: "error",
+                    text1: "Check your internet connection",
+                    position: "bottom",
+                });
+            }
+            return Promise.reject(error);
+        }
+
+        // Handle response errors
+        switch (error.response?.status) {
             case 401:
                 Toast.show({
-                    type: 'error',
-                    text1: 'Unauthorized',
+                    type: "error",
+                    text1: "Your session has expired",
                     position: "bottom"
                 });
-                router.navigate('/login');
+                router.replace('/login');
                 break;
             case 403:
                 Toast.show({
-                    type: 'error',
-                    text1: 'Forbidden',
+                    type: "error",
+                    text1: "You don't have permission to perform this action",
                     position: "bottom"
                 });
-                router.navigate('/login');
                 break;
-            case 500:
-                Toast.show({
-                    type: 'error',
-                    text1: 'Internal Server Error',
-                    position: "bottom"
-                });
-                router.navigate('/');
             default:
+                // Let caller decided how to handle 400, 404, 500, etc.
                 break;
         }
         return Promise.reject(error);
-    }
 
+    }
 )

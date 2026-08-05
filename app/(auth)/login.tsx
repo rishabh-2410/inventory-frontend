@@ -7,16 +7,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginRequestSchema } from '@/models/zodSchema/login.schema'
 import { LoginRequest, LoginResponse, User } from '@/models/types/auth.type'
 import { useLogin } from '@/hooks/mutation/useLogin'
-import { queryClient } from '@/lib/queryclient'
-import { useState } from 'react';
-import { saveRefreshToken } from '@/store/token.store';
 import { useAuthStore } from '@/store/auth.store';
 
 
 
 export default function LoginScreen() {
 
-  const {control, handleSubmit, reset, formState: { errors }} = useForm<LoginRequest>({
+  const {control, handleSubmit, formState: { errors }} = useForm<LoginRequest>({
     resolver: zodResolver(loginRequestSchema),
     defaultValues: {
       email: "",
@@ -24,8 +21,6 @@ export default function LoginScreen() {
     },
   });
   const setSession = useAuthStore((state) => state.setSession)
-
-  const [loginRes, setLoginRes] = useState<LoginResponse>()
 
 
   const loginMutation = useLogin()
@@ -105,7 +100,7 @@ export default function LoginScreen() {
 
 
         <Button title="Login" onPress={handleSubmit(onSubmit)} />
-        {!loginMutation.isPending && <Text className='text-green-500'>{loginRes?.name}</Text>}
+
       </View>
     </SafeAreaView>
   )
