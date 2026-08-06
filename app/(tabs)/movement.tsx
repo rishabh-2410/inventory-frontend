@@ -5,7 +5,7 @@ import { StockMovementType } from '@/constants/StockMovementType';
 import { useStockMovement } from '@/hooks/mutation/useStockMovement';
 import { queryClient } from '@/lib/queryclient';
 import { Product } from '@/models/zodSchema/product.schema';
-import { StockMovementRequest, stockMovementRequestSchema } from '@/models/zodSchema/stockMovement.schema';
+import { stockMovementRequestSchema } from '@/models/zodSchema/stockMovement.schema';
 import { Warehouse } from '@/models/zodSchema/warehouse.schema';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useRef, useState } from 'react';

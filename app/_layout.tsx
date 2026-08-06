@@ -82,7 +82,7 @@ export default function RootLayout() {
     };
   
     restoreSession();
-  }, [hasHydrated]);
+  }, [hasHydrated, refreshToken]);
 
   useEffect(() => {
      if(hasHydrated && !isRestoring) {
