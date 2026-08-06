@@ -1,7 +1,6 @@
 import { useAuthStore } from "@/store/auth.store";
-import axios, { create } from "axios";
+import { create } from "axios";
 import { router } from "expo-router";
-import * as SecureStore from 'expo-secure-store';
 import Toast from 'react-native-toast-message';
 
 export const apiClient = create({
