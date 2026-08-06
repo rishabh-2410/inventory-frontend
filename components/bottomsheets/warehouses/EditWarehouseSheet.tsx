@@ -2,46 +2,13 @@ import {BottomSheetBackdrop,BottomSheetModal,BottomSheetView,} from "@gorhom/bot
 import { forwardRef, useCallback,useMemo,} from "react";
 import {StyleSheet,Text,Keyboard} from "react-native";
   
-//   import {
-//     Controller,
-//     useForm,
-//   } from "react-hook-form";
-  
-//   import { zodResolver } from "@hookform/resolvers/zod";
-  
-  
-//   import {
-//     AddExpenseRequest,
-//     AddExpenseRequestObject,
-//     addExpenseSchema,
-//   } from "@/schemas/expense.schema";
-//   import { categories } from "@/constants/data";
-//   import { Ionicons } from "@expo/vector-icons";
-//   import { useAddExpense } from "@/hooks/mutations/use-add-expense";
-//   import { queryClient } from "@/lib/query-client";
-  
-  
   const EditWarehouseSheet = forwardRef<BottomSheetModal>(
-    function EditProductsSheet(_, ref) {
+    function EditWarehouseSheet(_, ref) {
       const snapPoints = useMemo(
         () => ["85%"],
         []
       );
   
-    //   const {
-    //     control,
-    //     handleSubmit,
-    //     reset,
-    //     setValue,
-    //     watch,
-    //     formState: { errors },
-    //   } = useForm<>({
-    //     resolver: zodResolver(),
-  
-    //     defaultValues: {
-    //     },
-    //   });
- 
 
     const renderBackdrop = useCallback(
     (props: any) => (
@@ -55,12 +22,6 @@ import {StyleSheet,Text,Keyboard} from "react-native";
     ),
     []
   );
-  
-    const onSubmit = ( data: any) => {
-        Keyboard.dismiss() // close keyboard when submit button is clicked
-        console.log("Add products submitted", data)
-  
-      };
   
       return (
         <BottomSheetModal

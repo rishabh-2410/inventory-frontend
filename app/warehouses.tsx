@@ -1,9 +1,13 @@
 import { View, Text, Button } from 'react-native'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import AddWarehouseSheet from '../components/bottomsheets/warehouses/AddProductsSheet'
-import EditWarehouseSheet from '../components/bottomsheets/warehouses/EditProductsSheet'
+import AddWarehouseSheet from '@/components/bottomsheets/warehouses/AddWarehouseSheet'
+import EditWarehouseSheet from '../components/bottomsheets/warehouses/EditWarehouseSheet'
+
+
+
+
 
 export default function WarehouseScreen() {
   const addWarehouseBottomSheetRef = useRef<BottomSheetModal>(null) 
