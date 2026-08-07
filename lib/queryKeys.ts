@@ -1,5 +1,5 @@
 import { InventoryFilters } from "@/models/types/inventoryFilters";
-import { StockMovementFilters } from "@/models/types/stockMovement.type";
+import { StockMovementFilters } from "@/models/types/stockmovementfilter.type";
 
 export const queryKeys = {
     dashboard: ["dashboard"],

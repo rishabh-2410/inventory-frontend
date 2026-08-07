@@ -4,10 +4,12 @@ import { StockMovementTypeSelector } from '@/components/segmentControl/StockMove
 import { StockMovementType } from '@/constants/StockMovementType';
 import { useStockMovement } from '@/hooks/mutation/useStockMovement';
 import { queryClient } from '@/lib/queryclient';
+import { queryKeys } from '@/lib/queryKeys';
 import { Product } from '@/models/zodSchema/product.schema';
 import { stockMovementRequestSchema } from '@/models/zodSchema/stockMovement.schema';
 import { Warehouse } from '@/models/zodSchema/warehouse.schema';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { View, Text, Button } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
@@ -65,7 +67,7 @@ export default function MovementScreen() {
       onSuccess: (data) => {
         console.log("Stock movement success", data);
         queryClient.invalidateQueries({ queryKey: ["stockMovements"] });
-        queryClient.invalidateQueries({ queryKey: ["inventory"] });
+        queryClient.invalidateQueries({ queryKey: [queryKeys.inventoryStats] });
         Toast.show({
           text1: "Stock movement recordedsuccessful",
           type: "success",
@@ -73,6 +75,7 @@ export default function MovementScreen() {
           visibilityTime: 3000,
           autoHide: true,
         });
+        router.navigate("/(tabs)/history");
       },
       onError: (error) => {
         console.log("Stock movement error", error);

@@ -1,13 +1,13 @@
 import { apiClient } from "@/lib/apiclient"
 import { InventoryFilters } from "@/models/types/inventoryFilters"
-import { StockMovementFilters } from "@/models/types/stockMovement.type"
+import { StockMovementFilters } from "@/models/types/stockmovementfilter.type"
 import { Inventory, inventorySchema } from "@/models/zodSchema/inventory.schema"
 import { StockMovementHistory, stockMovementHistorySchema, StockMovementRequest, StockMovementResponse, stockMovementResponseSchema } from "@/models/zodSchema/stockMovement.schema"
 import {z} from "zod"
 
 export const getStockMovementHistory = async(filters: StockMovementFilters) => {
     const response = await apiClient.get<StockMovementHistory[]>(`/stock-movement`, { params: filters })
-    return z.array(stockMovementHistorySchema).parse(response.data)
+    return stockMovementHistorySchema.parse(response.data)
 }
 
 

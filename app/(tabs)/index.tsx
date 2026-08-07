@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator, FlatList } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDashboardStats } from '@/hooks/query/useDashboardStats';
@@ -6,7 +6,7 @@ import { useStockMovmentHistory } from '@/hooks/query/useStockMovmentHistory';
 
 export default function DashboardScreen() {
   const { data: dashboardStats, isPending: isDashboardStatsPending, isError: isDashboardStatsError } = useDashboardStats();
-  const { data: stockMovementHistory, isPending: isStockMovementHistoryPending, isError: isStockMovementHistoryError } = useStockMovmentHistory({ limit: 3 });
+  const { data, isPending: isStockMovementHistoryPending, isError: isStockMovementHistoryError } = useStockMovmentHistory({ limit: 3 });
   if (isDashboardStatsPending || isStockMovementHistoryPending) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -15,6 +15,8 @@ export default function DashboardScreen() {
       <Text>Error loading dashboard stats</Text>
     </View>;
   }
+
+  const stockMovementHistory = data?.pages[0]?.data ?? [];
   return (
     <SafeAreaView>
       <View>
@@ -26,19 +28,13 @@ export default function DashboardScreen() {
 
       <View>
         <Text>Stock Movement History</Text>
-        {
-          stockMovementHistory?.map((stockMovement) => {
-            return (
-              <View key={stockMovement.id}>
-                <Text>{stockMovement.product_name}</Text>
-                <Text>{stockMovement.movement_quantity}</Text>
-                <Text>{stockMovement.movement_type}</Text>
-                <Text>{stockMovement.warehouse_name}</Text>
-                <Text>{stockMovement.product_id}</Text>
-              </View>
-            )
-          })
-        }
+        <FlatList
+          data={stockMovementHistory}
+          renderItem={({ item }) => {
+            return <Text>{item.product_name}</Text>
+          }}
+          keyExtractor={(item) => item.id}
+        />
       </View>
     </SafeAreaView>
   )
