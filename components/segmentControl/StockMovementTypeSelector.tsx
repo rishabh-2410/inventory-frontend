@@ -8,7 +8,7 @@ type StockMovementTypeSelectorProps = {
 
 export const StockMovementTypeSelector = ({ selectedMovementType, onSelectMovementType }: StockMovementTypeSelectorProps) => {
     return (
-        <View className="flex-row rounded-xl bg-neutral-100 p-1">
+        <View className="flex-row rounded-2xl bg-[#f4f8f3] p-1">
             {stockMovementType.map((type) => {
                 const isActive = selectedMovementType === type;
                 return (
@@ -17,9 +17,11 @@ export const StockMovementTypeSelector = ({ selectedMovementType, onSelectMoveme
                     onPress={() => {
                         onSelectMovementType(type);
                     }}
-                    className={`${isActive ? "bg-primary" : "bg-gray-200"} flex-1 rounded-lg p-2`}
+                    className={`flex-1 items-center rounded-[14px] px-2 py-3 ${isActive ? "bg-white" : "bg-transparent"}`}
                     >
-                        <Text className={`${isActive ? "text-white" : "text-gray-800"}`}>{type}</Text>
+                        <Text className={`text-[16px] font-semibold ${isActive ? "text-[#0b7a4d]" : "text-[#7a8596]"}`}>
+                            {type.charAt(0) + type.slice(1).toLowerCase()}
+                        </Text>
                     </Pressable>
                 )
             })}

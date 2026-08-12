@@ -27,11 +27,14 @@ export type StockMovementHistory = z.infer<typeof stockMovementHistorySchema>;
 
 // Stock movement request DTO
 export const stockMovementRequestSchema = z.object({
-  product_id: z.string(),
-  warehouse_id: z.string(),
-  movement_quantity: z.number(),
+  product_id: z.string().min(1, { message: "Product is required" }),
+  warehouse_id: z.string().min(1, { message: "Warehouse is required" }),
+  movement_quantity: z.number().min(1, { message: "Quantity is required" }),
   movement_type: z.string(),
-  reason: z.string(),
+  reason: z.string().min(1, { message: "Reason is required" }),
+}).refine((data) => data.movement_quantity > 0, {
+  message: "Quantity must be greater than 0",
+  path: ["movement_quantity"],
 });
 
 export type StockMovementRequest = z.infer<typeof stockMovementRequestSchema>;

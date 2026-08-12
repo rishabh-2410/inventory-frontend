@@ -18,7 +18,8 @@
         }
       ],
       "expo-router",
-      "expo-secure-store"
+      "expo-secure-store",
+      "@react-native-vector-icons/material-icons"
     ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",

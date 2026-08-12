@@ -24,28 +24,60 @@ export default function HistoryScreen() {
   const stockMovementHistory = data?.pages.flatMap(page => page.data) ?? [];
 
   return (
-    <SafeAreaView className="flex-1">
-      <View className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+      <View className="flex-1 bg-[#f6f8fb]">
       <FlatList
-          className="p-4"
+          className="flex-1"
+          contentContainerClassName="px-4 pb-10"
           data={stockMovementHistory}
           renderItem={({ item }) => {
             return (
-              <View key={item.id} className="flex-row justify-between items-center bg-gray-100 p-4 rounded-md gap-4">
-                <Text>{item.product_name}</Text>
-                <Text>{item.movement_quantity}</Text>
+              <View
+                key={item.id}
+                className="mb-4 rounded-[22px] border border-[#e6ebf1] bg-white px-4 py-5"
+              >
+                <View className="flex-row">
+                  <View className="mr-4 h-12 w-12 items-center justify-center rounded-2xl bg-[#e8f3ed]">
+                    <Text className="text-[18px] font-semibold text-[#0b7a4d]">
+                      {item.movement_type.charAt(0)}
+                    </Text>
+                  </View>
+
+                  <View className="flex-1">
+                    <Text className="text-[16px] font-semibold text-[#171a21]">
+                      {item.product_name}
+                    </Text>
+                    <Text className="mt-1 text-[14px] text-[#7a8596]">
+                      {item.warehouse_name}
+                    </Text>
+                    <View className="mt-3 self-start rounded-md border border-[#d9e4d8] bg-[#f4f8f3] px-3 py-2">
+                      <Text className="text-[14px] text-[#535862]">
+                        {item.movement_type} - {item.movement_quantity}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
               </View>
             )
           }}  
           keyExtractor={(item) => item.id.toString()}
           ListHeaderComponent={() => {
             return (
-              <View className="flex-row justify-between items-center">
-                <Text>Product Name</Text>
-                <Text>Movement Quantity</Text>
+              <View className="mb-6 border-b border-[#e5e7eb] bg-white px-4 py-5">
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-[18px] font-bold text-[#171a21]">Movement History</Text>
+                  <Text className="text-[20px] text-[#0b7a4d]">!</Text>
+                </View>
               </View>
         );
           }}
+          ListEmptyComponent={
+            <View className="rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-8">
+              <Text className="text-center text-[15px] text-[#7a8596]">
+                No stock movements found
+              </Text>
+            </View>
+          }
           onEndReached={() => {
             if (!hasNextPage) return;
             if (isFetchingNextPage) return;
