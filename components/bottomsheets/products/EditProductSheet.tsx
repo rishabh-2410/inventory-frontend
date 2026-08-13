@@ -6,6 +6,8 @@ import Toast from "react-native-toast-message";
 
 import { Product } from "@/models/zodSchema/product.schema";
 import { useEditProduct } from "@/hooks/mutation/useEditProduct";
+import { queryClient } from "@/lib/queryclient";
+import { queryKeys } from "@/lib/queryKeys";
 
 type EditProductSheetProps = {
   product: Product | null;
@@ -54,6 +56,19 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
         category_id: product.category_id ?? "",
         image_url: product.image_url ?? "",
       });
+
+
+      // cleanup
+      return () => {
+        reset({
+          name:  "",
+          sku: "",
+          selling_price: "0",
+          cost_price: "0",
+          category_id: "",
+          image_url: "",
+        });
+      }
     }, [product, reset]);
 
     const renderBackdrop = useCallback(
@@ -75,15 +90,23 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
       if (!product) {
         return;
       }
+      // console.log("dirtyFields", dirtyFields);
+      // console.log("data", data);
+
+      // console.log("isDirty", isDirty);
 
       if (!isDirty) {
+        (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss();
         Toast.show({
           type: "info",
           text1: "No changes to save",
           position: "bottom",
+          visibilityTime: 3000,
+          autoHide: true,
         });
         return;
       }
+
 
       const payload: {
         name?: string;
@@ -101,19 +124,24 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
       if (dirtyFields.category_id) payload.category_id = data.category_id;
       if (dirtyFields.image_url) payload.image_url = data.image_url;
 
+      // console.log("payload", payload);
+
       editProductMutation.mutate(
         { productId: product.id, request: payload },
         {
-          onSuccess: (updatedProduct) => {
-            onProductUpdated(updatedProduct);
+          onSuccess: (updatedProduct, _,context) => {
+            queryClient.setQueryData(queryKeys.products, (old: Product[]) => {
+              return old.map((product) => product.id === context?.optimisticProduct?.id ? updatedProduct : product);
+            });
             Toast.show({
               type: "success",
               text1: "Product updated",
               position: "bottom",
             });
-            if (ref && typeof ref !== "function" && ref.current) {
-              ref.current.dismiss();
-            }
+            reset();
+            (
+              ref as React.RefObject<BottomSheetModal>
+            )?.current?.dismiss();
           },
           onError: () => {
             Toast.show({

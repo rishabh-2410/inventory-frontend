@@ -7,10 +7,12 @@ import MaterialIcons from '@react-native-vector-icons/material-icons'
 import AddProductSheet from '../components/bottomsheets/products/AddProductSheet'
 import EditProductSheet from '../components/bottomsheets/products/EditProductSheet'
 import { useGetProducts } from '@/hooks/query/useGetProducts'
+import { Product } from '@/models/zodSchema/product.schema'
 
 export default function ProductScreen() {
   const addProductBottomSheetRef = useRef<BottomSheetModal>(null)
   const editProductBottomSheetRef = useRef<BottomSheetModal>(null)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
   
 
@@ -18,7 +20,8 @@ export default function ProductScreen() {
     addProductBottomSheetRef.current?.present()
   }
 
-  const handleEditProduct = () => {
+  const handleEditProduct = (item: Product) => {  
+    setSelectedProduct(item)
     editProductBottomSheetRef.current?.present()
   }
 
@@ -63,7 +66,7 @@ export default function ProductScreen() {
                   </View>
 
                   <View className="ml-3 flex flex-row items-center justify-between gap-4">
-                    <Pressable onPress={handleEditProduct}>
+                    <Pressable onPress={() => handleEditProduct(item)}>
                       <MaterialIcons name="edit" size={24} color="#457ae5" />
                     </Pressable>
                     <Pressable onPress={() => {}}>
@@ -101,7 +104,7 @@ export default function ProductScreen() {
         </View>
       </SafeAreaView>
       <AddProductSheet ref={addProductBottomSheetRef} />
-      <EditProductSheet ref={editProductBottomSheetRef} />
+      <EditProductSheet product={selectedProduct} onProductUpdated={() => {}} ref={editProductBottomSheetRef} />
     </>
   )
 }
