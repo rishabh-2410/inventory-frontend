@@ -2,8 +2,9 @@ import { router } from 'expo-router'
 import { Pressable, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useAuthStore } from '@/store/auth.store'
+import MaterialIcons from '@react-native-vector-icons/material-icons'
 
-export default function MoreScreen() {
+export default function SettingsScreen() {
   const user = useAuthStore((state) => state.user)
   const clearSession = useAuthStore((state) => state.clearSession)
   const isOwner = user?.role === "owner"
@@ -29,14 +30,14 @@ export default function MoreScreen() {
     <SafeAreaView className="flex-1 bg-[#f6f8fb]">
       <ScrollView
         className="flex-1"
-        contentContainerClassName="pb-10"
+        contentContainerClassName="pb-20"
         showsVerticalScrollIndicator={false}
       >
         <View className="mx-[-24px] mb-6 border-b border-[#e5e7eb] bg-white px-6 py-5">
-          <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center justify-between px-8">
             <Text className="text-[18px] font-bold text-[#171a21]">Settings</Text>
             <View className="h-10 w-10 items-center justify-center rounded-full bg-[#0b7a4d]">
-              <Text className="text-[15px] font-semibold text-white">O</Text>
+              <MaterialIcons name="settings" size={24} color="white" />
             </View>
           </View>
         </View>

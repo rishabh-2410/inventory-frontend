@@ -6,9 +6,6 @@ import { useDebounce } from 'use-debounce'
 export default function InventoryScreen() {
 
   const [ search, setSearch ] = useState('')
-  const [ warehouseId, setWarehouseId ] = useState('')
-  const [ categoryId, setCategoryId ] = useState('')
-  const [ productId, setProductId ] = useState('')
 
   const [ debouncedSearch ] = useDebounce(search, 500)
  
@@ -86,9 +83,9 @@ export default function InventoryScreen() {
           )}
           ListHeaderComponent={
             <View>
-              <View className="mb-8 rounded-[24px] bg-[#0b7a4d] px-4 py-12">
-                <Text className="text-[18px] font-bold text-white">Inventory Operations</Text>
-                <Text className="mt-2 max-w-[260px] text-[14px] leading-6 text-[#d5efe4]">
+              <View className="mb-8 rounded-[24px] bg-[#0b7a4d] px-6 py-14">
+                <Text className="text-[22px] font-bold text-white">Inventory Operations</Text>
+                <Text className="mt-2 max-w-[260px] text-[16px] leading-6 text-[#d5efe4]">
                   Live stock tracking and operational movement history.
                 </Text>
               </View>

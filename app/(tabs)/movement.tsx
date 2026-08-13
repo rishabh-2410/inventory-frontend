@@ -24,7 +24,7 @@ export default function MovementScreen() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedWarehouse, setSelectedWarehouse] = useState<Warehouse | null>(null);
 
-  const { control, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm({
+  const { control, handleSubmit, setValue, reset, formState: { errors } } = useForm({
     resolver: zodResolver(stockMovementRequestSchema),
     defaultValues: {
       product_id: "",
@@ -36,8 +36,8 @@ export default function MovementScreen() {
   });
 
   const stockMovementMutation = useStockMovement();
-  const movementType = useWatch({ control, name: "movement_type" }) as StockMovementType;
   const quantity = useWatch({ control, name: "movement_quantity" });
+  
   
   
   
@@ -62,15 +62,14 @@ export default function MovementScreen() {
   }
 
   const handleStockMovement = (data: StockMovementRequest) => {
-    console.log("Stock movement request", data);
-
     stockMovementMutation.mutate(data, {
       onSuccess: (data) => {
-        console.log("Stock movement success", data);
         queryClient.invalidateQueries({ queryKey: ["stockMovements"] });
-        queryClient.invalidateQueries({ queryKey: [queryKeys.inventoryStats] });
+        queryClient.invalidateQueries({ queryKey: queryKeys.inventoryStats });
+        queryClient.invalidateQueries({ queryKey: ["inventory"] });
+        queryClient.invalidateQueries({ queryKey: queryKeys.dashboard });
         Toast.show({
-          text1: "Stock movement recordedsuccessful",
+          text1: "Stock movement recorded successfully",
           type: "success",
           position: "bottom",
           visibilityTime: 3000,
@@ -89,7 +88,6 @@ export default function MovementScreen() {
         });
       },
       onSettled: () => {
-        console.log("Stock movement settled");
         setSelectedProduct(null);
         setSelectedWarehouse(null);
         reset({

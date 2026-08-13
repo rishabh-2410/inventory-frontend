@@ -3,10 +3,13 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDashboardStats } from '@/hooks/query/useDashboardStats';
 import { useStockMovmentHistory } from '@/hooks/query/useStockMovmentHistory';
+import { useAuthStore } from '@/store/auth.store';
+
 
 export default function DashboardScreen() {
   const { data: dashboardStats, isPending: isDashboardStatsPending, isError: isDashboardStatsError } = useDashboardStats();
   const { data, isPending: isStockMovementHistoryPending, isError: isStockMovementHistoryError } = useStockMovmentHistory({ limit: 3 });
+  const user = useAuthStore.getState().user;
   if (isDashboardStatsPending || isStockMovementHistoryPending) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -31,14 +34,9 @@ export default function DashboardScreen() {
                 <Text className="text-[18px] font-semibold text-[#0b7a4d]">IP</Text>
               </View>
               <View>
-                <Text className="text-[15px] text-[#8a94a6]">Welcome back,</Text>
-                <Text className="text-[18px] font-bold text-[#171a21]">Inventory Pro</Text>
+                <Text className="text-[15px] text-[#8a94a6]">Welcome back</Text>
+                <Text className="text-[18px] font-bold text-[#171a21]">{user ? user.name : "Guest"}</Text>
               </View>
-            </View>
-
-            <View className="flex-row items-center gap-6">
-              <Text className="text-[20px] text-[#0b7a4d]">!</Text>
-              <Text className="text-[20px] text-[#0b7a4d]">[]</Text>
             </View>
           </View>
         </View>
@@ -80,13 +78,13 @@ export default function DashboardScreen() {
 
           <View className="mt-4 rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
             {stockMovementHistory.map((item, index) => {
-              const isStockIn = item.movement_type.toLowerCase() === "stock_in";
-              const isStockOut = item.movement_type.toLowerCase() === "stock_out";
+              const isStockIn = item.movement_type === "RECEIVE"|| item.movement_type === "RETURN";
+              const isStockOut = item.movement_type === "SALE"  || item.movement_type === "DAMAGE" ;
               const typeLabel = isStockIn ? "Stock In" : isStockOut ? "Stock Out" : "Transfer";
               const badgeText = isStockIn
-                ? `+${item.movement_quantity} units received`
+                ? `+ ${item.movement_quantity} units received`
                 : isStockOut
-                  ? `-${item.movement_quantity} units dispatched`
+                  ? `- ${item.movement_quantity} units dispatched`
                   : `${item.movement_quantity} units moved`;
 
               return (

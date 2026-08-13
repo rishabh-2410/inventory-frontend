@@ -1,6 +1,6 @@
-import {BottomSheetBackdrop,BottomSheetModal,BottomSheetView,} from "@gorhom/bottom-sheet";
+import {BottomSheetBackdrop,BottomSheetModal,BottomSheetScrollView, BottomSheetFlatList, BottomSheetView,} from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback,useEffect,useMemo, useState } from "react";
-import {FlatList, Pressable, StyleSheet,Text, View} from "react-native";
+import { Pressable, StyleSheet,Text, View} from "react-native";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
 import { Product } from "@/models/zodSchema/product.schema";
@@ -60,16 +60,8 @@ type ListProductSheetProps = {
           handleIndicatorStyle={styles.handle}
           backdropComponent={renderBackdrop}
         >
-          <BottomSheetView
+            <BottomSheetFlatList
             style={styles.container}
-          >
-            <View className="mb-5">
-              <Text className="text-[22px] font-bold text-[#171a21]">Select Product</Text>
-              <Text className="mt-1 text-[14px] text-[#7a8596]">
-                Choose a product to continue the movement.
-              </Text>
-            </View>
-            <FlatList
               data={products}
               renderItem={({ item} : {item: Product}) => {
                 return (
@@ -90,9 +82,17 @@ type ListProductSheetProps = {
                   <Text className="text-center text-[15px] text-[#7a8596]">No products found</Text>
                 </View>
               }
+              contentContainerStyle={styles.scrollContent}
+              ListHeaderComponent={
+                <View className="mb-5">
+                <Text className="text-[22px] font-bold text-[#171a21]">Select Product</Text>
+                <Text className="mt-1 text-[14px] text-[#7a8596]">
+                  Choose a product to continue the movement.
+                </Text>
+              </View>
+              }
               showsVerticalScrollIndicator={false}
             />
-          </BottomSheetView>
         </BottomSheetModal>
       );
     }
@@ -114,6 +114,8 @@ type ListProductSheetProps = {
       flex: 1,
       paddingHorizontal: 24,
       paddingTop: 12,
-      paddingBottom: 30,
+    },
+    scrollContent: {
+      paddingBottom: 64,
     },
   });

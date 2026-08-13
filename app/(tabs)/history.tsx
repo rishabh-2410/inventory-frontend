@@ -1,4 +1,5 @@
 import { useStockMovmentHistory } from '@/hooks/query/useStockMovmentHistory';
+import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { View, Text, ActivityIndicator, FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -28,7 +29,7 @@ export default function HistoryScreen() {
       <View className="flex-1 bg-[#f6f8fb]">
       <FlatList
           className="flex-1"
-          contentContainerClassName="px-4 pb-10"
+          contentContainerClassName="pb-10"
           data={stockMovementHistory}
           renderItem={({ item }) => {
             return (
@@ -63,12 +64,14 @@ export default function HistoryScreen() {
           keyExtractor={(item) => item.id.toString()}
           ListHeaderComponent={() => {
             return (
-              <View className="mb-6 border-b border-[#e5e7eb] bg-white px-4 py-5">
-                <View className="flex-row items-center justify-between">
-                  <Text className="text-[18px] font-bold text-[#171a21]">Movement History</Text>
-                  <Text className="text-[20px] text-[#0b7a4d]">!</Text>
+              <View className="mx-[-24px] mb-6 border-b border-[#e5e7eb] bg-white px-6 py-5">
+              <View className="flex-row items-center justify-between px-8">
+                <Text className="text-[18px] font-bold text-[#171a21]">Movement History</Text>
+                <View className="h-10 w-10 items-center justify-center rounded-full bg-[#0b7a4d]">
+                  <MaterialIcons name="history" size={22} color="white" />
                 </View>
               </View>
+            </View>
         );
           }}
           ListEmptyComponent={

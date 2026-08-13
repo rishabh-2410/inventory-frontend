@@ -48,7 +48,7 @@ export default function TabLayout() {
           tabBarActiveTintColor: "#0B7A4D",
           tabBarInactiveTintColor: "#6F7C8E",
           tabBarLabelStyle: {
-            fontSize: 10,
+            fontSize: 9,
             fontWeight: "500",
             marginTop: 2,
           },
@@ -126,13 +126,9 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
-          name="more"
+          name="settings"
           options={{
-            title: "More",
-            tabBarItemStyle: {
-            paddingTop: 4,
-            paddingRight: 4,
-            },
+            title: "Settings",
             tabBarIcon: ({ focused }) => (
               <Image source={icons.settingsIcon} style={{ width: 24, height: 24, tintColor: focused ? "#0B7A4D" : "#6F7C8E" }} />
             ),

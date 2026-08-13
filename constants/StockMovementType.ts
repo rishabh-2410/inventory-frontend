@@ -1,6 +1,6 @@
 export const stockMovementType = [
     "RECEIVE",
-    "SELL",
+    "SALE",
     "RETURN",
     "DAMAGE",
 ] as const;

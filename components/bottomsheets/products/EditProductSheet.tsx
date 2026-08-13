@@ -90,10 +90,6 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
       if (!product) {
         return;
       }
-      // console.log("dirtyFields", dirtyFields);
-      // console.log("data", data);
-
-      // console.log("isDirty", isDirty);
 
       if (!isDirty) {
         (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss();
@@ -124,12 +120,11 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
       if (dirtyFields.category_id) payload.category_id = data.category_id;
       if (dirtyFields.image_url) payload.image_url = data.image_url;
 
-      // console.log("payload", payload);
 
       editProductMutation.mutate(
         { productId: product.id, request: payload },
         {
-          onSuccess: (updatedProduct, _,context) => {
+          onSuccess: (updatedProduct, _, context) => {
             queryClient.setQueryData(queryKeys.products, (old: Product[]) => {
               return old.map((product) => product.id === context?.optimisticProduct?.id ? updatedProduct : product);
             });
@@ -304,6 +299,6 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   scrollContent: {
-    paddingBottom: 64,
+    paddingBottom: 30,
   },
 });

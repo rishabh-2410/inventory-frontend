@@ -53,9 +53,6 @@ export default function RootLayout() {
         setIsRestoring(true);
   
         const response = await refreshUserToken(refreshToken);
-
-        console.log('response', response);
-        console.log('response.access_token_expires_at', response.access_token_expires_at);
   
         const user = {
           id: response.id,
