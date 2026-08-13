@@ -14,3 +14,15 @@ export const productSchema = z.object({
 });
 
 export type Product = z.infer<typeof productSchema>;
+
+
+export const addProductSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  category_id: z.string().min(1, { message: "Category is required" }),
+  sku: z.string().min(1, { message: "SKU is required" }),
+  selling_price: z.number().min(0, { message: "Selling price is required" }),
+  cost_price: z.number().min(0, { message: "Cost price is required" }),
+  image_url: z.string(),
+});
+
+export type AddProductRequest = z.infer<typeof addProductSchema>;

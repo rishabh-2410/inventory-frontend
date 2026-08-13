@@ -1,35 +1,52 @@
 import {BottomSheetBackdrop,BottomSheetModal,BottomSheetScrollView,} from "@gorhom/bottom-sheet";
-import { forwardRef, useCallback,useMemo,} from "react";
+import { forwardRef, useCallback,useMemo, useRef, useState,} from "react";
 import {Controller, useForm} from "react-hook-form";
-import {StyleSheet,Text,Keyboard, Pressable, TextInput, View} from "react-native";
-
-type AddProductForm = {
-  name: string;
-  sku: string;
-  category: string;
-  description: string;
-}
+import {StyleSheet,Text, Pressable, TextInput, View} from "react-native";
+import ListCategorySheet from "../categories/ListCategorySheet";
+import { Category } from "@/models/zodSchema/category.schema";
+import { AddProductRequest, addProductSchema, Product } from "@/models/zodSchema/product.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAddProduct } from "@/hooks/mutation/useAddProduct";
+import Toast from "react-native-toast-message";
+import { queryKeys } from "@/lib/queryKeys";
+import { queryClient } from "@/lib/queryclient";
   
   
   const AddProductSheet = forwardRef<BottomSheetModal>(
     function AddProductSheet(_, ref) {
       const snapPoints = useMemo(
-        () => ["85%"],
+        () => ["95%"],
         []
       );
+
+      const categorySheetRef = useRef<BottomSheetModal>(null);
+      const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
       const {
         control,
         handleSubmit,
+        setValue,
+        reset,
         formState: { errors },
-      } = useForm<AddProductForm>({
+      } = useForm({
+        resolver: zodResolver(addProductSchema),
         defaultValues: {
           name: "",
           sku: "",
-          category: "",
-          description: "",
+          category_id: "",
+          selling_price: 0,
+          cost_price: 0,
+          image_url: "",
         },
       });
+
+      
+
+    const handleSelectCategory = (category: Category) => {
+      setValue("category_id", category.id);
+      setSelectedCategory(category);
+      categorySheetRef.current?.dismiss();
+    };
  
 
     const renderBackdrop = useCallback(
@@ -45,14 +62,33 @@ type AddProductForm = {
     []
   );
   
-    const onSubmit = ( data: any) => {
-        Keyboard.dismiss() // close keyboard when submit button is clicked
-        console.log("Add products submitted", data)
+  const addProductMutation = useAddProduct();
   
-      };
+    const onSubmit = ( data: AddProductRequest) => {
+        console.log("Add products submitted", data)
+        addProductMutation.mutate(data, {
+          onSuccess: (savedProduct, _ , context) => {
+            queryClient.setQueryData(queryKeys.products, (old: Product[]) => old.map((item: Product) => item.id === context?.optimisticProduct?.id ? savedProduct : item)
+            );
+            reset();
+            (
+              ref as React.RefObject<BottomSheetModal>
+            ).current?.dismiss();
+            Toast.show({
+              type: "success",
+              text1: "Product added successfully",
+              position: "bottom",
+              visibilityTime: 3000,
+              autoHide: true,
+            });
+
+          },
+        });
+  
+    };
   
       return (
-        <BottomSheetModal
+        <><BottomSheetModal
           ref={ref}
           snapPoints={snapPoints}
           enablePanDownToClose
@@ -63,6 +99,7 @@ type AddProductForm = {
           backgroundStyle={styles.background}
           handleIndicatorStyle={styles.handle}
           backdropComponent={renderBackdrop}
+          stackBehavior="push"
         >
           <BottomSheetScrollView
             style={styles.container}
@@ -90,6 +127,9 @@ type AddProductForm = {
                     <TextInput
                       value={field.value}
                       onChangeText={field.onChange}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      autoComplete="off"
                       className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
                     />
                   )}
@@ -113,37 +153,50 @@ type AddProductForm = {
                 <Text className="mb-2 text-[14px] text-[#7a8596]">Category</Text>
                 <Controller
                   control={control}
-                  name="category"
+                  name="category_id"
                   render={({ field }) => (
                     <View className="mb-4 flex-row items-center justify-between rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4">
-                      <TextInput
-                        value={field.value}
-                        onChangeText={field.onChange}
-                        className="flex-1 text-[16px] text-[#171a21]"
-                      />
-                      <Text className="ml-3 text-[16px] text-[#7a8596]">⌄</Text>
+                      <Pressable
+                        onPress={() => categorySheetRef.current?.present()}>
+                        <Text className="flex-1 text-[16px] text-[#171a21]">{selectedCategory?.name ??  "Select Category"}</Text>
+                      </Pressable>
                     </View>
                   )}
                 />
-                {errors.category && <Text className="mb-3 text-[13px] text-red-500">{errors.category.message}</Text>}
+                {errors.category_id && <Text className="mb-3 text-[13px] text-red-500">{errors.category_id.message}</Text>}
 
-                <Text className="mb-2 text-[14px] text-[#7a8596]">Description</Text>
+                <Text className="mb-2 text-[14px] text-[#7a8596]">Selling Price</Text>
                 <Controller
                   control={control}
-                  name="description"
+                  name="selling_price"
                   render={({ field }) => (
                     <TextInput
-                      value={field.value}
-                      onChangeText={field.onChange}
-                      multiline
-                      textAlignVertical="top"
-                      className="min-h-[108px] rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] leading-7 text-[#171a21]"
+                      keyboardType="numeric"
+                      value={field.value.toString()}
+                      onChangeText={(text) => field.onChange(Number(text))}
+                      className="rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
                     />
                   )}
-                />
-                {errors.description && <Text className="mt-3 text-[13px] text-red-500">{errors.description.message}</Text>}
-              </View>
+                /> 
+                {errors.selling_price && <Text className="mt-3 text-[13px] text-red-500">{errors.selling_price.message}</Text>}
 
+
+                <Text className="mb-2 mt-4 text-[14px] text-[#7a8596]">Cost Price</Text>
+                <Controller
+                  control={control}
+                  name="cost_price"
+                  render={({ field }) => (
+                    <TextInput
+                      keyboardType="numeric"
+                      value={field.value.toString()}
+                      onChangeText={(text) => field.onChange(Number(text))}
+                      className="rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                    />
+                  )}
+                /> 
+                {errors.cost_price && <Text className="mt-3 text-[13px] text-red-500">{errors.cost_price.message}</Text>}
+              </View>
+              
               <View className="mb-5 rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-5">
                 <Text className="mb-5 text-[16px] font-bold text-[#171a21]">Product Photo</Text>
 
@@ -173,12 +226,14 @@ type AddProductForm = {
                   <Text className="text-[16px] font-semibold text-white">Save Product</Text>
                 </Pressable>
 
-                <Pressable className="mt-4 items-center rounded-2xl bg-[#eef4ef] px-5 py-4">
+                <Pressable className="mt-4 items-center rounded-2xl bg-[#eef4ef] px-5 py-4" onPress={() => (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()}>
                   <Text className="text-[16px] font-semibold text-[#0b7a4d]">Cancel & Discard</Text>
                 </Pressable>
               </View>
           </BottomSheetScrollView>
         </BottomSheetModal>
+        <ListCategorySheet ref={categorySheetRef} onSelectCategory={handleSelectCategory} />
+        </>
       );
     }
   );

@@ -1,5 +1,5 @@
 import { apiClient } from "@/lib/apiclient";
-import { Product, productSchema } from "@/models/zodSchema/product.schema";
+import { AddProductRequest, Product, productSchema } from "@/models/zodSchema/product.schema";
 import {z} from "zod";
 
 export const getProducts = async () => {
@@ -18,5 +18,12 @@ export type EditProductRequest = Partial<{
 
 export const editProduct = async(productId: string, request: EditProductRequest) => {
     const response = await apiClient.patch(`/product/${productId}`, request);
+    return productSchema.parse(response.data);
+}
+
+
+
+export const addProduct = async(request: AddProductRequest) => {
+    const response = await apiClient.post("/product", request);
     return productSchema.parse(response.data);
 }

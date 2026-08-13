@@ -6,16 +6,13 @@ import MaterialIcons from '@react-native-vector-icons/material-icons'
 
 import AddProductSheet from '../components/bottomsheets/products/AddProductSheet'
 import EditProductSheet from '../components/bottomsheets/products/EditProductSheet'
-import { getProducts } from '@/services/product.service'
-import { Product } from '@/models/zodSchema/product.schema'
+import { useGetProducts } from '@/hooks/query/useGetProducts'
 
 export default function ProductScreen() {
   const addProductBottomSheetRef = useRef<BottomSheetModal>(null)
   const editProductBottomSheetRef = useRef<BottomSheetModal>(null)
 
-  const [products, setProducts] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  
 
   const handleAddProduct = () => {
     addProductBottomSheetRef.current?.present()
@@ -25,29 +22,17 @@ export default function ProductScreen() {
     editProductBottomSheetRef.current?.present()
   }
 
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        setIsLoading(true)
-        setError(null)
-        const response = await getProducts()
-        setProducts(response)
-      } catch (err: any) {
-        setError(err?.message ?? 'Failed to load products')
-      } finally {
-        setIsLoading(false)
-      }
-    }
+  const { data: products, isLoading, isError } = useGetProducts()
 
-    loadProducts()
-  }, [])
 
   if (isLoading) {
     return <ActivityIndicator size="large" color="#0b7a4d" />
   }
 
-  if (error) {
-    return <Text>{error}</Text>
+  if (isError) {
+    return <View>
+      <Text>Error loading products</Text>
+    </View>;
   }
 
   return (
@@ -57,7 +42,7 @@ export default function ProductScreen() {
           <FlatList
             className="flex-1"
             contentContainerClassName="px-6 pb-10"
-            data={products}
+            data={products ?? []}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View className="mb-5 rounded-[22px] bg-[#f4f8f3] px-4 py-4">

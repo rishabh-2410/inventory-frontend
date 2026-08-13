@@ -1,6 +1,7 @@
+import { icons } from "@/constants/Icons";
 import { useAuthStore } from "@/store/auth.store";
 import { Redirect, Tabs } from "expo-router";
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 export default function TabLayout() {
   const accessToken = useAuthStore((state) => state.accessToken);
@@ -22,7 +23,7 @@ export default function TabLayout() {
             marginHorizontal: 20,
             bottom: 20,
             height: 70,
-            paddingHorizontal: 12,
+            paddingHorizontal: 11,
             backgroundColor: "rgba(255,255,255,0.72)",
             borderTopWidth: 1,
             borderTopColor: "rgba(255,255,255,0.9)",
@@ -57,6 +58,9 @@ export default function TabLayout() {
           name="index"
           options={{
             title: "Dashboard",
+            tabBarIcon: ({ focused }) => (
+              <Image source={icons.dashboardIcon} style={{ width: 24, height: 24, tintColor: focused ? "#0B7A4D" : "#6F7C8E" }} />
+            ),
             // tabBarLabel: ({ focused, color }) => (
             //   <View
             //     style={{
@@ -96,12 +100,18 @@ export default function TabLayout() {
           name="inventory"
           options={{
             title: "Inventory",
+            tabBarIcon: ({ focused }) => (
+              <Image source={icons.inventoryIcon} style={{ width: 24, height: 24, tintColor: focused ? "#0B7A4D" : "#6F7C8E" }} />
+            ),
           }}
         />
         <Tabs.Screen
           name="movement"
           options={{
             title: "Movement",
+            tabBarIcon: ({ focused }) => (
+              <Image source={icons.movementIcon} style={{ width: 24, height: 24, tintColor: focused ? "#0B7A4D" : "#6F7C8E" }} />
+            ),
           }}
         />
 
@@ -109,6 +119,9 @@ export default function TabLayout() {
           name="history"
           options={{
             title: "History",
+            tabBarIcon: ({ focused }) => (
+              <Image source={icons.historyIcon} style={{ width: 24, height: 24, tintColor: focused ? "#0B7A4D" : "#6F7C8E" }} />
+            ),
           }}
         />
 
@@ -119,7 +132,10 @@ export default function TabLayout() {
             tabBarItemStyle: {
             paddingTop: 4,
             paddingRight: 4,
-            }
+            },
+            tabBarIcon: ({ focused }) => (
+              <Image source={icons.settingsIcon} style={{ width: 24, height: 24, tintColor: focused ? "#0B7A4D" : "#6F7C8E" }} />
+            ),
 
           }}
         />
