@@ -27,3 +27,9 @@ export const addProduct = async(request: AddProductRequest) => {
     const response = await apiClient.post("/product", request);
     return productSchema.parse(response.data);
 }
+
+
+export const deleteProduct = async(productId: string) => {
+    const response = await apiClient.delete(`/product/${productId}`);
+    return response.status === 200;
+}

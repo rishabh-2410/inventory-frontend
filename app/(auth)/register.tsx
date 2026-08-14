@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import {Controller, useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRegister } from '@/hooks/mutation/userRegister';
+import { useRegister } from '@/hooks/mutation/add/userRegister';
 import { RegisterUserRequest, RegisterUserResponse, registerUserRequestSchema } from '@/models/zodSchema/register.schema';
 import Toast from 'react-native-toast-message';
 import { useTempStore } from '@/store/temp.store';

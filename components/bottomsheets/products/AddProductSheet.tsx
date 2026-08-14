@@ -6,7 +6,7 @@ import ListCategorySheet from "../categories/ListCategorySheet";
 import { Category } from "@/models/zodSchema/category.schema";
 import { AddProductRequest, addProductSchema, Product } from "@/models/zodSchema/product.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddProduct } from "@/hooks/mutation/useAddProduct";
+import { useAddProduct } from "@/hooks/mutation/add/useAddProduct";
 import Toast from "react-native-toast-message";
 import { queryKeys } from "@/lib/queryKeys";
 import { queryClient } from "@/lib/queryclient";

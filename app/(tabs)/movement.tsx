@@ -2,7 +2,7 @@ import ListProductSheet from '@/components/bottomsheets/products/ListProductShee
 import ListWarehouseSheet from '@/components/bottomsheets/warehouses/ListWarehouseSheet';
 import { StockMovementTypeSelector } from '@/components/segmentControl/StockMovementTypeSelector'
 import { StockMovementType } from '@/constants/StockMovementType';
-import { useStockMovement } from '@/hooks/mutation/useStockMovement';
+import { useStockMovement } from '@/hooks/mutation/add/useStockMovement';
 import { queryClient } from '@/lib/queryclient';
 import { queryKeys } from '@/lib/queryKeys';
 import { Product } from '@/models/zodSchema/product.schema';

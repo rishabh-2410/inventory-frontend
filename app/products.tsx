@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, FlatList, Pressable, Text, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, Pressable, Text, View } from 'react-native'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MaterialIcons from '@react-native-vector-icons/material-icons'
@@ -8,13 +8,14 @@ import AddProductSheet from '../components/bottomsheets/products/AddProductSheet
 import EditProductSheet from '../components/bottomsheets/products/EditProductSheet'
 import { useGetProducts } from '@/hooks/query/useGetProducts'
 import { Product } from '@/models/zodSchema/product.schema'
+import { useDeleteProduct } from '@/hooks/mutation/delete/useDeleteProduct'
 
 export default function ProductScreen() {
   const addProductBottomSheetRef = useRef<BottomSheetModal>(null)
   const editProductBottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
-  
+  const deleteProductMutation = useDeleteProduct()
 
   const handleAddProduct = () => {
     addProductBottomSheetRef.current?.present()
@@ -38,6 +39,16 @@ export default function ProductScreen() {
     </View>;
   }
 
+  const handleDeleteProduct = ( name: string, productID: string ) => {
+    Alert.alert(
+      'Delete product',
+      `Delete "${name}"? This cannot be undone.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive', onPress: () => deleteProductMutation.mutate(productID) }
+      ]
+    )
+  }
   return (
     <>
       <SafeAreaView className="flex-1 bg-[#f6f8fb]">
@@ -69,7 +80,7 @@ export default function ProductScreen() {
                     <Pressable onPress={() => handleEditProduct(item)}>
                       <MaterialIcons name="edit" size={24} color="#457ae5" />
                     </Pressable>
-                    <Pressable onPress={() => {}}>
+                    <Pressable onPress={() => handleDeleteProduct(item.name, item.id)}>
                       <MaterialIcons name="delete" size={24} color="#d85070" />
                     </Pressable>
                   </View>

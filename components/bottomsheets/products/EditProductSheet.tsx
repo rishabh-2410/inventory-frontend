@@ -5,7 +5,7 @@ import { StyleSheet, Text, Keyboard, Pressable, TextInput, View } from "react-na
 import Toast from "react-native-toast-message";
 
 import { Product } from "@/models/zodSchema/product.schema";
-import { useEditProduct } from "@/hooks/mutation/useEditProduct";
+import { useEditProduct } from "@/hooks/mutation/update/useEditProduct";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
 
