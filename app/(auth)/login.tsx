@@ -17,7 +17,7 @@ import { queryClient } from '@/lib/queryclient';
 
 export default function LoginScreen() {
 
-  const {control, handleSubmit, formState: { errors }, setValue} = useForm<LoginRequest>({
+  const {control, handleSubmit, formState: { errors }} = useForm<LoginRequest>({
     resolver: zodResolver(loginRequestSchema),
     defaultValues: {
       email: "",

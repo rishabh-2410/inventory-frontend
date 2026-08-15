@@ -16,7 +16,7 @@ import MaterialIcons from '@react-native-vector-icons/material-icons';
 export default function RegisterScreen() {
 
 
-  const {control, handleSubmit, reset, formState: { errors }} = useForm<RegisterUserRequest>({
+  const {control, handleSubmit, formState: { errors }} = useForm<RegisterUserRequest>({
     resolver: zodResolver(registerUserRequestSchema),
     defaultValues: {
       name: "",
