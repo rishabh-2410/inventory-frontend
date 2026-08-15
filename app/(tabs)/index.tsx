@@ -7,17 +7,22 @@ import { useAuthStore } from '@/store/auth.store';
 
 
 export default function DashboardScreen() {
-  const { data: dashboardStats, isPending: isDashboardStatsPending, isError: isDashboardStatsError } = useDashboardStats();
-  const { data, isPending: isStockMovementHistoryPending, isError: isStockMovementHistoryError } = useStockMovmentHistory({ limit: 3 });
+  const businessID = useAuthStore.getState().user?.business_id ?? "";
+  const { data: dashboardStats, isPending: isDashboardStatsPending, isError: isDashboardStatsError } = useDashboardStats(businessID);
+  const { data, isPending: isStockMovementHistoryPending, isError: isStockMovementHistoryError } = useStockMovmentHistory(businessID, { limit: 3 });
   const user = useAuthStore.getState().user;
   if (isDashboardStatsPending || isStockMovementHistoryPending) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <SafeAreaView className="flex-1 bg-[#f8fafc] items-center justify-center"> 
+      <ActivityIndicator size="large" color="#0000ff" />
+    </SafeAreaView>;
   }
-  if (isDashboardStatsError || isStockMovementHistoryError) {
-    return <View>
-      <Text>Error loading dashboard stats</Text>
-    </View>;
-  }
+  // if (isDashboardStatsError || isStockMovementHistoryError) {
+  //   console.log("DashboardStatsError:", isDashboardStatsError)
+  //   console.log("StockMovementHistoryError:", isStockMovementHistoryError)
+  //   return <SafeAreaView className="flex-1 bg-[#f8fafc] items-center justify-center"> 
+  //     <Text>Error loading dashboard stats</Text>
+  //   </SafeAreaView>;
+  // }
 
   const stockMovementHistory = data?.pages[0]?.data ?? [];
   return (
@@ -42,7 +47,11 @@ export default function DashboardScreen() {
         </View>
 
         <View className="px-6 pt-6">
-          <View className="mb-5 rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
+          {isDashboardStatsError ? (
+            <Text className="text-[16px] mt-4 text-[#7a8596]">Error loading dashboard stats</Text>
+          ) : (
+            <>
+            <View className="mb-5 rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
             <View className="h-12 w-12 items-center justify-center rounded-2xl bg-[#dff1ea]">
               <Text className="text-[20px] text-[#159b67]">$</Text>
             </View>
@@ -71,13 +80,18 @@ export default function DashboardScreen() {
               {dashboardStats?.out_of_stock_products}
             </Text>
           </View>
+            </>
+          )}
 
           <Text className="mt-8 text-[18px] font-bold text-[#171a21]">
             Recent Movements
           </Text>
 
-          <View className="mt-4 rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
-            {stockMovementHistory.map((item, index) => {
+          {isStockMovementHistoryError ? (
+            <Text className="text-[16px] mt-4 text-[#7a8596]">Error loading recent movements</Text>
+          ) : (
+            <View className="mt-4 rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
+            { stockMovementHistory.length > 0 ? stockMovementHistory.map((item, index) => {
               const isStockIn = item.movement_type === "RECEIVE"|| item.movement_type === "RETURN";
               const isStockOut = item.movement_type === "SALE"  || item.movement_type === "DAMAGE" ;
               const typeLabel = isStockIn ? "Stock In" : isStockOut ? "Stock Out" : "Transfer";
@@ -134,8 +148,11 @@ export default function DashboardScreen() {
                   </View>
                 </View>
               );
-            })}
+            }) : (
+              <Text className="text-[16px] mt-4 text-[#7a8596]">No recent movements</Text>
+            )}
           </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

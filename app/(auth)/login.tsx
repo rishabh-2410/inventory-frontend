@@ -10,6 +10,7 @@ import { useLogin } from '@/hooks/mutation/add/useLogin'
 import { useAuthStore } from '@/store/auth.store';
 import { useState } from 'react';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
+import { queryClient } from '@/lib/queryclient';
 
 
 
@@ -34,6 +35,7 @@ export default function LoginScreen() {
     console.debug("LoginRequest:", data)
     loginMutation.mutate(data, {
       onSuccess: async(data: LoginResponse) => {
+        queryClient.clear()
         await handleSession(data)
         console.debug("LoginResponse:", data)
         router.navigate("/")
@@ -138,9 +140,12 @@ export default function LoginScreen() {
                       secureTextEntry={!showPassword}
                       className="flex-1 py-4 text-[18px] text-[#171a21]"
                     />
-                    <Pressable onPress={() => {
-                      setShowPassword((showPassword) => !showPassword)
-                    }} className="ml-3 text-[12px] font-medium text-[#667085]">
+                    <Pressable 
+                      onPress={() => {
+                       setShowPassword((showPassword) => !showPassword)
+                      }} 
+                      className="ml-3 text-[12px] font-medium text-[#667085]"
+                    >
                       <Text>
                         {showPassword ? <MaterialIcons name="visibility" size={24} color="#667085" /> : <MaterialIcons name="visibility-off" size={24} color="#667085" />}
                       </Text>

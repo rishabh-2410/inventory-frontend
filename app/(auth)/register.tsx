@@ -8,10 +8,12 @@ import { useRegister } from '@/hooks/mutation/add/userRegister';
 import { RegisterUserRequest, RegisterUserResponse, registerUserRequestSchema } from '@/models/zodSchema/register.schema';
 import Toast from 'react-native-toast-message';
 import { useTempStore } from '@/store/temp.store';
+import { useState } from 'react';
+import MaterialIcons from '@react-native-vector-icons/material-icons';
 
 
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
 
 
   const {control, handleSubmit, reset, formState: { errors }} = useForm<RegisterUserRequest>({
@@ -24,6 +26,7 @@ export default function LoginScreen() {
   });
 
   const setTempID  = useTempStore((state) => state.setTempID)
+  const [showPassword, setShowPassword] = useState(false)
 
 
 
@@ -102,7 +105,6 @@ export default function LoginScreen() {
               render={({ field }) => (
                 <View>
                   <View className="flex-row items-center rounded-2xl border border-[#98a2b3] bg-white px-4">
-                    <Text className="mr-3 text-[18px] text-[#667085]">[]</Text>
                     <TextInput
                       value={field.value}
                       onChangeText={field.onChange}
@@ -135,7 +137,6 @@ export default function LoginScreen() {
               render={({ field }) => (
                 <View>
                   <View className="flex-row items-center rounded-2xl border border-[#98a2b3] bg-white px-4">
-                    <Text className="mr-3 text-[18px] text-[#667085]">@</Text>
                     <TextInput
                       value={field.value}
                       onChangeText={field.onChange}
@@ -169,7 +170,6 @@ export default function LoginScreen() {
               render={({ field }) => (
                 <View>
                   <View className="flex-row items-center rounded-2xl border border-[#98a2b3] bg-white px-4">
-                    <Text className="mr-3 text-[18px] text-[#667085]">*</Text>
                     <TextInput
                       value={field.value}
                       onChangeText={field.onChange}
@@ -179,12 +179,19 @@ export default function LoginScreen() {
                       autoComplete="off"
                       keyboardType="default"
                       returnKeyType="done"
-                      secureTextEntry
+                      secureTextEntry={!showPassword}
                       className="flex-1 py-4 text-[18px] text-[#171a21]"
                     />
-                    <Text className="ml-3 text-[12px] font-medium text-[#667085]">
-                      SHOW
-                    </Text>
+                    <Pressable 
+                      onPress={() => {
+                        setShowPassword((showPassword) => !showPassword)
+                      }} 
+                      className="ml-3 text-[12px] font-medium text-[#667085]"
+                    >
+                      <Text>
+                    {showPassword ? <MaterialIcons name="visibility" size={24} color="#667085" /> : <MaterialIcons name="visibility-off" size={24} color="#667085" />}
+                      </Text>
+                    </Pressable>
                   </View>
                   {errors.password && (
                     <Text className="mt-2 text-[13px] text-red-500">

@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useAuthStore } from '@/store/auth.store'
 import MaterialIcons from '@react-native-vector-icons/material-icons'
+import { queryClient } from '@/lib/queryclient'
 
 export default function SettingsScreen() {
   const user = useAuthStore((state) => state.user)
@@ -13,6 +14,7 @@ export default function SettingsScreen() {
     { label: "Products", onPress: () => router.push('/products') },
     { label: "Categories", onPress: () => router.push('/categories') },
     { label: "Warehouses", onPress: () => router.push('/warehouses') },
+    { label: "Employees", onPress: () => router.push('/employee') },
   ]
 
   const accountItems = isOwner
@@ -144,6 +146,7 @@ export default function SettingsScreen() {
           <Pressable
             onPress={() => {
               clearSession()
+              queryClient.clear()
               router.replace('/(auth)/login')
             }}
             className="rounded-[20px] bg-[#ffe3e6] px-5 py-5"
