@@ -78,24 +78,19 @@ export default function RegisterScreen() {
         <View className="items-center">
           <View className="mb-8 h-24 w-24 items-center justify-center rounded-[20px] bg-[#dff1ea]">
             <View className="items-center">
-              <Text className="text-[34px] font-semibold leading-[36px] text-[#0f8f5b]">
-                +
-              </Text>
-              <Text className="mt-[-8px] text-[12px] font-medium text-[#0f8f5b]">
-                USER
-              </Text>
+              <MaterialIcons name="person-add-alt-1" size={36} color="#0f8f5b" />
             </View>
           </View>
 
-          <Text className="text-center text-[36px] font-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
+          <Text className="text-center text-[32px] font-inter-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
             Create your account
           </Text>
-          <Text className="mt-4 max-w-[320px] text-center text-[17px] leading-[28px] text-[#7a8596]">
-            Start managing your assets with professional precision today.
+          <Text className="mt-4 max-w-[320px] text-center text-[17px] leading-[28px] text-[#7a8596] font-inter-medium">
+            Start managing your assets with precision today.
           </Text>
         </View>
 
-        <View className="mt-10 rounded-[28px] border border-[#e6ebf1] bg-white px-6 py-7 shadow-sm">
+        <View className="mt-6 rounded-[28px] border border-[#e6ebf1] bg-white px-6 py-7 shadow-sm">
           <View>
             <Text className="mb-3 text-[15px] font-medium text-[#7a8596]">
               Full Name

@@ -78,14 +78,14 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View className="flex-1 items-center pt-20">
-          <View className="h-16 w-16 items-center justify-center rounded-[14px] bg-[#0b7a4d] shadow-sm">
-            <View className="h-7 w-7 items-center justify-center rounded-[4px] border-2 border-white">
-              <View className="h-2 w-4 border-t-2 border-white" />
+        <View className="mb-8 items-center pt-10">
+          <View className="h-24 w-24 items-center justify-center rounded-[20px] bg-[#dff1ea]">
+            <View className="items-center">
+              <MaterialIcons name="inventory" size={36} color="#0f8f5b" />
             </View>
           </View>
 
-          <Text className="mt-7 text-center text-[36px] font-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
+          <Text className="mt-4 text-center text-[36px] font-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
             Invento Pro
           </Text>
           <Text className="mt-3 text-center text-[17px] leading-[28px] text-[#7a8596]">
@@ -93,7 +93,7 @@ export default function LoginScreen() {
           </Text>
         </View>
 
-        <View className="mt-6 rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-7 shadow-sm">
+        <View className="rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-7 shadow-sm">
           <Text className="text-[20px] font-bold text-[#171a21]">Sign In</Text>
 
           <View className="mt-8">

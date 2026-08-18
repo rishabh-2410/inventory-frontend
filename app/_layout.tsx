@@ -1,12 +1,10 @@
 import "../global.css";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SplashScreen, Stack, ThemeProvider, DefaultTheme, Redirect } from 'expo-router';
+import { SplashScreen, Stack, ThemeProvider, DefaultTheme } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-// import { useFonts } from 'expo-font';
+import { useFonts } from 'expo-font';
 import 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { useEffect, useState } from 'react';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from '@/lib/queryclient';
@@ -17,16 +15,14 @@ import { useSessionRefresh } from "@/hooks/useSessionRefrest";
 import { refreshUserToken } from "@/services/auth.service";
 import { useOnboardingStatus } from "@/hooks/useOnboardingStatus";
 
+import {
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from "@expo-google-fonts/inter";
 
-// import {
-//   LeagueSpartan_300Light,
-//   LeagueSpartan_400Regular,
-//   LeagueSpartan_500Medium,
-//   LeagueSpartan_600SemiBold,
-//   LeagueSpartan_700Bold,
-//   LeagueSpartan_800ExtraBold,
-// } from "@expo-google-fonts/league-spartan";
-// import { useAuthStore } from '@/store/auth.store';
+
 
 
 SplashScreen.preventAutoHideAsync();
@@ -40,7 +36,14 @@ export default function RootLayout() {
   const hasRestoredRef = useRef(false);
   const isOnboarded = useOnboardingStatus();
 
-  useSessionRefresh();
+  const [fontsLoaded] = useFonts({
+    "inter-regular": Inter_400Regular,
+    "inter-medium": Inter_500Medium,
+    "inter-semibold": Inter_600SemiBold,
+    "inter-bold": Inter_700Bold,
+  });
+
+  useSessionRefresh();  
 
   // Restore session if refresh token is present and hydration is completed.
   useEffect(() => {
@@ -84,14 +87,15 @@ export default function RootLayout() {
   }, [hasHydrated, refreshToken]);
 
   useEffect(() => {
-    if (hasHydrated && !isRestoring) {
+    if (hasHydrated && !isRestoring && fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [hasHydrated, isRestoring])
+  }, [hasHydrated, isRestoring, fontsLoaded])
 
-  if (!hasHydrated || isRestoring) {
+  if (!hasHydrated || isRestoring || !fontsLoaded) {
     return <ActivityIndicator size="large" color={DefaultTheme.colors.primary} className="flex-1 justify-center items-center" />;
   }
+
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -100,18 +104,10 @@ export default function RootLayout() {
           <ThemeProvider value={DefaultTheme}>
 
             <Stack
-              // key={
-              //   !hasCompletedOnboarding ? "onboarding-stack":
-              //   isSignedIn ? "app-stack" : "auth-stack"}
-
               screenOptions={{ headerShown: false }}
             >
               <Stack.Screen name="index" />
-              {/* {!hasCompletedOnboarding ? <Stack.Screen name="onboarding" /> : isSignedIn ? (
-                <Stack.Screen name="(tabs)" />
-              ) : (
-                <Stack.Screen name="(auth)" />
-              )} */}
+
               <Stack.Protected guard={isOnboarded === false}>
                 <Stack.Screen name="onboarding" />
               </Stack.Protected>
@@ -122,8 +118,6 @@ export default function RootLayout() {
                 <Stack.Screen name="(tabs)" />
               </Stack.Protected>
             </Stack>
-
-
             <StatusBar style="dark" />
 
             <Toast />

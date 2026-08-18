@@ -1,9 +1,10 @@
-import { View, Text, ActivityIndicator, ScrollView } from 'react-native'
+import { View, Text, ActivityIndicator, ScrollView, Pressable } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDashboardStats } from '@/hooks/query/useDashboardStats';
 import { useStockMovmentHistory } from '@/hooks/query/useStockMovmentHistory';
 import { useAuthStore } from '@/store/auth.store';
+import { router } from 'expo-router';
 
 
 export default function DashboardScreen() {
@@ -83,9 +84,14 @@ export default function DashboardScreen() {
             </>
           )}
 
-          <Text className="mt-8 text-[18px] font-bold text-[#171a21]">
+          <View className="mt-8 flex-row items-center justify-between px-2">
+          <Text className="text-[18px] font-bold text-[#171a21]">
             Recent Movements
           </Text>
+          <Pressable onPress={() => router.navigate("/(tabs)/history")}>
+            <Text className="text-[14px font-inter-medium text-[#171a21]">View All</Text>
+          </Pressable>
+          </View>
 
           {isStockMovementHistoryError ? (
             <Text className="text-[16px] mt-4 text-[#7a8596]">Error loading recent movements</Text>

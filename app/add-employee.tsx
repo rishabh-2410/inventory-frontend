@@ -1,5 +1,5 @@
 import { Controller, useForm } from 'react-hook-form'
-import { Pressable, ScrollView, Switch, Text, TextInput, View } from 'react-native'
+import { Pressable, ScrollView, Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MaterialIcons from '@react-native-vector-icons/material-icons'
 import { router } from 'expo-router'

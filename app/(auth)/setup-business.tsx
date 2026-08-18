@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import {Controller, useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRegister } from '@/hooks/mutation/add/userRegister';
 import { RegisterBusinessDetails, registerBusinessDetailsSchema } from '@/models/zodSchema/register.schema';
 import Toast from 'react-native-toast-message';
 import { getApiErrorMessage } from '@/lib/api-error';
@@ -16,7 +15,7 @@ import { RegisterBusinessRequest } from '@/models/types/auth.type';
 
 export default function SetupBusinessScreen() {
 
-  const {control, handleSubmit, reset, formState: { errors }} = useForm<RegisterBusinessDetails>({
+  const {control, handleSubmit, formState: { errors }} = useForm<RegisterBusinessDetails>({
     resolver: zodResolver(registerBusinessDetailsSchema),
     defaultValues: {
       businessName: "",
@@ -28,11 +27,7 @@ export default function SetupBusinessScreen() {
 
   const tempID  = useTempStore((state) => state.tempID)
 
-
-
-
   const registerBusinessMutation = useRegisterBusiness()
-
   const onSubmit = (data: RegisterBusinessDetails) => {
     console.debug("RegisterBusinessRequest:", data)
     if (!tempID) {
@@ -89,7 +84,7 @@ export default function SetupBusinessScreen() {
         showsVerticalScrollIndicator={false}
       >
 
-        <View className="items-center">
+        <View className="items-center mt-16 p-2">
           <Text className="text-center text-[36px] font-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
             Set up your business
           </Text>
@@ -209,9 +204,9 @@ export default function SetupBusinessScreen() {
 
         <Pressable
           onPress={() => router.push("/(auth)/login")}
-          className="mt-16 items-center justify-center"
+          className="mt-16 items-center justify-center rounded-[20px] bg-[#ffe3e6] px-5 py-5"
         >
-          <Text className="text-[15px] text-[#7a8596]">Logout & Switch Account</Text>
+          <Text className="text-[15px] text-[#ff4d57] font-medium">Logout & Switch Account</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>

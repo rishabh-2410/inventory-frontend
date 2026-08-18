@@ -18,6 +18,7 @@ import Toast from 'react-native-toast-message';
 import { getApiErrorMessage } from '@/lib/api-error';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import MaterialIcons from '@react-native-vector-icons/material-icons';
 export default function MovementScreen() {
 
   const listProductSheetRef = useRef<BottomSheetModal>(null);
@@ -68,7 +69,7 @@ export default function MovementScreen() {
         queryClient.invalidateQueries({ queryKey: ["stockMovements"] });
         queryClient.invalidateQueries({ queryKey: queryKeys.inventoryStats });
         queryClient.invalidateQueries({ queryKey: ["inventory"] });
-        queryClient.invalidateQueries({ queryKey: queryKeys.dashboard });
+        queryClient.invalidateQueries({ queryKey: ["dashboard"]});
         Toast.show({
           text1: "Stock movement recorded successfully",
           type: "success",
@@ -120,8 +121,8 @@ export default function MovementScreen() {
         <View className="px-6 pt-6">
           <View className="rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-6 shadow-sm">
             <View className="mb-6 flex-row items-center">
-              <Text className="mr-3 text-[18px] font-semibold text-[#0b7a4d]">&lt;&gt;</Text>
-              <Text className="text-[20px] font-bold text-[#171a21]">Log New Movement</Text>
+              <MaterialIcons name="swap-horiz" size={28} color="#0b7a4d" />
+              <Text className="ml-2 text-[20px] font-bold text-[#171a21]">Log New Movement</Text>
             </View>
 
             <Controller

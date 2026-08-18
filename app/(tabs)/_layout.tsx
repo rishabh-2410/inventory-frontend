@@ -61,38 +61,6 @@ export default function TabLayout() {
             tabBarIcon: ({ focused }) => (
               <Image source={icons.dashboardIcon} style={{ width: 24, height: 24, tintColor: focused ? "#0B7A4D" : "#6F7C8E" }} />
             ),
-            // tabBarLabel: ({ focused, color }) => (
-            //   <View
-            //     style={{
-            //       minWidth: 80,
-            //       alignItems: "center",
-            //       justifyContent: "center",
-            //       borderRadius: 18,
-            //       backgroundColor: focused ? "rgba(255,255,255,0.58)" : "transparent",
-            //       borderWidth: focused ? 1 : 0,
-            //       borderColor: focused ? "rgba(255,255,255,0.82)" : "transparent",
-            //       paddingHorizontal: 6,
-            //       paddingVertical: 4,
-            //       shadowColor: focused ? "#AFC1D1" : "transparent",
-            //       shadowOpacity: focused ? 0.2 : 0,
-            //       shadowRadius: focused ? 12 : 0,
-            //       shadowOffset: {
-            //         width: 0,
-            //         height: 6,
-            //       },
-            //     }}
-            //   >
-            //     <Text
-            //       style={{
-            //         color,
-            //         fontSize: 13,
-            //         fontWeight: "500",
-            //       }}
-            //     >
-            //       Dashboard
-            //     </Text>
-            //   </View>
-            // ),
           }}
         />
 
