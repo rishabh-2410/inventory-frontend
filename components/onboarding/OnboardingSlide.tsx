@@ -16,7 +16,7 @@ export default function OnboardingSlide({ slide, width }: OnboardingSlideProps) 
       <Image
         source={slide.image}
         resizeMode="contain"
-        style={{ width: '100%', height: 260 }}
+        style={{ width: '100%', height: 350 }}
       />
 
       <Text className="mt-5 text-center text-[32px] font-bold leading-[38px] tracking-[-0.5px] text-[#171a21]">

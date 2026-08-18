@@ -1,6 +1,7 @@
 import { ImageSourcePropType } from 'react-native';
 import type { ComponentProps } from 'react';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
+import { icons } from './Icons';
 
 type MaterialIconName = ComponentProps<typeof MaterialIcons>['name'];
 
@@ -25,11 +26,11 @@ export type OnboardingSlideData = {
 export const onboardingSlides: OnboardingSlideData[] = [
   {
     key: 'welcome',
-    image: require('../assets/onboarding/welcome.png'),
+    image: icons.welcomeIcon,
     title: 'Track with',
     highlight: 'Precision',
     description:
-      'Real-time inventory monitoring across all your storage locations without the complexity of sales or dispatching.',
+      'Real-time inventory monitoring across all your storage locations.',
     features: [
       { icon: 'location-on', label: 'Multi-Site', iconColor: '#0b7a4d' },
       { icon: 'bar-chart', label: 'Real-Time', iconColor: '#457ae5' },
@@ -39,10 +40,10 @@ export const onboardingSlides: OnboardingSlideData[] = [
   },
   {
     key: 'ready',
-    image: require('../assets/onboarding/ready.png'),
+    image: icons.readyIcon,
     title: 'Pure Inventory Focus',
     description:
-      'Focused entirely on your catalog, movements, and team. No pricing, no orders, just your stock.',
+      'Focused entirely on your catalog, movements, and team.',
     features: [
       {
         icon: 'inventory-2',
@@ -61,10 +62,10 @@ export const onboardingSlides: OnboardingSlideData[] = [
   },
   {
     key: 'warehouses',
-    image: require('../assets/onboarding/warehouses.png'),
+    image: icons.warehousesIcon,
     title: 'Manage Your Warehouses',
     description:
-      'Define storage nodes, monitor capacity, and handle stock movements between facilities with ease.',
+      'Define storage nodes and handle stock movements between facilities with ease.',
     features: [],
     buttonLabel: 'Get started',
   },

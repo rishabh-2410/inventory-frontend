@@ -34,6 +34,7 @@ export default function OnboardingScreen() {
     if (nextIndex != null) setActiveIndex(nextIndex);
   }, []);
 
+
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<OnboardingSlideData>) => (
       <OnboardingSlide slide={item} width={width} />
