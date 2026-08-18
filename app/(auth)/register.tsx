@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegister } from '@/hooks/mutation/add/userRegister';
 import { RegisterUserRequest, RegisterUserResponse, registerUserRequestSchema } from '@/models/zodSchema/register.schema';
 import Toast from 'react-native-toast-message';
+import { getApiErrorMessage } from '@/lib/api-error';
 import { useTempStore } from '@/store/temp.store';
 import { useState } from 'react';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
@@ -53,7 +54,7 @@ export default function RegisterScreen() {
         Toast.show({
           type: "error",
           text1: "Register failed",
-          text2: "Please try again",
+          text2: getApiErrorMessage(error, "Please try again"),
           position: "bottom",
           autoHide: true,
           visibilityTime: 3000,

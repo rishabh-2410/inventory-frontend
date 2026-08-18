@@ -11,6 +11,8 @@ import { useAuthStore } from '@/store/auth.store';
 import { useState } from 'react';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { queryClient } from '@/lib/queryclient';
+import Toast from 'react-native-toast-message';
+import { getApiErrorMessage } from '@/lib/api-error';
 
 
 
@@ -39,6 +41,16 @@ export default function LoginScreen() {
         await handleSession(data)
         console.debug("LoginResponse:", data)
         router.navigate("/")
+      },
+      onError: (error) => {
+        Toast.show({
+          type: "error",
+          text1: "Login failed",
+          text2: getApiErrorMessage(error, "Invalid credentials"),
+          position: "bottom",
+          autoHide: true,
+          visibilityTime: 3000,
+        })
       }
     })
   }

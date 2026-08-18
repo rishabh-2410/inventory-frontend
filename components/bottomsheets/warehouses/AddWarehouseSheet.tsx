@@ -6,6 +6,7 @@ import {StyleSheet,Text, Pressable, TextInput, View} from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Toast from "react-native-toast-message";
+import { getApiErrorMessage } from "@/lib/api-error";
 import { queryKeys } from "@/lib/queryKeys";
 import { queryClient } from "@/lib/queryclient";
 import { AddWarehouseRequest, addWarehouseSchema, Warehouse } from "@/models/zodSchema/warehouse.schema";
@@ -70,6 +71,7 @@ import { useAddWarehouse } from "@/hooks/mutation/add/useAddWarehouse";
             Toast.show({
               type: "error",
               text1: "Failed to add warehouse",
+              text2: getApiErrorMessage(error, "Please try again"),
               position: "bottom",
               visibilityTime: 3000,
               autoHide: true,

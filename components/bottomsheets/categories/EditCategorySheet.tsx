@@ -3,6 +3,7 @@ import { forwardRef, useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, Text, Keyboard, Pressable, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
+import { getApiErrorMessage } from "@/lib/api-error";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
 import { Category, UpdateCategoryRequest } from "@/models/zodSchema/category.schema";
@@ -99,7 +100,7 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
             });
             Toast.show({
               type: "success",
-              text1: "Warehouse updated",
+              text1: "Category updated",
               position: "bottom",
               visibilityTime: 3000,
               autoHide: true,
@@ -109,10 +110,11 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
               ref as React.RefObject<BottomSheetModal>
             )?.current?.dismiss();
           },
-          onError: () => {
+          onError: (error) => {
             Toast.show({
               type: "error",
-              text1: "Failed to update warehouse",
+              text1: "Failed to update category",
+              text2: getApiErrorMessage(error, "Please try again"),
               position: "bottom",
               visibilityTime: 3000,
               autoHide: true,
@@ -142,18 +144,18 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
           contentContainerStyle={styles.scrollContent}
         >
           <View className="mb-8">
-            <Text className="text-[18px] font-bold text-[#171a21]">Edit Warehouse</Text>
+            <Text className="text-[18px] font-bold text-[#171a21]">Edit Category</Text>
             <Text className="mt-2 text-[14px] leading-6 text-[#7a8596]">
-              Update the warehouse fields you want to change.
+              Update the category fields you want to change.
             </Text>
           </View>
 
           <View className="mb-5 rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-5">
             <Text className="mb-5 text-[16px] font-bold text-[#171a21]">
-              Warehouse Information
+              Category Information
             </Text>
 
-            <Text className="mb-2 text-[14px] text-[#7a8596]">Warehouse Name</Text>
+            <Text className="mb-2 text-[14px] text-[#7a8596]">Category Name</Text>
             <Controller
               control={control}
               name="name"

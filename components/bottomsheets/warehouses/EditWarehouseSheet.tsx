@@ -3,6 +3,7 @@ import { forwardRef, useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, Text, Keyboard, Pressable, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
+import { getApiErrorMessage } from "@/lib/api-error";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
 import { UpdateWarehouseRequest, Warehouse } from "@/models/zodSchema/warehouse.schema";
@@ -109,10 +110,11 @@ const EditWarehouseSheet = forwardRef<BottomSheetModal, EditWarehouseSheetProps>
               ref as React.RefObject<BottomSheetModal>
             )?.current?.dismiss();
           },
-          onError: () => {
+          onError: (error) => {
             Toast.show({
               type: "error",
               text1: "Failed to update warehouse",
+              text2: getApiErrorMessage(error, "Please try again"),
               position: "bottom",
               visibilityTime: 3000,
               autoHide: true,

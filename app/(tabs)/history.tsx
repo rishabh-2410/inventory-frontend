@@ -1,9 +1,12 @@
 import { useStockMovmentHistory } from '@/hooks/query/useStockMovmentHistory';
+import { useAuthStore } from '@/store/auth.store';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { View, Text, ActivityIndicator, FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function HistoryScreen() {
+
+  const businessID = useAuthStore((state) => state.user?.business_id ?? '')
   const { 
     data, 
     isPending, 
@@ -12,7 +15,7 @@ export default function HistoryScreen() {
     hasNextPage,
     isFetchingNextPage,
   
-  } = useStockMovmentHistory({limit: 2});
+  } = useStockMovmentHistory(businessID, {limit: 2});
 
   if (isPending) {
     return <ActivityIndicator size="large" color="#0000ff" />;

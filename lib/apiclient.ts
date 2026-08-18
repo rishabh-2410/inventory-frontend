@@ -41,14 +41,23 @@ apiClient.interceptors.response.use(
 
         // Handle response errors
         switch (error.response?.status) {
-            case 401:
-                Toast.show({
-                    type: "error",
-                    text1: "Your session has expired",
-                    position: "bottom"
-                });
-                router.replace('/login');
+            case 401: {
+                const requestUrl = error.config?.url ?? "";
+                const isLoginOrRefresh =
+                    requestUrl.includes("/auth/login") ||
+                    requestUrl.includes("/auth/refresh");
+
+                // Login 401 is Invalid Credentials; refresh 401 is handled by the caller.
+                if (!isLoginOrRefresh) {
+                    Toast.show({
+                        type: "error",
+                        text1: "Your session has expired",
+                        position: "bottom"
+                    });
+                    router.replace('/login');
+                }
                 break;
+            }
             case 403:
                 Toast.show({
                     type: "error",

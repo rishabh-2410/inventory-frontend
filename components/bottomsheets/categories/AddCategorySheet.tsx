@@ -8,6 +8,7 @@ import { AddProductRequest, addProductSchema, Product } from "@/models/zodSchema
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddProduct } from "@/hooks/mutation/add/useAddProduct";
 import Toast from "react-native-toast-message";
+import { getApiErrorMessage } from "@/lib/api-error";
 import { queryKeys } from "@/lib/queryKeys";
 import { queryClient } from "@/lib/queryclient";
 import { useAddCategory } from "@/hooks/mutation/add/useAddCategory";
@@ -73,6 +74,7 @@ import { useAddCategory } from "@/hooks/mutation/add/useAddCategory";
             Toast.show({
               type: "error",
               text1: "Error adding category",
+              text2: getApiErrorMessage(error, "Please try again"),
               position: "bottom",
               visibilityTime: 3000,
               autoHide: true,

@@ -25,7 +25,7 @@ export default function CategoryScreen() {
   const handleDeleteCategory = ( name: string, categoryID: string ) => {
 
     Alert.alert(
-      'Delete product',
+      'Delete category',
       `Delete "${name}"? This cannot be undone.`,
       [
         { text: 'Cancel', style: 'cancel' },

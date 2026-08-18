@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, Text, Keyboard, Pressable, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 
+import { getApiErrorMessage } from "@/lib/api-error";
 import { Product } from "@/models/zodSchema/product.schema";
 import { useEditProduct } from "@/hooks/mutation/update/useEditProduct";
 import { queryClient } from "@/lib/queryclient";
@@ -138,10 +139,11 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
               ref as React.RefObject<BottomSheetModal>
             )?.current?.dismiss();
           },
-          onError: () => {
+          onError: (error) => {
             Toast.show({
               type: "error",
               text1: "Failed to update product",
+              text2: getApiErrorMessage(error, "Please try again"),
               position: "bottom",
             });
           },

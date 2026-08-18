@@ -4,6 +4,8 @@ import { RegisterUserRequest } from "@/models/zodSchema/register.schema"
 import { UsersResponse } from "@/models/zodSchema/user.schema"
 import { queryKeys } from "@/lib/queryKeys"
 import { queryClient } from "@/lib/queryclient"
+import Toast from "react-native-toast-message"
+import { getApiErrorMessage } from "@/lib/api-error"
 
 export const useAddUser = () => {
     return useMutation({
@@ -45,6 +47,14 @@ export const useDeleteUser = () => {
             return { previousUsers }
         },
         onError: (error, id, context) => {
+            Toast.show({
+                type: "error",
+                text1: "Error deleting employee",
+                text2: getApiErrorMessage(error, "Please try again"),
+                position: "bottom",
+                visibilityTime: 3000,
+                autoHide: true,
+            })
             queryClient.setQueryData(queryKeys.users, context?.previousUsers)
         },
         onSettled: () => {

@@ -3,6 +3,8 @@ import { deleteCategory } from "@/services/category.service";
 import { queryClient } from "@/lib/queryclient";
 import { Category } from "@/models/zodSchema/category.schema";
 import { queryKeys } from "@/lib/queryKeys";
+import Toast from "react-native-toast-message";
+import { getApiErrorMessage } from "@/lib/api-error";
 
 export const useDeleteCategory = () => {
     return useMutation({
@@ -14,7 +16,14 @@ export const useDeleteCategory = () => {
             return { previousCategories };
         },
         onError: (error, variables, context) => {
-            console.log("error deleting category", error);
+            Toast.show({
+                type: "error",
+                text1: "Error deleting category",
+                text2: getApiErrorMessage(error, "Please try again"),
+                position: "bottom",
+                visibilityTime: 3000,
+                autoHide: true,
+            });
             queryClient.setQueryData(queryKeys.categories, context?.previousCategories);
         },
         onSettled: (data, error, variables, context) => {

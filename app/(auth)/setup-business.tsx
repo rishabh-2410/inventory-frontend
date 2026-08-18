@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegister } from '@/hooks/mutation/add/userRegister';
 import { RegisterBusinessDetails, registerBusinessDetailsSchema } from '@/models/zodSchema/register.schema';
 import Toast from 'react-native-toast-message';
+import { getApiErrorMessage } from '@/lib/api-error';
 import { useRegisterBusiness } from '@/hooks/mutation/add/useBusiness';
 import { useTempStore } from '@/store/temp.store';
 import { RegisterBusinessRequest } from '@/models/types/auth.type';
@@ -66,9 +67,11 @@ export default function SetupBusinessScreen() {
         Toast.show({
           type: "error",
           text1: "Failed to register business",
-          text2: "Please try again",
+          text2: getApiErrorMessage(error, "Please try again"),
+          position: "bottom",
+          autoHide: true,
+          visibilityTime: 3000,
         })
-        console.error("Failed to register business:", error)
       }
     })
   }

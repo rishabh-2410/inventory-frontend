@@ -3,6 +3,8 @@ import { deleteProduct } from "@/services/product.service";
 import { queryClient } from "@/lib/queryclient";
 import { Product } from "@/models/zodSchema/product.schema";
 import { queryKeys } from "@/lib/queryKeys";
+import Toast from "react-native-toast-message";
+import { getApiErrorMessage } from "@/lib/api-error";
 
 
 export const useDeleteProduct = () => {
@@ -15,6 +17,14 @@ export const useDeleteProduct = () => {
             return { previousProducts };
         },
         onError: (error, variables, context) => {
+            Toast.show({
+                type: "error",
+                text1: "Error deleting product",
+                text2: getApiErrorMessage(error, "Please try again"),
+                position: "bottom",
+                visibilityTime: 3000,
+                autoHide: true,
+            });
             queryClient.setQueryData(queryKeys.products, context?.previousProducts);
         },
         onSettled: (data, error, variables, context) => {

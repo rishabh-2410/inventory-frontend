@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { RegisterUserRequest, registerUserRequestSchema } from '@/models/zodSchema/register.schema'
 import { useAddUser } from '@/hooks/mutation/add/useUser'
 import Toast from 'react-native-toast-message'
+import { getApiErrorMessage } from '@/lib/api-error'
 import { queryClient } from '@/lib/queryclient'
 import { queryKeys } from '@/lib/queryKeys'
 import { UsersResponse } from '@/models/zodSchema/user.schema'
@@ -50,7 +51,7 @@ export default function AddEmployeeScreen() {
         Toast.show({
           type: 'error',
           text1: 'Error adding employee',
-          text2: error.message,
+          text2: getApiErrorMessage(error, 'Please try again'),
           position: 'bottom',
           visibilityTime: 3000,
           autoHide: true,

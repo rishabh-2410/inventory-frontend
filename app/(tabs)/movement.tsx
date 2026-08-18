@@ -15,6 +15,7 @@ import { View, Text, Pressable, ScrollView } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Toast from 'react-native-toast-message';
+import { getApiErrorMessage } from '@/lib/api-error';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 export default function MovementScreen() {
@@ -81,6 +82,7 @@ export default function MovementScreen() {
         console.log("Stock movement error", error);
         Toast.show({
           text1: "Failed to record stock movement",
+          text2: getApiErrorMessage(error, "Please try again"),
           type: "error",
           position: "bottom",
           visibilityTime: 4000,
