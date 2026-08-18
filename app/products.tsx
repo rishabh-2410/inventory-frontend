@@ -35,7 +35,7 @@ export default function ProductScreen() {
 
   if (isError) {
     return <View>
-      <Text>Error loading products</Text>
+      <Text className="font-inter-regular text-[15px] text-[#7a8596]">Error loading products</Text>
     </View>;
   }
 
@@ -62,16 +62,16 @@ export default function ProductScreen() {
               <View className="mb-5 rounded-[22px] bg-[#f4f8f3] px-4 py-4">
                 <View className="flex-row items-center">
                   <View className="mr-4 h-16 w-16 items-center justify-center rounded-xl bg-[#e9edf0]">
-                    <Text className="text-[20px] font-bold text-[#0b7a4d]">
+                    <Text className="text-[20px] font-inter-bold text-[#0b7a4d]">
                       {item.name.charAt(0)}
                     </Text>
                   </View>
 
                   <View className="flex-1"> 
-                    <Text className="text-[16px] font-bold leading-7 text-[#171a21]">
+                    <Text className="text-[16px] font-inter-bold leading-7 text-[#171a21]">
                       {item.name}
                     </Text>
-                    <Text className="mt-1 text-[13px] leading-5 text-[#7a8596]">
+                    <Text className="mt-1 text-[13px] font-inter-regular leading-5 text-[#7a8596]">
                       SKU: {item.sku}
                     </Text>
                   </View>
@@ -91,8 +91,8 @@ export default function ProductScreen() {
               <View>
                 <View className="mx-[-24px] mb-6 border-b border-[#e5e7eb] bg-white px-6 py-5">
                   <View className="flex-row items-center justify-between">
-                    <Text className="text-[18px] font-bold text-[#171a21]">Products</Text>
-                    <Text className="text-[20px] text-[#0b7a4d]">!</Text>
+                    <Text className="text-[18px] font-inter-bold text-[#171a21]">Products</Text>
+                    <Text className="text-[20px] font-inter-semibold text-[#0b7a4d]">!</Text>
                   </View>
                 </View>
 
@@ -100,13 +100,13 @@ export default function ProductScreen() {
                   onPress={handleAddProduct}
                   className="mb-7 items-center rounded-[18px] bg-[#0b7a4d] px-5 py-5"
                 >
-                  <Text className="text-[18px] font-semibold text-white">+ Add New Product</Text>
+                  <Text className="text-[18px] font-inter-semibold text-white">+ Add New Product</Text>
                 </Pressable>
               </View>
             }
             ListEmptyComponent={
               <View className="rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-8">
-                <Text className="text-center text-[15px] text-[#7a8596]">
+                <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">
                   No products found
                 </Text>
               </View>

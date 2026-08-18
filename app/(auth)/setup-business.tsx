@@ -85,17 +85,17 @@ export default function SetupBusinessScreen() {
       >
 
         <View className="items-center mt-16 p-2">
-          <Text className="text-center text-[36px] font-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
+          <Text className="text-center text-[36px] font-inter-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
             Set up your business
           </Text>
-          <Text className="mt-4 max-w-[330px] text-center text-[17px] leading-[28px] text-[#7a8596]">
+          <Text className="mt-4 max-w-[330px] text-center text-[17px] font-inter-medium leading-[28px] text-[#7a8596]">
             Provide your company details to start managing your inventory with precision.
           </Text>
         </View>
 
         <View className="mt-10 rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-6 shadow-sm">
           <View>
-            <Text className="mb-3 text-[15px] font-medium text-[#535862]">
+            <Text className="mb-3 text-[15px] font-inter-medium text-[#535862]">
               Business Name
             </Text>
             <Controller
@@ -113,11 +113,11 @@ export default function SetupBusinessScreen() {
                       autoComplete="off"
                       autoCapitalize="words"
                       returnKeyType="next"
-                      className="py-4 text-[18px] text-[#171a21]"
+                      className="py-4 text-[18px] font-inter-regular text-[#171a21]"
                     />
                   </View>
                   {errors.businessName && (
-                    <Text className="mt-2 text-[13px] text-red-500">
+                    <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                       {errors.businessName?.message ?? "Business Name is required"}
                     </Text>
                   )}
@@ -127,7 +127,7 @@ export default function SetupBusinessScreen() {
           </View>
 
           <View className="mt-6">
-            <Text className="mb-3 text-[15px] font-medium text-[#535862]">
+            <Text className="mb-3 text-[15px] font-inter-medium text-[#535862]">
               Business Email
             </Text>
             <Controller
@@ -146,11 +146,11 @@ export default function SetupBusinessScreen() {
                       autoCapitalize="none"
                       keyboardType="email-address"
                       returnKeyType="next"
-                      className="py-4 text-[18px] text-[#171a21]"
+                      className="py-4 text-[18px] font-inter-regular text-[#171a21]"
                     />
                   </View>
                   {errors.businessEmail && (
-                    <Text className="mt-2 text-[13px] text-red-500">
+                    <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                       {errors.businessEmail?.message ?? "Business Email is required"}
                     </Text>
                   )}
@@ -160,7 +160,7 @@ export default function SetupBusinessScreen() {
           </View>
 
           <View className="mt-6">
-            <Text className="mb-3 text-[15px] font-medium text-[#535862]">
+            <Text className="mb-3 text-[15px] font-inter-medium text-[#535862]">
               Business Address
             </Text>
             <Controller
@@ -179,11 +179,11 @@ export default function SetupBusinessScreen() {
                       autoCapitalize="words"
                       keyboardType="default"
                       returnKeyType="next"
-                      className="py-4 text-[18px] text-[#171a21]"
+                      className="py-4 text-[18px] font-inter-regular text-[#171a21]"
                     />
                   </View>
                   {errors.businessAddress && (
-                    <Text className="mt-2 text-[13px] text-red-500">
+                    <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                       {errors.businessAddress?.message ?? "Business Address is required"}
                     </Text>
                   )}
@@ -196,7 +196,7 @@ export default function SetupBusinessScreen() {
             onPress={handleSubmit(onSubmit)}
             className="mt-8 items-center rounded-2xl bg-[#0b7a4d] px-5 py-4 shadow-sm"
           >
-            <Text className="text-[18px] font-semibold text-white">
+            <Text className="text-[18px] font-inter-semibold text-white">
               {registerBusinessMutation.isPending ? "Creating..." : "Create Business ->"}
             </Text>
           </Pressable>
@@ -206,7 +206,7 @@ export default function SetupBusinessScreen() {
           onPress={() => router.push("/(auth)/login")}
           className="mt-16 items-center justify-center rounded-[20px] bg-[#ffe3e6] px-5 py-5"
         >
-          <Text className="text-[15px] text-[#ff4d57] font-medium">Logout & Switch Account</Text>
+          <Text className="text-[15px] text-[#ff4d57] font-inter-medium">Logout & Switch Account</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>

@@ -1,7 +1,7 @@
 import { icons } from "@/constants/Icons";
 import { useAuthStore } from "@/store/auth.store";
 import { Redirect, Tabs } from "expo-router";
-import { Image, Text, View } from "react-native";
+import { Image } from "react-native";
 
 export default function TabLayout() {
   const accessToken = useAuthStore((state) => state.accessToken);
@@ -49,7 +49,7 @@ export default function TabLayout() {
           tabBarInactiveTintColor: "#6F7C8E",
           tabBarLabelStyle: {
             fontSize: 9,
-            fontWeight: "500",
+            fontFamily: "inter-medium",
             marginTop: 2,
           },
         }}

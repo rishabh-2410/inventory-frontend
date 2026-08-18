@@ -122,7 +122,7 @@ export default function MovementScreen() {
           <View className="rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-6 shadow-sm">
             <View className="mb-6 flex-row items-center">
               <MaterialIcons name="swap-horiz" size={28} color="#0b7a4d" />
-              <Text className="ml-2 text-[20px] font-bold text-[#171a21]">Log New Movement</Text>
+              <Text className="ml-2 text-[20px] font-inter-bold text-[#171a21]">Log New Movement</Text>
             </View>
 
             <Controller
@@ -136,13 +136,13 @@ export default function MovementScreen() {
               )}
             />
             {errors.movement_type && (
-              <Text className="mt-2 text-[13px] text-red-500">
+              <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                 {errors.movement_type.message}
               </Text>
             )}
 
             <View className="mt-8">
-              <Text className="mb-3 text-[13px] font-medium uppercase tracking-[1.8px] text-[#7a8596]">
+              <Text className="mb-3 text-[13px] font-inter-medium uppercase tracking-[1.8px] text-[#7a8596]">
                 Select Product
               </Text>
               <Controller
@@ -153,22 +153,22 @@ export default function MovementScreen() {
                     onPress={handleOpenProductList}
                     className="flex-row items-center justify-between rounded-2xl border border-[#98a2b3] bg-white px-4 py-4"
                   >
-                    <Text className={`flex-1 text-[18px] ${selectedProduct ? "text-[#171a21]" : "text-[#7a8596]"}`}>
+                    <Text className={`flex-1 text-[18px] font-inter-regular ${selectedProduct ? "text-[#171a21]" : "text-[#7a8596]"}`}>
                       {selectedProduct ? selectedProduct.name : "Search or select product..."}
                     </Text>
-                    <Text className="ml-3 text-[16px] text-[#667085]">⌄</Text>
+                    <Text className="ml-3 text-[16px] font-inter-regular text-[#667085]">⌄</Text>
                   </Pressable>
                 )}
               />
               {errors.product_id && (
-                <Text className="mt-2 text-[13px] text-red-500">
+                <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                   {errors.product_id.message}
                 </Text>
               )}
             </View>
 
             <View className="mt-6">
-              <Text className="mb-3 text-[13px] font-medium uppercase tracking-[1.8px] text-[#7a8596]">
+              <Text className="mb-3 text-[13px] font-inter-medium uppercase tracking-[1.8px] text-[#7a8596]">
                 Warehouse Location
               </Text>
               <Controller
@@ -179,22 +179,22 @@ export default function MovementScreen() {
                     onPress={handleOpenWarehouseList}
                     className="flex-row items-center justify-between rounded-2xl border border-[#98a2b3] bg-white px-4 py-4"
                   >
-                    <Text className={`flex-1 text-[18px] ${selectedWarehouse ? "text-[#171a21]" : "text-[#7a8596]"}`}>
+                    <Text className={`flex-1 text-[18px] font-inter-regular ${selectedWarehouse ? "text-[#171a21]" : "text-[#7a8596]"}`}>
                       {selectedWarehouse ? selectedWarehouse.name : "Select facility..."}
                     </Text>
-                    <Text className="ml-3 text-[16px] text-[#667085]">⌄</Text>
+                    <Text className="ml-3 text-[16px] font-inter-regular text-[#667085]">⌄</Text>
                   </Pressable>
                 )}
               />
               {errors.warehouse_id && (
-                <Text className="mt-2 text-[13px] text-red-500">
+                <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                   {errors.warehouse_id.message}
                 </Text>
               )}
             </View>
 
             <View className="mt-6">
-              <Text className="mb-3 text-[13px] font-medium uppercase tracking-[1.8px] text-[#7a8596]">
+              <Text className="mb-3 text-[13px] font-inter-medium uppercase tracking-[1.8px] text-[#7a8596]">
                 Quantity
               </Text>
               <Controller
@@ -209,7 +209,7 @@ export default function MovementScreen() {
                       }}
                       className="h-12 w-12 items-center justify-center"
                     >
-                      <Text className="text-[28px] font-medium text-[#0b7a4d]">-</Text>
+                      <Text className="text-[28px] font-inter-medium text-[#0b7a4d]">-</Text>
                     </Pressable>
                     <TextInput 
                       placeholder="1"
@@ -218,7 +218,7 @@ export default function MovementScreen() {
                         field.onChange(Number(text.replace(/[^0-9]/g, '') || 0));
                       }}
                       keyboardType="number-pad"
-                      className="flex-1 text-center text-[26px] font-semibold text-[#171a21]"
+                      className="flex-1 text-center text-[26px] font-inter-semibold text-[#171a21]"
                     />
                     <Pressable
                       onPress={() => {
@@ -227,20 +227,20 @@ export default function MovementScreen() {
                       }}
                       className="h-12 w-12 items-center justify-center"
                     >
-                      <Text className="text-[28px] font-medium text-[#0b7a4d]">+</Text>
+                      <Text className="text-[28px] font-inter-medium text-[#0b7a4d]">+</Text>
                     </Pressable>
                   </View>
                 )}
               />
               {errors.movement_quantity && (
-                <Text className="mt-2 text-[13px] text-red-500">
+                <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                   {errors.movement_quantity.message}
                 </Text>
               )}
             </View>
 
             <View className="mt-6">
-              <Text className="mb-3 text-[13px] font-medium uppercase tracking-[1.8px] text-[#7a8596]">
+              <Text className="mb-3 text-[13px] font-inter-medium uppercase tracking-[1.8px] text-[#7a8596]">
                 Reason / Transaction Note
               </Text>
               <Controller
@@ -254,12 +254,12 @@ export default function MovementScreen() {
                     onChangeText={field.onChange}
                     multiline
                     textAlignVertical="top"
-                    className="min-h-[116px] rounded-2xl border border-[#98a2b3] bg-white px-4 py-4 text-[18px] text-[#171a21]"
+                    className="min-h-[116px] rounded-2xl border border-[#98a2b3] bg-white px-4 py-4 text-[18px] font-inter-regular text-[#171a21]"
                   />
                 )}
               />
               {errors.reason && (
-                <Text className="mt-2 text-[13px] text-red-500">
+                <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                   {errors.reason.message}
                 </Text>
               )}
@@ -269,7 +269,7 @@ export default function MovementScreen() {
               onPress={handleSubmit(handleStockMovement)}
               className="mt-10 flex-row items-center justify-center rounded-2xl bg-[#0b7a4d] px-5 py-5 shadow-sm"
             >
-              <Text className="text-[18px] font-semibold text-white">
+              <Text className="text-[18px] font-inter-semibold text-white">
                 {stockMovementMutation.isPending ? "Confirming..." : "Confirm Movement"}
               </Text>
             </Pressable>

@@ -92,7 +92,7 @@ export default function RegisterScreen() {
 
         <View className="mt-6 rounded-[28px] border border-[#e6ebf1] bg-white px-6 py-7 shadow-sm">
           <View>
-            <Text className="mb-3 text-[15px] font-medium text-[#7a8596]">
+            <Text className="mb-3 text-[15px] font-inter-medium text-[#7a8596]">
               Full Name
             </Text>
             <Controller
@@ -110,11 +110,11 @@ export default function RegisterScreen() {
                       autoComplete="off"
                       autoCapitalize="words"
                       returnKeyType="next"
-                      className="flex-1 py-4 text-[18px] text-[#171a21]"
+                      className="flex-1 py-4 text-[18px] font-inter-regular text-[#171a21]"
                     />
                   </View>
                   {errors.name && (
-                    <Text className="mt-2 text-[13px] text-red-500">
+                    <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                       {errors.name?.message ?? "Name is required"}
                     </Text>
                   )}
@@ -124,7 +124,7 @@ export default function RegisterScreen() {
           </View>
 
           <View className="mt-6">
-            <Text className="mb-3 text-[15px] font-medium text-[#7a8596]">
+            <Text className="mb-3 text-[15px] font-inter-medium text-[#7a8596]">
               Work Email
             </Text>
             <Controller
@@ -143,11 +143,11 @@ export default function RegisterScreen() {
                       autoCapitalize="none"
                       keyboardType="email-address"
                       returnKeyType="next"
-                      className="flex-1 py-4 text-[18px] text-[#171a21]"
+                      className="flex-1 py-4 text-[18px] font-inter-regular text-[#171a21]"
                     />
                   </View>
                   {errors.email && (
-                    <Text className="mt-2 text-[13px] text-red-500">
+                    <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                       {errors.email?.message ?? "Email is required"}
                     </Text>
                   )}
@@ -157,7 +157,7 @@ export default function RegisterScreen() {
           </View>
 
           <View className="mt-6">
-            <Text className="mb-3 text-[15px] font-medium text-[#7a8596]">
+            <Text className="mb-3 text-[15px] font-inter-medium text-[#7a8596]">
               Password
             </Text>
             <Controller
@@ -176,13 +176,13 @@ export default function RegisterScreen() {
                       keyboardType="default"
                       returnKeyType="done"
                       secureTextEntry={!showPassword}
-                      className="flex-1 py-4 text-[18px] text-[#171a21]"
+                      className="flex-1 py-4 text-[18px] font-inter-regular text-[#171a21]"
                     />
                     <Pressable 
                       onPress={() => {
                         setShowPassword((showPassword) => !showPassword)
                       }} 
-                      className="ml-3 text-[12px] font-medium text-[#667085]"
+                      className="ml-3 text-[12px] font-inter-medium text-[#667085]"
                     >
                       <Text>
                     {showPassword ? <MaterialIcons name="visibility" size={24} color="#667085" /> : <MaterialIcons name="visibility-off" size={24} color="#667085" />}
@@ -190,7 +190,7 @@ export default function RegisterScreen() {
                     </Pressable>
                   </View>
                   {errors.password && (
-                    <Text className="mt-2 text-[13px] text-red-500">
+                    <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                       {errors.password?.message ?? "Password is required"}
                     </Text>
                   )}
@@ -203,7 +203,7 @@ export default function RegisterScreen() {
             onPress={handleSubmit(onSubmit)}
             className="mt-8 items-center rounded-2xl bg-[#0f8f5b] px-5 py-4"
           >
-            <Text className="text-[18px] font-semibold text-white">
+            <Text className="text-[18px] font-inter-semibold text-white">
               {registerMutation.isPending ? "Registering..." : "Register ->"}
             </Text>
           </Pressable>
@@ -213,9 +213,9 @@ export default function RegisterScreen() {
           onPress={() => router.push("/(auth)/login")}
           className="mt-7 items-center justify-center"
         >
-          <Text className="text-[15px] text-[#7a8596]">
+          <Text className="text-[15px] font-inter-regular text-[#7a8596]">
             Already have an account ?{" "}
-            <Text className="font-semibold text-[#0f8f5b]">Log in</Text>
+            <Text className="font-inter-semibold text-[#0f8f5b]">Log in</Text>
           </Text>
         </Pressable>
       </ScrollView>

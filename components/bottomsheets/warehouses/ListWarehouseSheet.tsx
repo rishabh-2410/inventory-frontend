@@ -63,8 +63,8 @@ type ListWarehouseSheetProps = {
             style={styles.container}
           >
             <View className="mb-5">
-              <Text className="text-[22px] font-bold text-[#171a21]">Select Warehouse</Text>
-              <Text className="mt-1 text-[14px] text-[#7a8596]">
+              <Text className="text-[22px] font-inter-bold text-[#171a21]">Select Warehouse</Text>
+              <Text className="mt-1 text-[14px] font-inter-regular text-[#7a8596]">
                 Choose a warehouse location for this movement.
               </Text>
             </View>
@@ -78,15 +78,15 @@ type ListWarehouseSheetProps = {
                     }}
                     className="mb-3 rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-4"
                   >
-                    <Text className="text-[16px] font-semibold text-[#171a21]">{item.name}</Text>
-                    <Text className="mt-1 text-[13px] text-[#7a8596]">{item.address}</Text>
+                    <Text className="text-[16px] font-inter-semibold text-[#171a21]">{item.name}</Text>
+                    <Text className="mt-1 text-[13px] font-inter-regular text-[#7a8596]">{item.address}</Text>
                   </Pressable>
                 )
               }}
               keyExtractor={(item) => item.id}
               ListEmptyComponent={
                 <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
-                  <Text className="text-center text-[15px] text-[#7a8596]">No warehouses found</Text>
+                  <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No warehouses found</Text>
                 </View>
               }
               showsVerticalScrollIndicator={false}

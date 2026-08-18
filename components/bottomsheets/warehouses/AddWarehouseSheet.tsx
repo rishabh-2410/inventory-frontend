@@ -102,18 +102,18 @@ import { useAddWarehouse } from "@/hooks/mutation/add/useAddWarehouse";
             contentContainerStyle={styles.scrollContent}
           >
               <View className="mb-8">
-                <Text className="text-[18px] font-bold text-[#171a21]">Add New Warehouse</Text>
-                <Text className="mt-2 text-[14px] leading-6 text-[#7a8596]">
+                <Text className="text-[18px] font-inter-bold text-[#171a21]">Add New Warehouse</Text>
+                <Text className="mt-2 text-[14px] font-inter-regular leading-6 text-[#7a8596]">
                   Create a new warehouse to store your products.
                 </Text>
               </View>
 
               <View className="mb-5 rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-5">
-                <Text className="mb-5 text-[16px] font-bold text-[#171a21]">
+                <Text className="mb-5 text-[16px] font-inter-bold text-[#171a21]">
                   Warehouse Information
                 </Text>
 
-                <Text className="mb-2 text-[14px] text-[#7a8596]">Warehouse Name</Text>
+                <Text className="mb-2 text-[14px] font-inter-medium text-[#7a8596]">Warehouse Name</Text>
                 <Controller
                   control={control}
                   name="name"
@@ -124,13 +124,13 @@ import { useAddWarehouse } from "@/hooks/mutation/add/useAddWarehouse";
                       autoCapitalize="none"
                       autoCorrect={false}
                       autoComplete="off"
-                      className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                      className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] font-inter-regular text-[#171a21]"
                     />
                   )}
                 />
-                {errors.name && <Text className="mb-3 text-[13px] text-red-500">{errors.name.message}</Text>}
+                {errors.name && <Text className="mb-3 text-[13px] font-inter-regular text-red-500">{errors.name.message}</Text>}
 
-                <Text className="mb-2 text-[14px] text-[#7a8596]">Warehouse Address</Text>
+                <Text className="mb-2 text-[14px] font-inter-medium text-[#7a8596]">Warehouse Address</Text>
                 <Controller
                   control={control}
                   name="address"
@@ -138,26 +138,26 @@ import { useAddWarehouse } from "@/hooks/mutation/add/useAddWarehouse";
                     <TextInput
                       value={field.value}
                       onChangeText={field.onChange}
-                      className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                      className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] font-inter-regular text-[#171a21]"
                     />
                   )}
                 />
-                {errors.address && <Text className="mb-3 text-[13px] text-red-500">{errors.address.message}</Text>}
+                {errors.address && <Text className="mb-3 text-[13px] font-inter-regular text-red-500">{errors.address.message}</Text>}
               </View>
               
 
               <View className="rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-5">
-                <Text className="mb-5 text-[16px] font-bold text-[#171a21]">Save Warehouse</Text>
+                <Text className="mb-5 text-[16px] font-inter-bold text-[#171a21]">Save Warehouse</Text>
 
                 <Pressable
                   onPress={handleSubmit(onSubmit)}
                   className="items-center rounded-2xl bg-[#0b7a4d] px-5 py-4"
                 >
-                  <Text className="text-[16px] font-semibold text-white">Save Warehouse</Text>
+                  <Text className="text-[16px] font-inter-semibold text-white">Save Warehouse</Text>
                 </Pressable>
 
                 <Pressable className="mt-4 items-center rounded-2xl bg-[#eef4ef] px-5 py-4" onPress={() => (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()}>
-                  <Text className="text-[16px] font-semibold text-[#0b7a4d]">Cancel & Discard</Text>
+                  <Text className="text-[16px] font-inter-semibold text-[#0b7a4d]">Cancel & Discard</Text>
                 </Pressable>
               </View>
           </BottomSheetScrollView>

@@ -85,19 +85,19 @@ export default function LoginScreen() {
             </View>
           </View>
 
-          <Text className="mt-4 text-center text-[36px] font-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
+          <Text className="mt-4 text-center text-[36px] font-inter-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
             Invento Pro
           </Text>
-          <Text className="mt-3 text-center text-[17px] leading-[28px] text-[#7a8596]">
+          <Text className="mt-3 text-center text-[17px] font-inter-medium leading-[28px] text-[#7a8596]">
             Efficient warehouse management ecosystem
           </Text>
         </View>
 
         <View className="rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-7 shadow-sm">
-          <Text className="text-[20px] font-bold text-[#171a21]">Sign In</Text>
+          <Text className="text-[20px] font-inter-bold text-[#171a21]">Sign In</Text>
 
           <View className="mt-8">
-            <Text className="mb-3 text-[15px] font-medium text-[#535862]">
+            <Text className="mb-3 text-[15px] font-inter-medium text-[#535862]">
               Email Address
             </Text>
             <Controller
@@ -106,7 +106,7 @@ export default function LoginScreen() {
               render={({ field }) => (
                 <View>
                   <View className="flex-row items-center rounded-2xl border border-[#98a2b3] bg-white px-4">
-                    <Text className="mr-3 text-[18px] text-[#667085]">@</Text>
+                    <Text className="mr-3 text-[18px] font-inter-regular text-[#667085]">@</Text>
                     <TextInput
                       value={field.value}
                       onChangeText={field.onChange}
@@ -117,11 +117,11 @@ export default function LoginScreen() {
                       autoCapitalize="none"
                       keyboardType="email-address"
                       returnKeyType="next"
-                      className="flex-1 py-4 text-[18px] text-[#171a21]"
+                      className="flex-1 py-4 text-[18px] font-inter-regular text-[#171a21]"
                     />
                   </View>
                   {errors.email && (
-                    <Text className="mt-2 text-[13px] text-red-500">
+                    <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                       {errors.email.message}
                     </Text>
                   )}
@@ -132,7 +132,7 @@ export default function LoginScreen() {
 
           <View className="mt-6">
             <View className="mb-3 flex-row items-center justify-between">
-              <Text className="text-[15px] font-medium text-[#535862]">Password</Text>
+              <Text className="text-[15px] font-inter-medium text-[#535862]">Password</Text>
             </View>
             <Controller
               control={control}
@@ -150,13 +150,13 @@ export default function LoginScreen() {
                       keyboardType="default"
                       returnKeyType="done"
                       secureTextEntry={!showPassword}
-                      className="flex-1 py-4 text-[18px] text-[#171a21]"
+                      className="flex-1 py-4 text-[18px] font-inter-regular text-[#171a21]"
                     />
                     <Pressable 
                       onPress={() => {
                        setShowPassword((showPassword) => !showPassword)
                       }} 
-                      className="ml-3 text-[12px] font-medium text-[#667085]"
+                      className="ml-3 text-[12px] font-inter-medium text-[#667085]"
                     >
                       <Text>
                         {showPassword ? <MaterialIcons name="visibility" size={24} color="#667085" /> : <MaterialIcons name="visibility-off" size={24} color="#667085" />}
@@ -164,7 +164,7 @@ export default function LoginScreen() {
                     </Pressable>
                   </View>
                   {errors.password && (
-                    <Text className="mt-2 text-[13px] text-red-500">
+                    <Text className="mt-2 text-[13px] font-inter-regular text-red-500">
                       {errors.password.message}
                     </Text>
                   )}
@@ -181,7 +181,7 @@ export default function LoginScreen() {
             onPress={handleSubmit(onSubmit)}
             className="mt-8 items-center rounded-2xl bg-[#0b7a4d] px-5 py-4 shadow-sm"
           >
-            <Text className="text-[18px] font-semibold text-white">
+            <Text className="text-[18px] font-inter-semibold text-white">
               {loginMutation.isPending ? "Logging in..." : "Login ->"}
             </Text>
           </Pressable>
@@ -189,13 +189,13 @@ export default function LoginScreen() {
 
         <View className="mt-10 items-center">
           <Pressable onPress={() => router.push("/(auth)/register")}>
-            <Text className="text-[15px] text-[#7a8596]">
+            <Text className="text-[15px] font-inter-regular text-[#7a8596]">
               Don&apos;t have an account?{" "}
-              <Text className="font-medium text-[#0b7a4d]">Request Access</Text>
+              <Text className="font-inter-medium text-[#0b7a4d]">Request Access</Text>
             </Text>
           </Pressable>
 
-          <Text className="mt-4 text-[12px] uppercase tracking-[2px] text-[#b3bcc8]">
+          <Text className="mt-4 text-[12px] font-inter-medium uppercase tracking-[2px] text-[#b3bcc8]">
             <Link href="privacy-policy">Privacy Policy</Link>  •  <Link href="terms-of-service">Terms of Service</Link>
           </Text>
         </View>

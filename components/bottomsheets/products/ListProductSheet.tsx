@@ -71,22 +71,22 @@ type ListProductSheetProps = {
                     }}
                     className="mb-3 rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-4"
                   >
-                    <Text className="text-[16px] font-semibold text-[#171a21]">{item.name}</Text>
-                    <Text className="mt-1 text-[13px] text-[#7a8596]">{item.sku}</Text>
+                    <Text className="text-[16px] font-inter-semibold text-[#171a21]">{item.name}</Text>
+                    <Text className="mt-1 text-[13px] font-inter-regular text-[#7a8596]">{item.sku}</Text>
                   </Pressable>
                 )
               }}
               keyExtractor={(item) => item.id}
               ListEmptyComponent={
                 <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
-                  <Text className="text-center text-[15px] text-[#7a8596]">No products found</Text>
+                  <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No products found</Text>
                 </View>
               }
               contentContainerStyle={styles.scrollContent}
               ListHeaderComponent={
                 <View className="mb-5">
-                <Text className="text-[22px] font-bold text-[#171a21]">Select Product</Text>
-                <Text className="mt-1 text-[14px] text-[#7a8596]">
+                <Text className="text-[22px] font-inter-bold text-[#171a21]">Select Product</Text>
+                <Text className="mt-1 text-[14px] font-inter-regular text-[#7a8596]">
                   Choose a product to continue the movement.
                 </Text>
               </View>

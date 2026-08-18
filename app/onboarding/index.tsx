@@ -97,13 +97,13 @@ export default function OnboardingScreen() {
         <Pressable
           onPress={handleCtaPress}
           className="flex-row items-center justify-center rounded-full bg-[#0b7a4d] px-5 py-4 shadow-sm">
-          <Text className="mr-2 text-[18px] font-semibold text-white">{slide.buttonLabel}</Text>
+          <Text className="mr-2 text-[18px] font-inter-semibold text-white">{slide.buttonLabel}</Text>
           <MaterialIcons name="arrow-forward" size={18} color="white" />
         </Pressable>
 
         <View className="mt-4 h-5 items-center justify-center">
           {slide.showTerms ? (
-            <Text className="text-center text-[13px] text-[#7a8596]">
+            <Text className="text-center text-[13px] font-inter-regular text-[#7a8596]">
               By continuing, you agree to our{' '}
               <Link href="/terms-of-service" className="underline">
                 Terms of Service

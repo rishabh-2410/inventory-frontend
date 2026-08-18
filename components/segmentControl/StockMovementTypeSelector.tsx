@@ -19,7 +19,7 @@ export const StockMovementTypeSelector = ({ selectedMovementType, onSelectMoveme
                     }}
                     className={`flex-1 items-center rounded-[14px] px-2 py-3 ${isActive ? "bg-white" : "bg-transparent"}`}
                     >
-                        <Text className={`text-[16px] font-semibold ${isActive ? "text-[#0b7a4d]" : "text-[#7a8596]"}`}>
+                        <Text className={`text-[15px] font-inter-semibold ${isActive ? "text-[#0b7a4d]" : "text-[#7a8596]"}`}>
                             {type.charAt(0) + type.slice(1).toLowerCase()}
                         </Text>
                     </Pressable>

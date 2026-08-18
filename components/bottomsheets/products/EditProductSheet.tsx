@@ -171,18 +171,18 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
           contentContainerStyle={styles.scrollContent}
         >
           <View className="mb-8">
-            <Text className="text-[18px] font-bold text-[#171a21]">Edit Product</Text>
-            <Text className="mt-2 text-[14px] leading-6 text-[#7a8596]">
+            <Text className="text-[18px] font-inter-bold text-[#171a21]">Edit Product</Text>
+            <Text className="mt-2 text-[14px] font-inter-regular leading-6 text-[#7a8596]">
               Update the product fields you want to change.
             </Text>
           </View>
 
           <View className="mb-5 rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-5">
-            <Text className="mb-5 text-[16px] font-bold text-[#171a21]">
+            <Text className="mb-5 text-[16px] font-inter-bold text-[#171a21]">
               General Information
             </Text>
 
-            <Text className="mb-2 text-[14px] text-[#7a8596]">Product Name</Text>
+            <Text className="mb-2 text-[14px] font-inter-medium text-[#7a8596]">Product Name</Text>
             <Controller
               control={control}
               name="name"
@@ -190,13 +190,13 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
                 <TextInput
                   value={field.value}
                   onChangeText={field.onChange}
-                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] font-inter-regular text-[#171a21]"
                 />
               )}
             />
-            {errors.name && <Text className="mb-3 text-[13px] text-red-500">{errors.name.message}</Text>}
+            {errors.name && <Text className="mb-3 text-[13px] font-inter-regular text-red-500">{errors.name.message}</Text>}
 
-            <Text className="mb-2 text-[14px] text-[#7a8596]">SKU / Serial Number</Text>
+            <Text className="mb-2 text-[14px] font-inter-medium text-[#7a8596]">SKU / Serial Number</Text>
             <Controller
               control={control}
               name="sku"
@@ -204,13 +204,13 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
                 <TextInput
                   value={field.value}
                   onChangeText={field.onChange}
-                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] font-inter-regular text-[#171a21]"
                 />
               )}
             />
-            {errors.sku && <Text className="mb-3 text-[13px] text-red-500">{errors.sku.message}</Text>}
+            {errors.sku && <Text className="mb-3 text-[13px] font-inter-regular text-red-500">{errors.sku.message}</Text>}
 
-            <Text className="mb-2 text-[14px] text-[#7a8596]">Selling Price</Text>
+            <Text className="mb-2 text-[14px] font-inter-medium text-[#7a8596]">Selling Price</Text>
             <Controller
               control={control}
               name="selling_price"
@@ -219,12 +219,12 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
                   value={field.value}
                   onChangeText={field.onChange}
                   keyboardType="decimal-pad"
-                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] font-inter-regular text-[#171a21]"
                 />
               )}
             />
 
-            <Text className="mb-2 text-[14px] text-[#7a8596]">Cost Price</Text>
+            <Text className="mb-2 text-[14px] font-inter-medium text-[#7a8596]">Cost Price</Text>
             <Controller
               control={control}
               name="cost_price"
@@ -233,12 +233,12 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
                   value={field.value}
                   onChangeText={field.onChange}
                   keyboardType="decimal-pad"
-                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] font-inter-regular text-[#171a21]"
                 />
               )}
             />
 
-            <Text className="mb-2 text-[14px] text-[#7a8596]">Category ID</Text>
+            <Text className="mb-2 text-[14px] font-inter-medium text-[#7a8596]">Category ID</Text>
             <Controller
               control={control}
               name="category_id"
@@ -246,12 +246,12 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
                 <TextInput
                   value={field.value}
                   onChangeText={field.onChange}
-                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                  className="mb-4 rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] font-inter-regular text-[#171a21]"
                 />
               )}
             />
 
-            <Text className="mb-2 text-[14px] text-[#7a8596]">Image URL</Text>
+            <Text className="mb-2 text-[14px] font-inter-medium text-[#7a8596]">Image URL</Text>
             <Controller
               control={control}
               name="image_url"
@@ -259,20 +259,20 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
                 <TextInput
                   value={field.value}
                   onChangeText={field.onChange}
-                  className="rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] text-[#171a21]"
+                  className="rounded-2xl border border-[#b7c7bf] bg-white px-4 py-4 text-[16px] font-inter-regular text-[#171a21]"
                 />
               )}
             />
           </View>
 
           <View className="rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-5">
-            <Text className="mb-5 text-[16px] font-bold text-[#171a21]">Publishing</Text>
+            <Text className="mb-5 text-[16px] font-inter-bold text-[#171a21]">Publishing</Text>
 
             <Pressable
               onPress={handleSubmit(onSubmit)}
               className="items-center rounded-2xl bg-[#0b7a4d] px-5 py-4"
             >
-              <Text className="text-[16px] font-semibold text-white">
+              <Text className="text-[16px] font-inter-semibold text-white">
                 {editProductMutation.isPending ? "Saving..." : "Save Changes"}
               </Text>
             </Pressable>
