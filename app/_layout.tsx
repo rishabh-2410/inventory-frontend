@@ -1,11 +1,11 @@
 import "../global.css";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SplashScreen, Stack, ThemeProvider, DefaultTheme } from 'expo-router';
+import { SplashScreen, Stack, ThemeProvider, DefaultTheme, Redirect } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 // import { useFonts } from 'expo-font';
 import 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { useEffect, useState } from 'react';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -15,6 +15,7 @@ import { useEffect, useState, useRef } from "react";
 import { ActivityIndicator } from "react-native";
 import { useSessionRefresh } from "@/hooks/useSessionRefrest";
 import { refreshUserToken } from "@/services/auth.service";
+import { useOnboardingStatus } from "@/hooks/useOnboardingStatus";
 
 
 // import {
@@ -37,6 +38,7 @@ export default function RootLayout() {
   const hasHydrated = useHasHydrated();
   const [isRestoring, setIsRestoring] = useState(false);
   const hasRestoredRef = useRef(false);
+  const isOnboarded = useOnboardingStatus();
 
   useSessionRefresh();
 
@@ -45,15 +47,15 @@ export default function RootLayout() {
     if (!hasHydrated) return;
     if (!refreshToken) return;
     if (hasRestoredRef.current) return;
-  
+
     hasRestoredRef.current = true;
-  
+
     const restoreSession = async () => {
       try {
         setIsRestoring(true);
-  
+
         const response = await refreshUserToken(refreshToken);
-  
+
         const user = {
           id: response.id,
           name: response.name,
@@ -63,7 +65,7 @@ export default function RootLayout() {
           business_id: response.business_id,
           created_at: response.created_at,
         };
-  
+
         useAuthStore.getState().setSession(
           user,
           response.access_token,
@@ -77,14 +79,14 @@ export default function RootLayout() {
         setIsRestoring(false);
       }
     };
-  
+
     restoreSession();
   }, [hasHydrated, refreshToken]);
 
   useEffect(() => {
-     if(hasHydrated && !isRestoring) {
+    if (hasHydrated && !isRestoring) {
       SplashScreen.hideAsync();
-     }
+    }
   }, [hasHydrated, isRestoring])
 
   if (!hasHydrated || isRestoring) {
@@ -96,19 +98,37 @@ export default function RootLayout() {
       <QueryClientProvider client={queryClient}>
         <BottomSheetModalProvider>
           <ThemeProvider value={DefaultTheme}>
+
             <Stack
-              key={isSignedIn ? "app-stack" : "auth-stack"}
+              // key={
+              //   !hasCompletedOnboarding ? "onboarding-stack":
+              //   isSignedIn ? "app-stack" : "auth-stack"}
+
               screenOptions={{ headerShown: false }}
             >
               <Stack.Screen name="index" />
-              {isSignedIn ? (
+              {/* {!hasCompletedOnboarding ? <Stack.Screen name="onboarding" /> : isSignedIn ? (
                 <Stack.Screen name="(tabs)" />
               ) : (
                 <Stack.Screen name="(auth)" />
-              )}
+              )} */}
+              <Stack.Protected guard={isOnboarded === false}>
+                <Stack.Screen name="onboarding" />
+              </Stack.Protected>
+              <Stack.Protected guard={!!isOnboarded && !isSignedIn}>
+                <Stack.Screen name="(auth)" />
+              </Stack.Protected>
+              <Stack.Protected guard={!!isOnboarded && isSignedIn}>
+                <Stack.Screen name="(tabs)" />
+              </Stack.Protected>
             </Stack>
+
+
             <StatusBar style="dark" />
+
             <Toast />
+
+
           </ThemeProvider>
         </BottomSheetModalProvider>
       </QueryClientProvider>
