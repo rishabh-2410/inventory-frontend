@@ -1,5 +1,5 @@
 import { router, Link } from 'expo-router'
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import {Controller, useForm} from "react-hook-form";
@@ -72,32 +72,34 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+      <KeyboardAvoidingView
+        className="flex-1"
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
       <ScrollView
         className="flex-1"
         contentContainerClassName="flex-grow px-6 pb-10"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View className="mb-8 items-center pt-10">
-          <View className="h-24 w-24 items-center justify-center rounded-[20px] bg-[#dff1ea]">
+        <View className="mb-8 items-center pt-2">
+          <View className="h-20 w-20 items-center justify-center rounded-[20px] bg-[#dff1ea]">
             <View className="items-center">
               <MaterialIcons name="inventory" size={36} color="#0f8f5b" />
             </View>
           </View>
 
-          <Text className="mt-4 text-center text-[36px] font-inter-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
+          <Text className="mt-4 text-center text-[22px] font-inter-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
             Invento Pro
           </Text>
-          <Text className="mt-3 text-center text-[17px] font-inter-medium leading-[28px] text-[#7a8596]">
-            Know your stock. Move it with confidence. 
+          <Text className="text-center text-[14px] font-inter-medium leading-[28px] text-[#7a8596]">
+            Login to start managing your inventory.
           </Text>
         </View>
 
         <View className="rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-7 shadow-sm">
-          <Text className="text-[20px] font-inter-bold text-[#171a21]">Login</Text>
-
-          <View className="mt-8">
-            <Text className="mb-3 text-[15px] font-inter-medium text-[#535862]">
+          <View className="mt-2">
+            <Text className="mb-3 text-[12px] font-inter-medium text-[#535862]">
               Email Address
             </Text>
             <Controller
@@ -106,7 +108,7 @@ export default function LoginScreen() {
               render={({ field }) => (
                 <View>
                   <View className="flex-row items-center rounded-2xl border border-[#98a2b3] bg-white px-4">
-                    <Text className="mr-3 text-[18px] font-inter-regular text-[#667085]">@</Text>
+                    <Text className="mr-3 text-[18px] font-inter-regular text-[#7a8596]">@</Text>
                     <TextInput
                       value={field.value}
                       onChangeText={field.onChange}
@@ -117,7 +119,7 @@ export default function LoginScreen() {
                       autoCapitalize="none"
                       keyboardType="email-address"
                       returnKeyType="next"
-                      className="flex-1 py-4 text-[18px] font-inter-regular text-[#171a21]"
+                      className="flex-1 py-4 text-[14px] font-inter-regular text-[#171a21]"
                     />
                   </View>
                   {errors.email && (
@@ -132,7 +134,7 @@ export default function LoginScreen() {
 
           <View className="mt-6">
             <View className="mb-3 flex-row items-center justify-between">
-              <Text className="text-[15px] font-inter-medium text-[#535862]">Password</Text>
+              <Text className="text-[12px] font-inter-medium text-[#7a8596]">Password</Text>
             </View>
             <Controller
               control={control}
@@ -150,7 +152,7 @@ export default function LoginScreen() {
                       keyboardType="default"
                       returnKeyType="done"
                       secureTextEntry={!showPassword}
-                      className="flex-1 py-4 text-[18px] font-inter-regular text-[#171a21]"
+                      className="flex-1 py-4 text-[14px] font-inter-regular text-[#171a21]"
                     />
                     <Pressable 
                       onPress={() => {
@@ -181,25 +183,26 @@ export default function LoginScreen() {
             onPress={handleSubmit(onSubmit)}
             className="mt-8 items-center rounded-2xl bg-[#0b7a4d] px-5 py-4 shadow-sm"
           >
-            <Text className="text-[18px] font-inter-semibold text-white">
-              {loginMutation.isPending ? "Logging in..." : "Login ->"}
+            <Text className="text-[14px] font-inter-semibold text-white">
+              {loginMutation.isPending ? <ActivityIndicator size="small" color="#fff" /> : "Login ->"}
             </Text>
           </Pressable>
         </View>
 
         <View className="mt-10 items-center">
           <Pressable onPress={() => router.push("/(auth)/register")}>
-            <Text className="text-[15px] font-inter-regular text-[#7a8596]">
+            <Text className="text-[13px] font-inter-regular text-[#7a8596]">
               Don&apos;t have an account ?{" "}
               <Text className="font-inter-medium text-[#0b7a4d]">Register here</Text>
             </Text>
           </Pressable>
 
-          <Text className="mt-4 text-[12px] font-inter-medium uppercase tracking-[2px] text-[#b3bcc8]">
+          <Text className="mt-6 text-[10px] font-inter-medium uppercase tracking-[2px] text-[#b3bcc8]">
             <Link href="/privacy-policy">Privacy Policy</Link>  •  <Link href="/terms-of-service">Terms of Service</Link>
           </Text>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView >
   );
 }
