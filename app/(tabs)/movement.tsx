@@ -39,10 +39,10 @@ export default function MovementScreen() {
 
   const stockMovementMutation = useStockMovement();
   const quantity = useWatch({ control, name: "movement_quantity" });
-  
-  
-  
-  
+
+
+
+
   const handleSelectProduct = (product: Product) => {
     setSelectedProduct(product);
     setValue("product_id", product.id, { shouldValidate: true });
@@ -69,7 +69,7 @@ export default function MovementScreen() {
         queryClient.invalidateQueries({ queryKey: ["stockMovements"] });
         queryClient.invalidateQueries({ queryKey: queryKeys.inventoryStats });
         queryClient.invalidateQueries({ queryKey: ["inventory"] });
-        queryClient.invalidateQueries({ queryKey: ["dashboard"]});
+        queryClient.invalidateQueries({ queryKey: ["dashboard"] });
         Toast.show({
           text1: "Stock movement recorded successfully",
           type: "success",
@@ -116,14 +116,26 @@ export default function MovementScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-    
+{/* 
+        <View className="mb-6 flex-row items-center">
+          <MaterialIcons name="swap-horiz" size={28} color="#0b7a4d" />
+          <Text className="ml-2 text-[20px] font-inter-bold text-[#171a21]">Log New Movement</Text>
+        </View> */}
 
-        <View className="px-6 pt-6">
-          <View className="rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-6 shadow-sm">
-            <View className="mb-6 flex-row items-center">
-              <MaterialIcons name="swap-horiz" size={28} color="#0b7a4d" />
-              <Text className="ml-2 text-[20px] font-inter-bold text-[#171a21]">Log New Movement</Text>
+        <View className="mx-[-24px] px-6 py-5">
+          <View className="flex-row items-center justify-between px-8">
+            <Text className="text-[22px] font-inter-bold text-[#171a21]">Log New Movement</Text>
+            <View className="h-10 w-10 items-center justify-center rounded-full bg-[#0b7a4d]">
+              <MaterialIcons name="swap-horiz" size={22} color="white" />
             </View>
+          </View>
+        </View>
+
+
+
+        <View className="px-6 pt-4">
+          <View className="rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-6 shadow-sm">
+
 
             <Controller
               control={control}
@@ -211,7 +223,7 @@ export default function MovementScreen() {
                     >
                       <Text className="text-[28px] font-inter-medium text-[#0b7a4d]">-</Text>
                     </Pressable>
-                    <TextInput 
+                    <TextInput
                       placeholder="1"
                       value={field.value ? String(field.value) : ""}
                       onChangeText={(text) => {
@@ -247,7 +259,7 @@ export default function MovementScreen() {
                 control={control}
                 name="reason"
                 render={({ field }) => (
-                  <TextInput 
+                  <TextInput
                     placeholder="Enter reason for movement or serial numbers..."
                     placeholderTextColor="#7a8596"
                     value={field.value}

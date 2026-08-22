@@ -89,12 +89,12 @@ export default function LoginScreen() {
             Invento Pro
           </Text>
           <Text className="mt-3 text-center text-[17px] font-inter-medium leading-[28px] text-[#7a8596]">
-            Efficient warehouse management ecosystem
+            Know your stock. Move it with confidence. 
           </Text>
         </View>
 
         <View className="rounded-[24px] border border-[#e6ebf1] bg-white px-6 py-7 shadow-sm">
-          <Text className="text-[20px] font-inter-bold text-[#171a21]">Sign In</Text>
+          <Text className="text-[20px] font-inter-bold text-[#171a21]">Login</Text>
 
           <View className="mt-8">
             <Text className="mb-3 text-[15px] font-inter-medium text-[#535862]">
@@ -190,13 +190,13 @@ export default function LoginScreen() {
         <View className="mt-10 items-center">
           <Pressable onPress={() => router.push("/(auth)/register")}>
             <Text className="text-[15px] font-inter-regular text-[#7a8596]">
-              Don&apos;t have an account?{" "}
-              <Text className="font-inter-medium text-[#0b7a4d]">Request Access</Text>
+              Don&apos;t have an account ?{" "}
+              <Text className="font-inter-medium text-[#0b7a4d]">Register here</Text>
             </Text>
           </Pressable>
 
           <Text className="mt-4 text-[12px] font-inter-medium uppercase tracking-[2px] text-[#b3bcc8]">
-            <Link href="privacy-policy">Privacy Policy</Link>  •  <Link href="terms-of-service">Terms of Service</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>  •  <Link href="/terms-of-service">Terms of Service</Link>
           </Text>
         </View>
       </ScrollView>

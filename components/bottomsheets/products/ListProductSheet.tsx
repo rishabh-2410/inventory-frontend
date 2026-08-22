@@ -20,17 +20,23 @@ type ListProductSheetProps = {
       const [products, setProducts] = useState<Product[]>([]);
 
 
-      useEffect(() => {
-        async function fetchProducts() {
+      const loadProducts = useCallback(async () => {
+        try {
           const products = await queryClient.ensureQueryData<Product[]>({
             queryKey: queryKeys.products,
             queryFn: () => getProducts(),
+            revalidateIfStale: true,
           });
           console.log(products);
           setProducts(products);
-        }
-        fetchProducts();
+        } catch (error) {
+          console.error("Error loading products", error);
+        } 
       }, []);
+
+      useEffect(() => {
+        loadProducts();
+      }, [loadProducts]);
 
 
 
@@ -59,6 +65,9 @@ type ListProductSheetProps = {
           backgroundStyle={styles.background}
           handleIndicatorStyle={styles.handle}
           backdropComponent={renderBackdrop}
+          onChange={(index) => {
+            if (index >= 0) loadProducts();
+          }}
         >
             <BottomSheetFlatList
             style={styles.container}

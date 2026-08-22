@@ -83,10 +83,10 @@ export default function RegisterScreen() {
           </View>
 
           <Text className="text-center text-[32px] font-inter-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
-            Create your account
+            Invento Pro
           </Text>
           <Text className="mt-4 max-w-[320px] text-center text-[17px] leading-[28px] text-[#7a8596] font-inter-medium">
-            Start managing your assets with precision today.
+            Open a workspace. Own every unit from day one.
           </Text>
         </View>
 

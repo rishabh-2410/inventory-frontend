@@ -19,13 +19,13 @@ export default function SettingsScreen() {
 
   const accountItems = isOwner
     ? [
-        { label: "Privacy Policy", subtitle: "", external: true },
-        { label: "Help Center", subtitle: "", external: false },
+        { label: "Privacy Policy", subtitle: "", onPress: () => router.push("/privacy-policy") },
+        { label: "Help Center", subtitle: "", onPress: () => router.push("/help-center") },
       ]
     : [
-        { label: "Privacy Policy", subtitle: "Data protection & usage terms", external: false },
-        { label: "Help Center", subtitle: "Guides and support contact", external: false },
-        { label: "About Us", subtitle: "Get to know use better", external: false },
+        { label: "Privacy Policy", subtitle: "Data protection & usage terms", onPress: () => router.push("/privacy-policy") },
+        { label: "Help Center", subtitle: "Guides and support contact", onPress: () => router.push("/help-center") },
+        { label: "About Us", subtitle: "Get to know use better" },
       ]
 
   return (
@@ -35,9 +35,9 @@ export default function SettingsScreen() {
         contentContainerClassName="pb-20"
         showsVerticalScrollIndicator={false}
       >
-        <View className="mx-[-24px] mb-6 border-b border-[#e5e7eb] bg-white px-6 py-5">
+        <View className="mx-[-24px] mb-6 px-6 py-5">
           <View className="flex-row items-center justify-between px-8">
-            <Text className="text-[18px] font-inter-bold text-[#171a21]">Settings</Text>
+            <Text className="text-[22px] font-inter-bold text-[#171a21]">Settings</Text>
             <View className="h-10 w-10 items-center justify-center rounded-full bg-[#0b7a4d]">
               <MaterialIcons name="settings" size={24} color="white" />
             </View>
@@ -122,6 +122,7 @@ export default function SettingsScreen() {
               {accountItems.map((item, index) => (
                 <Pressable
                   key={item.label}
+                  onPress={item.onPress}
                   className={`flex-row items-center justify-between px-4 py-5 ${index < accountItems.length - 1 ? "border-b border-[#eef2f6]" : ""}`}
                 >
                   <View className="flex-row items-center">
@@ -137,7 +138,7 @@ export default function SettingsScreen() {
                       )}
                     </View>
                   </View>
-                  <Text className="text-[20px] font-inter-regular text-[#7a8596]">{item.external ? "↗" : "›"}</Text>
+                  <Text className="text-[20px] font-inter-regular text-[#7a8596]">›</Text>
                 </Pressable>
               ))}
             </View>

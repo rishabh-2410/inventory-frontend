@@ -18,11 +18,10 @@ export const useAddCategory = () => {
             queryClient.setQueryData(queryKeys.categories, (old: Category[] = []) => [...old, optimisticCategory]);
             return { previousCategories, optimisticCategory };
         },
-        onSettled: (data, error, variables, context) => {
-            if (error) {
-                console.error("Error adding category", error);
-                queryClient.setQueryData(queryKeys.categories, context?.previousCategories);
-            }
+        onError: (error, variables, context) => {
+            queryClient.setQueryData(queryKeys.categories, context?.previousCategories);
+        },
+        onSettled: () => {
             queryClient.invalidateQueries({ queryKey: queryKeys.categories });
         },
     });

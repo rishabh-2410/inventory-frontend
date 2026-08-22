@@ -18,7 +18,9 @@ export default function HistoryScreen() {
   } = useStockMovmentHistory(businessID, {limit: 2});
 
   if (isPending) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+        <ActivityIndicator size="large" color="#0000ff" />
+    </SafeAreaView>;
   }
   if (isError) {
     return <View>
@@ -67,9 +69,9 @@ export default function HistoryScreen() {
           keyExtractor={(item) => item.id.toString()}
           ListHeaderComponent={() => {
             return (
-              <View className="mx-[-24px] mb-6 border-b border-[#e5e7eb] bg-white px-6 py-5">
+              <View className="mx-[-24px] mb-6 px-6 py-5">
               <View className="flex-row items-center justify-between px-8">
-                <Text className="text-[18px] font-inter-bold text-[#171a21]">Movement History</Text>
+                <Text className="text-[22px] font-inter-bold text-[#171a21]">Movement History</Text>
                 <View className="h-10 w-10 items-center justify-center rounded-full bg-[#0b7a4d]">
                   <MaterialIcons name="history" size={22} color="white" />
                 </View>

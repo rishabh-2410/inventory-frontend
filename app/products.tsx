@@ -9,6 +9,7 @@ import EditProductSheet from '../components/bottomsheets/products/EditProductShe
 import { useGetProducts } from '@/hooks/query/useGetProducts'
 import { Product } from '@/models/zodSchema/product.schema'
 import { useDeleteProduct } from '@/hooks/mutation/delete/useDeleteProduct'
+import { router } from 'expo-router'
 
 export default function ProductScreen() {
   const addProductBottomSheetRef = useRef<BottomSheetModal>(null)
@@ -21,7 +22,7 @@ export default function ProductScreen() {
     addProductBottomSheetRef.current?.present()
   }
 
-  const handleEditProduct = (item: Product) => {  
+  const handleEditProduct = (item: Product) => {
     setSelectedProduct(item)
     editProductBottomSheetRef.current?.present()
   }
@@ -30,7 +31,9 @@ export default function ProductScreen() {
 
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color="#0b7a4d" />
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+      <ActivityIndicator size="large" color="#0b7a4d" />
+    </SafeAreaView>
   }
 
   if (isError) {
@@ -39,7 +42,7 @@ export default function ProductScreen() {
     </View>;
   }
 
-  const handleDeleteProduct = ( name: string, productID: string ) => {
+  const handleDeleteProduct = (name: string, productID: string) => {
     Alert.alert(
       'Delete product',
       `Delete "${name}"? This cannot be undone.`,
@@ -67,7 +70,7 @@ export default function ProductScreen() {
                     </Text>
                   </View>
 
-                  <View className="flex-1"> 
+                  <View className="flex-1">
                     <Text className="text-[16px] font-inter-bold leading-7 text-[#171a21]">
                       {item.name}
                     </Text>
@@ -89,10 +92,17 @@ export default function ProductScreen() {
             )}
             ListHeaderComponent={
               <View>
-                <View className="mx-[-24px] mb-6 border-b border-[#e5e7eb] bg-white px-6 py-5">
+                <View className="mx-[-24px] mb-6 px-6 py-5">
                   <View className="flex-row items-center justify-between">
+                    <Pressable
+                      onPress={() => router.back()}
+                      className="h-10 w-10 items-center justify-center"
+                      hitSlop={8}
+                    >
+                      <MaterialIcons name="arrow-back" size={24} color="#171a21" />
+                    </Pressable>
                     <Text className="text-[18px] font-inter-bold text-[#171a21]">Products</Text>
-                    <Text className="text-[20px] font-inter-semibold text-[#0b7a4d]">!</Text>
+                    <MaterialIcons name="shopping-cart-checkout" size={24} color="#0b7a4d" />
                   </View>
                 </View>
 
@@ -115,7 +125,7 @@ export default function ProductScreen() {
         </View>
       </SafeAreaView>
       <AddProductSheet ref={addProductBottomSheetRef} />
-      <EditProductSheet product={selectedProduct} onProductUpdated={() => {}} ref={editProductBottomSheetRef} />
+      <EditProductSheet product={selectedProduct} onProductUpdated={() => { }} ref={editProductBottomSheetRef} />
     </>
   )
 }

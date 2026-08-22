@@ -49,6 +49,7 @@ apiClient.interceptors.response.use(
 
                 // Login 401 is Invalid Credentials; refresh 401 is handled by the caller.
                 if (!isLoginOrRefresh) {
+                    clearUserSession();
                     Toast.show({
                         type: "error",
                         text1: "Your session has expired",
@@ -73,3 +74,9 @@ apiClient.interceptors.response.use(
 
     }
 )
+
+
+
+const clearUserSession = () => {
+    useAuthStore.getState().clearSession();
+}
