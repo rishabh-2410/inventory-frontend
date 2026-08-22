@@ -1,0 +1,36 @@
+{
+    "cli": {
+        "version": ">= 12.1.0",
+        "appVersionSource": "local"
+    },
+    "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal",
+            "env": {
+                "EXPO_PUBLIC_API_URL": "https://inventory-mgmt-backend-09g6.onrender.com/api/v1"
+            }
+        },
+        "preview": {
+            "distribution": "internal",
+            "env": {
+                "EXPO_PUBLIC_API_URL": "https://inventory-mgmt-backend-09g6.onrender.com/api/v1"
+            }
+        },
+        "production": {
+            "autoIncrement": true,
+            "env": {
+                "EXPO_PUBLIC_API_URL": "https://inventory-mgmt-backend-prod.onrender.com/api/v1"
+            }
+        },
+        "simulator": {
+            "extends": "development",
+            "ios": {
+                "simulator": true
+            }
+        }
+    },
+    "submit": {
+        "production": {}
+    }
+}

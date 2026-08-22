@@ -1,10 +1,11 @@
 import { useAuthStore } from "@/store/auth.store";
+import { API_BASE_URL } from "@/utils/helper";
 import { create } from "axios";
 import { router } from "expo-router";
 import Toast from 'react-native-toast-message';
 
 export const apiClient = create({
-    baseURL: "http://localhost:8080/api/v1",
+    baseURL: API_BASE_URL,
     headers: {
         "Content-Type": "application/json",
     },

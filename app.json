@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "frontend",
-    "slug": "frontend",
+    "name": "Invento Pro",
+    "slug": "invento-pro",
+    "scheme": "invento-pro",
     "version": "1.0.0",
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,12 +30,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.rishabh.inventopro",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b22eb308-ecf7-46e9-b814-8c6b0074827b"
       }
     }
   }
