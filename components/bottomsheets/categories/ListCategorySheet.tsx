@@ -1,4 +1,4 @@
-import { BottomSheetBackdrop, BottomSheetFlatList, BottomSheetModal, BottomSheetView, } from "@gorhom/bottom-sheet";
+import { BottomSheetBackdrop, BottomSheetFlatList, BottomSheetModal } from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback, useEffect, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { queryClient } from "@/lib/queryclient";

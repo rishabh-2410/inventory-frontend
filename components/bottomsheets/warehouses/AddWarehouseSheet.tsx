@@ -23,7 +23,6 @@ import { useAddWarehouse } from "@/hooks/mutation/add/useAddWarehouse";
       const {
         control,
         handleSubmit,
-        setValue,
         reset,
         formState: { errors },
       } = useForm({
