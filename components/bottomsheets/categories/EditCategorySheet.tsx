@@ -1,7 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { StyleSheet, Text, Keyboard, Pressable, TextInput, View } from "react-native";
+import { StyleSheet, Text, Keyboard, Pressable, TextInput, View, ActivityIndicator } from "react-native";
 import Toast from "react-native-toast-message";
 import { getApiErrorMessage } from "@/lib/api-error";
 import { queryClient } from "@/lib/queryclient";
@@ -102,7 +102,7 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
               type: "success",
               text1: "Category updated",
               position: "bottom",
-              visibilityTime: 3000,
+              visibilityTime: 1500,
               autoHide: true,
             });
             reset();
@@ -116,7 +116,7 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
               text1: "Failed to update category",
               text2: getApiErrorMessage(error, "Please try again"),
               position: "bottom",
-              visibilityTime: 3000,
+              visibilityTime: 1500,
               autoHide: true,
             });
           },
@@ -190,10 +190,11 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
 
             <Pressable
               onPress={handleSubmit(onSubmit)}
+              disabled={editCategoryMutation.isPending}
               className="items-center rounded-2xl bg-[#0b7a4d] px-5 py-4"
             >
               <Text className="text-[16px] font-inter-semibold text-white">
-                {editCategoryMutation.isPending ? "Saving..." : "Save Changes"}
+                {editCategoryMutation.isPending ? <ActivityIndicator size="small" color="#fff" /> : "Save Changes"}
               </Text>
             </Pressable>
           </View>

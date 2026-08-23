@@ -1,7 +1,7 @@
 import {BottomSheetBackdrop,BottomSheetModal,BottomSheetScrollView,} from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback,useMemo} from "react";
 import {Controller, useForm} from "react-hook-form";
-import {StyleSheet,Text, Pressable, TextInput, View} from "react-native";
+import {StyleSheet,Text, Pressable, TextInput, View, ActivityIndicator} from "react-native";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -151,9 +151,10 @@ import { useAddWarehouse } from "@/hooks/mutation/add/useAddWarehouse";
 
                 <Pressable
                   onPress={handleSubmit(onSubmit)}
+                  disabled={addWarehouseMutation.isPending}
                   className="items-center rounded-2xl bg-[#0b7a4d] px-5 py-4"
                 >
-                  <Text className="text-[16px] font-inter-semibold text-white">Save Warehouse</Text>
+                  {addWarehouseMutation.isPending ? <ActivityIndicator size="small" color="#fff" /> : <Text className="text-[14px] font-inter-semibold text-white">Save Warehouse</Text>}
                 </Pressable>
 
                 <Pressable className="mt-4 items-center rounded-2xl bg-[#eef4ef] px-5 py-4" onPress={() => (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()}>

@@ -1,7 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { StyleSheet, Text, Keyboard, Pressable, TextInput, View } from "react-native";
+import { StyleSheet, Text, Keyboard, Pressable, TextInput, View, ActivityIndicator } from "react-native";
 import Toast from "react-native-toast-message";
 
 import { getApiErrorMessage } from "@/lib/api-error";
@@ -138,6 +138,13 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
             (
               ref as React.RefObject<BottomSheetModal>
             )?.current?.dismiss();
+            Toast.show({
+              type: "success",
+              text1: "Product updated",
+              position: "bottom",
+              visibilityTime: 1500,
+              autoHide: true,
+            });
           },
           onError: (error) => {
             Toast.show({
@@ -270,10 +277,11 @@ const EditProductSheet = forwardRef<BottomSheetModal, EditProductSheetProps>(
 
             <Pressable
               onPress={handleSubmit(onSubmit)}
+              disabled={editProductMutation.isPending}
               className="items-center rounded-2xl bg-[#0b7a4d] px-5 py-4"
             >
               <Text className="text-[16px] font-inter-semibold text-white">
-                {editProductMutation.isPending ? "Saving..." : "Save Changes"}
+                {editProductMutation.isPending ? <ActivityIndicator size="small" color="#fff" /> : "Save Changes"}
               </Text>
             </Pressable>
           </View>

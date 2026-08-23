@@ -25,7 +25,7 @@ export default function SettingsScreen() {
     : [
         { label: "Privacy Policy", subtitle: "Data protection & usage terms", onPress: () => router.push("/privacy-policy") },
         { label: "Help Center", subtitle: "Guides and support contact", onPress: () => router.push("/help-center") },
-        { label: "About Us", subtitle: "Get to know use better" },
+        { label: "About Us", subtitle: "Get to know us better", onPress: () => router.push("/about-us") },
       ]
 
   return (

@@ -14,6 +14,8 @@ import AddWarehouseSheet from '@/components/bottomsheets/warehouses/AddWarehouse
 import EditWarehouseSheet from '@/components/bottomsheets/warehouses/EditWarehouseSheet'
 import { useDeleteWarehouse } from '@/hooks/mutation/delete/useDeleteWarehouse'
 import { router } from 'expo-router'
+import Toast from 'react-native-toast-message'
+import { getApiErrorMessage } from '@/lib/api-error'
 
 export default function WarehouseScreen() {
   const addWarehouseBottomSheetRef = useRef<BottomSheetModal>(null)
@@ -35,14 +37,14 @@ export default function WarehouseScreen() {
 
 
   if (isLoading) {
-    return <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
       <ActivityIndicator size="large" color="#0b7a4d" />
     </SafeAreaView>
   }
 
   if (isError) {
-    return <View>
-      <Text className="font-inter-regular text-[15px] text-[#7a8596]">Error loading warehouses</Text>
+    return <View className="flex-1 items-center justify-center">
+      <Text className="font-inter-regular text-[15px] text-[#7a8596] ">Error loading warehouses</Text>
     </View>;
   }
 
@@ -52,7 +54,28 @@ export default function WarehouseScreen() {
       `Delete "${name}"? This cannot be undone.`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: () => deleteWarehouseMutation.mutate(warehouseID) }
+        { text: 'Delete', style: 'destructive',
+           onPress: () => deleteWarehouseMutation.mutate(warehouseID, {
+            onSuccess: () => {
+              Toast.show({
+                type: "success",
+                text1: "Warehouse deleted",
+                position: "bottom",
+                visibilityTime: 1500,
+                autoHide: true,
+              });
+            },
+            onError: (error: any) => {
+              Toast.show({
+                type: "error",
+                text1: "Failed to delete warehouse",
+                text2: getApiErrorMessage(error, "Please try again"),
+                position: "bottom",
+                visibilityTime: 1500,
+                autoHide: true,
+              });
+            }
+           }) }
       ]
     )
   }

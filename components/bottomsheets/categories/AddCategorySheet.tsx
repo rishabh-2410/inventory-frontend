@@ -1,7 +1,7 @@
 import {BottomSheetBackdrop,BottomSheetModal,BottomSheetScrollView,} from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback,useMemo, useRef, useState,} from "react";
 import {Controller, useForm} from "react-hook-form";
-import {StyleSheet,Text, Pressable, TextInput, View} from "react-native";
+import {StyleSheet,Text, Pressable, TextInput, View, ActivityIndicator} from "react-native";
 import ListCategorySheet from "../categories/ListCategorySheet";
 import { AddCategoryRequest, addCategorySchema, Category } from "@/models/zodSchema/category.schema";
 import { AddProductRequest, addProductSchema, Product } from "@/models/zodSchema/product.schema";
@@ -157,9 +157,10 @@ import { useAddCategory } from "@/hooks/mutation/add/useAddCategory";
 
                 <Pressable
                   onPress={handleSubmit(onSubmit)}
+                  disabled={addCategoryMutation.isPending}
                   className="items-center rounded-2xl bg-[#0b7a4d] px-5 py-4"
                 >
-                  <Text className="text-[16px] font-inter-semibold text-white">Save Category</Text>
+                  {addCategoryMutation.isPending ? <ActivityIndicator size="small" color="#fff" /> : <Text className="text-[14px] font-inter-semibold text-white">Save Category</Text>}
                 </Pressable>
 
                 <Pressable className="mt-4 items-center rounded-2xl bg-[#eef4ef] px-5 py-4" onPress={() => (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()}>

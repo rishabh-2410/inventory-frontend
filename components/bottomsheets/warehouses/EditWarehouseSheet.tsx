@@ -1,7 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { StyleSheet, Text, Keyboard, Pressable, TextInput, View } from "react-native";
+import { StyleSheet, Text, Keyboard, Pressable, TextInput, View, ActivityIndicator } from "react-native";
 import Toast from "react-native-toast-message";
 import { getApiErrorMessage } from "@/lib/api-error";
 import { queryClient } from "@/lib/queryclient";
@@ -190,10 +190,11 @@ const EditWarehouseSheet = forwardRef<BottomSheetModal, EditWarehouseSheetProps>
 
             <Pressable
               onPress={handleSubmit(onSubmit)}
+              disabled={editWarehouseMutation.isPending}
               className="items-center rounded-2xl bg-[#0b7a4d] px-5 py-4"
             >
               <Text className="text-[16px] font-inter-semibold text-white">
-                {editWarehouseMutation.isPending ? "Saving..." : "Save Changes"}
+                {editWarehouseMutation.isPending ? <ActivityIndicator size="small" color="#fff" /> : "Save Changes"}
               </Text>
             </Pressable>
           </View>

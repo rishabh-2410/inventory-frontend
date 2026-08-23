@@ -10,6 +10,8 @@ import { useGetProducts } from '@/hooks/query/useGetProducts'
 import { Product } from '@/models/zodSchema/product.schema'
 import { useDeleteProduct } from '@/hooks/mutation/delete/useDeleteProduct'
 import { router } from 'expo-router'
+import Toast from 'react-native-toast-message'
+import { getApiErrorMessage } from '@/lib/api-error'
 
 export default function ProductScreen() {
   const addProductBottomSheetRef = useRef<BottomSheetModal>(null)
@@ -31,13 +33,13 @@ export default function ProductScreen() {
 
 
   if (isLoading) {
-    return <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
       <ActivityIndicator size="large" color="#0b7a4d" />
     </SafeAreaView>
   }
 
   if (isError) {
-    return <View>
+    return <View className="flex-1 items-center justify-center">
       <Text className="font-inter-regular text-[15px] text-[#7a8596]">Error loading products</Text>
     </View>;
   }
@@ -48,7 +50,29 @@ export default function ProductScreen() {
       `Delete "${name}"? This cannot be undone.`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: () => deleteProductMutation.mutate(productID) }
+        { text: 'Delete', style: 'destructive', 
+          onPress: () => deleteProductMutation.mutate(productID, {
+            onSuccess: () => {
+              Toast.show({
+                type: "success",
+                text1: "Product deleted",
+                position: "bottom",
+                visibilityTime: 1500,
+                autoHide: true,
+              });
+            },
+            onError: (error: any) => {
+              Toast.show({
+                type: "error",
+                text1: "Failed to delete product",
+                text2: getApiErrorMessage(error, "Please try again"),
+                position: "bottom",
+                visibilityTime: 1500,
+                autoHide: true,
+              });
+            }
+          }) },
+         
       ]
     )
   }
@@ -110,7 +134,7 @@ export default function ProductScreen() {
                   onPress={handleAddProduct}
                   className="mb-7 items-center rounded-[18px] bg-[#0b7a4d] px-5 py-5"
                 >
-                  <Text className="text-[18px] font-inter-semibold text-white">+ Add New Product</Text>
+                  <Text className="text-[14px] font-inter-semibold text-white">+ Add New Product</Text>
                 </Pressable>
               </View>
             }

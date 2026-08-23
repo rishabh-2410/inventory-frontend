@@ -58,13 +58,13 @@ export default function CategoryScreen() {
 
 
   if (isLoading) {
-    return <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
       <ActivityIndicator size="large" color="#0b7a4d" />
     </SafeAreaView>
   }
 
   if (isError) {
-    return <View>
+    return <View className="flex-1 items-center justify-center">
       <Text className="font-inter-regular text-[15px] text-[#7a8596]">Error loading categories</Text>
     </View>;
   }
