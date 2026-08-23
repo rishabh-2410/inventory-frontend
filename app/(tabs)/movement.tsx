@@ -11,7 +11,7 @@ import { Warehouse } from '@/models/zodSchema/warehouse.schema';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
-import { View, Text, Pressable, ScrollView } from 'react-native'
+import { View, Text, Pressable, ScrollView, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Toast from 'react-native-toast-message';
@@ -110,6 +110,10 @@ export default function MovementScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+      <KeyboardAvoidingView
+        className="flex-1"
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
       <ScrollView
         className="flex-1"
         contentContainerClassName="pb-10"
@@ -124,7 +128,7 @@ export default function MovementScreen() {
 
         <View className="mx-[-24px] px-6 py-5">
           <View className="flex-row items-center justify-between px-8">
-            <Text className="text-[22px] font-inter-bold text-[#171a21]">Log New Movement</Text>
+            <Text className="text-[20px] font-inter-bold text-[#171a21]">Log New Movement</Text>
             <View className="h-10 w-10 items-center justify-center rounded-full bg-[#0b7a4d]">
               <MaterialIcons name="swap-horiz" size={22} color="white" />
             </View>
@@ -153,9 +157,9 @@ export default function MovementScreen() {
               </Text>
             )}
 
-            <View className="mt-8">
-              <Text className="mb-3 text-[13px] font-inter-medium uppercase tracking-[1.8px] text-[#7a8596]">
-                Select Product
+            <View className="mt-6">
+              <Text className="mb-3 text-[12px] font-inter-medium text-[#7a8596]">
+                Product
               </Text>
               <Controller
                 control={control}
@@ -165,8 +169,8 @@ export default function MovementScreen() {
                     onPress={handleOpenProductList}
                     className="flex-row items-center justify-between rounded-2xl border border-[#98a2b3] bg-white px-4 py-4"
                   >
-                    <Text className={`flex-1 text-[18px] font-inter-regular ${selectedProduct ? "text-[#171a21]" : "text-[#7a8596]"}`}>
-                      {selectedProduct ? selectedProduct.name : "Search or select product..."}
+                    <Text className={`flex-1 text-[14px] font-inter-regular ${selectedProduct ? "text-[#171a21]" : "text-[#7a8596]"}`}>
+                      {selectedProduct ? selectedProduct.name : "Select product..."}
                     </Text>
                     <Text className="ml-3 text-[16px] font-inter-regular text-[#667085]">⌄</Text>
                   </Pressable>
@@ -180,8 +184,8 @@ export default function MovementScreen() {
             </View>
 
             <View className="mt-6">
-              <Text className="mb-3 text-[13px] font-inter-medium uppercase tracking-[1.8px] text-[#7a8596]">
-                Warehouse Location
+              <Text className="mb-3 text-[12px] font-inter-medium text-[#7a8596]">
+                Warehouse
               </Text>
               <Controller
                 control={control}
@@ -191,7 +195,7 @@ export default function MovementScreen() {
                     onPress={handleOpenWarehouseList}
                     className="flex-row items-center justify-between rounded-2xl border border-[#98a2b3] bg-white px-4 py-4"
                   >
-                    <Text className={`flex-1 text-[18px] font-inter-regular ${selectedWarehouse ? "text-[#171a21]" : "text-[#7a8596]"}`}>
+                    <Text className={`flex-1 text-[14px] font-inter-regular ${selectedWarehouse ? "text-[#171a21]" : "text-[#7a8596]"}`}>
                       {selectedWarehouse ? selectedWarehouse.name : "Select facility..."}
                     </Text>
                     <Text className="ml-3 text-[16px] font-inter-regular text-[#667085]">⌄</Text>
@@ -205,8 +209,8 @@ export default function MovementScreen() {
               )}
             </View>
 
-            <View className="mt-6">
-              <Text className="mb-3 text-[13px] font-inter-medium uppercase tracking-[1.8px] text-[#7a8596]">
+            <View className="mt-4">
+              <Text className="mb-3 text-[12px] font-inter-medium text-[#7a8596]">
                 Quantity
               </Text>
               <Controller
@@ -221,7 +225,7 @@ export default function MovementScreen() {
                       }}
                       className="h-12 w-12 items-center justify-center"
                     >
-                      <Text className="text-[28px] font-inter-medium text-[#0b7a4d]">-</Text>
+                      <Text className="text-[20px] font-inter-medium text-[#0b7a4d]">-</Text>
                     </Pressable>
                     <TextInput
                       placeholder="1"
@@ -230,7 +234,7 @@ export default function MovementScreen() {
                         field.onChange(Number(text.replace(/[^0-9]/g, '') || 0));
                       }}
                       keyboardType="number-pad"
-                      className="flex-1 text-center text-[26px] font-inter-semibold text-[#171a21]"
+                      className="flex-1 text-center text-[14px] font-inter-semibold text-[#171a21]"
                     />
                     <Pressable
                       onPress={() => {
@@ -239,7 +243,7 @@ export default function MovementScreen() {
                       }}
                       className="h-12 w-12 items-center justify-center"
                     >
-                      <Text className="text-[28px] font-inter-medium text-[#0b7a4d]">+</Text>
+                      <Text className="text-[20px] font-inter-medium text-[#0b7a4d]">+</Text>
                     </Pressable>
                   </View>
                 )}
@@ -251,8 +255,8 @@ export default function MovementScreen() {
               )}
             </View>
 
-            <View className="mt-6">
-              <Text className="mb-3 text-[13px] font-inter-medium uppercase tracking-[1.8px] text-[#7a8596]">
+            <View className="mt-4">
+              <Text className="mb-3 text-[12px] font-inter-medium text-[#7a8596]">
                 Reason / Transaction Note
               </Text>
               <Controller
@@ -260,13 +264,13 @@ export default function MovementScreen() {
                 name="reason"
                 render={({ field }) => (
                   <TextInput
-                    placeholder="Enter reason for movement or serial numbers..."
+                    placeholder="Enter reason for movement..."
                     placeholderTextColor="#7a8596"
                     value={field.value}
                     onChangeText={field.onChange}
                     multiline
                     textAlignVertical="top"
-                    className="min-h-[116px] rounded-2xl border border-[#98a2b3] bg-white px-4 py-4 text-[18px] font-inter-regular text-[#171a21]"
+                    className="min-h-[116px] rounded-2xl border border-[#98a2b3] bg-white px-4 py-4 text-[14px] font-inter-regular text-[#171a21]"
                   />
                 )}
               />
@@ -279,10 +283,10 @@ export default function MovementScreen() {
 
             <Pressable
               onPress={handleSubmit(handleStockMovement)}
-              className="mt-10 flex-row items-center justify-center rounded-2xl bg-[#0b7a4d] px-5 py-5 shadow-sm"
+              className="mt-6 flex-row items-center justify-center rounded-2xl bg-[#0b7a4d] px-5 py-5 shadow-sm"
             >
-              <Text className="text-[18px] font-inter-semibold text-white">
-                {stockMovementMutation.isPending ? "Confirming..." : "Confirm Movement"}
+              <Text className="text-[14px] font-inter-semibold text-white">
+                {stockMovementMutation.isPending ? <ActivityIndicator size="small" color="white" /> : "Confirm Movement"}
               </Text>
             </Pressable>
           </View>
@@ -291,6 +295,7 @@ export default function MovementScreen() {
         <ListProductSheet ref={listProductSheetRef} onSelectProduct={handleSelectProduct} />
         <ListWarehouseSheet ref={listWarehouseSheetRef} onSelectWarehouse={handleSelectWarehouse} />
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }

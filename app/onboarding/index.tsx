@@ -101,9 +101,9 @@ export default function OnboardingScreen() {
           <MaterialIcons name="arrow-forward" size={18} color="white" />
         </Pressable>
 
-        <View className="mt-4 h-5 items-center justify-center">
+        <View className="mt-3 h-5 items-center justify-center ">
           {slide.showTerms ? (
-            <Text className="text-center text-[13px] font-inter-regular text-[#7a8596]">
+            <Text className="text-center text-[11px] font-inter-regular text-[#7a8596]">
               By continuing, you agree to our{' '}
               <Link href="/terms-of-service" className="underline">
                 Terms of Service

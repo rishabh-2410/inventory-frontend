@@ -37,7 +37,7 @@ export default function SettingsScreen() {
       >
         <View className="mx-[-24px] mb-6 px-6 py-5">
           <View className="flex-row items-center justify-between px-8">
-            <Text className="text-[22px] font-inter-bold text-[#171a21]">Settings</Text>
+            <Text className="text-[21px] font-inter-bold text-[#171a21]">Settings</Text>
             <View className="h-10 w-10 items-center justify-center rounded-full bg-[#0b7a4d]">
               <MaterialIcons name="settings" size={24} color="white" />
             </View>
@@ -89,7 +89,7 @@ export default function SettingsScreen() {
 
           {isOwner && (
             <View className="mb-7">
-              <Text className="mb-4 text-[15px] font-inter-bold text-[#171a21]">
+              <Text className="mb-4 text-[14px] font-inter-medium text-[#7a8596]">
                 Organization Management
               </Text>
               <View className="rounded-[22px] border border-[#e6ebf1] bg-white">
@@ -105,7 +105,7 @@ export default function SettingsScreen() {
                           {item.label.charAt(0)}
                         </Text>
                       </View>
-                      <Text className="text-[16px] font-inter-semibold text-[#171a21]">{item.label}</Text>
+                      <Text className="text-[14px] font-inter-semibold text-[#171a21]">{item.label}</Text>
                     </View>
                     <Text className="text-[20px] font-inter-regular text-[#7a8596]">›</Text>
                   </Pressable>
@@ -115,7 +115,7 @@ export default function SettingsScreen() {
           )}
 
           <View className="mb-10">
-            <Text className="mb-4 text-[15px] font-inter-medium uppercase tracking-[1.2px] text-[#7a8596]">
+            <Text className="mb-4 text-[14px] font-inter-medium text-[#7a8596]">
               Account
             </Text>
             <View className="rounded-[22px] border border-[#e6ebf1] bg-white">
@@ -132,7 +132,7 @@ export default function SettingsScreen() {
                       </Text>
                     </View>
                     <View>
-                      <Text className="text-[16px] font-inter-semibold text-[#171a21]">{item.label}</Text>
+                      <Text className="text-[14px] font-inter-semibold text-[#171a21]">{item.label}</Text>
                       {!!item.subtitle && (
                         <Text className="mt-1 text-[14px] font-inter-regular text-[#7a8596]">{item.subtitle}</Text>
                       )}
@@ -152,12 +152,12 @@ export default function SettingsScreen() {
             }}
             className="rounded-[20px] bg-[#ffe3e6] px-5 py-5"
           >
-            <Text className="text-center text-[18px] font-inter-semibold text-[#ff4d57]">
+            <Text className="text-center text-[12px] font-inter-semibold text-[#ff4d57]">
               Log Out of Session
             </Text>
           </Pressable>
 
-          <Text className="mt-5 text-center text-[14px] font-inter-regular text-[#98a2b3]">
+          <Text className="mt-5 text-center text-[10px] font-inter-regular text-[#98a2b3]">
             Version 2.4.1 (Build 8902)
           </Text>
         </View>

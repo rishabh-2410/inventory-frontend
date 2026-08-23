@@ -18,14 +18,14 @@ export default function HistoryScreen() {
   } = useStockMovmentHistory(businessID, {limit: 2});
 
   if (isPending) {
-    return <SafeAreaView className="flex-1 bg-[#f6f8fb]">
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
         <ActivityIndicator size="large" color="#0000ff" />
     </SafeAreaView>;
   }
   if (isError) {
-    return <View>
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
       <Text className="font-inter-regular text-[15px] text-[#7a8596]">Error loading stock movement history</Text>
-    </View>;
+    </SafeAreaView>;
   }
   const stockMovementHistory = data?.pages.flatMap(page => page.data) ?? [];
 
@@ -40,24 +40,24 @@ export default function HistoryScreen() {
             return (
               <View
                 key={item.id}
-                className="mb-4 rounded-[22px] border border-[#e6ebf1] bg-white px-4 py-5"
+                className="mb-4 rounded-[22px] border border-[#e6ebf1] bg-white px-4 py-5 mx-[16px]"
               >
                 <View className="flex-row">
-                  <View className="mr-4 h-12 w-12 items-center justify-center rounded-2xl bg-[#e8f3ed]">
-                    <Text className="text-[18px] font-inter-semibold text-[#0b7a4d]">
+                  <View className="mr-4 h-10 w-10 items-center justify-center rounded-2xl bg-[#e8f3ed]">
+                    <Text className="text-[16px] font-inter-semibold text-[#0b7a4d]">
                       {item.movement_type.charAt(0)}
                     </Text>
                   </View>
 
                   <View className="flex-1">
-                    <Text className="text-[16px] font-inter-semibold text-[#171a21]">
+                    <Text className="text-[14px] font-inter-semibold text-[#171a21]">
                       {item.product_name}
                     </Text>
-                    <Text className="mt-1 text-[14px] font-inter-regular text-[#7a8596]">
+                    <Text className="mt-1 text-[12px] font-inter-regular text-[#7a8596]">
                       {item.warehouse_name}
                     </Text>
-                    <View className="mt-3 self-start rounded-md border border-[#d9e4d8] bg-[#f4f8f3] px-3 py-2">
-                      <Text className="text-[14px] font-inter-medium text-[#535862]">
+                    <View className="mt-4 self-start rounded-md border border-[#d9e4d8] bg-[#f4f8f3] px-3 py-2">
+                      <Text className="text-[12px] font-inter-medium text-[#535862]">
                         {item.movement_type} - {item.movement_quantity}
                       </Text>
                     </View>
@@ -71,7 +71,7 @@ export default function HistoryScreen() {
             return (
               <View className="mx-[-24px] mb-6 px-6 py-5">
               <View className="flex-row items-center justify-between px-8">
-                <Text className="text-[22px] font-inter-bold text-[#171a21]">Movement History</Text>
+                <Text className="text-[20px] font-inter-bold text-[#171a21]">Movement History</Text>
                 <View className="h-10 w-10 items-center justify-center rounded-full bg-[#0b7a4d]">
                   <MaterialIcons name="history" size={22} color="white" />
                 </View>

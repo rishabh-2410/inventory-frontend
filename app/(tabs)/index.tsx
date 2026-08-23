@@ -53,35 +53,35 @@ export default function DashboardScreen() {
 
         <View className="px-6 pt-6">
           {isDashboardStatsError ? (
-            <Text className="text-[16px] font-inter-regular mt-4 text-[#7a8596]">Error loading dashboard stats</Text>
+            <Text className="text-[16px] font-inter-regular mt-4 text-[#7a8596] text-center items-center justify-center">Error loading dashboard stats</Text>
           ) : (
             <>
-              <View className="mb-5 rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
-                <View className="h-12 w-12 items-center justify-center rounded-2xl bg-[#dff1ea]">
-                  <Text className="text-[20px] font-inter-semibold text-[#159b67]">$</Text>
+              <View className="mb-5 rounded-[22px] border border-[#e5e7eb] bg-white px-4 py-4 shadow-sm">
+                <View className="h-10 w-10 items-center justify-center rounded-2xl bg-[#dff1ea]">
+                  <MaterialIcons name="inventory" size={18} color="#159b67" />
                 </View>
-                <Text className="mt-4 text-[16px] font-inter-medium text-[#7a8596]">Current Inventory</Text>
-                <Text className="mt-2 text-[24px] font-inter-bold text-[#171a21]">
+                <Text className="mt-4 text-[14px] font-inter-medium text-[#7a8596]">Current Inventory</Text>
+                <Text className="mt-2 text-[22px] font-inter-bold text-[#171a21]">
                   {dashboardStats?.current_inventory}
                 </Text>
               </View>
 
-              <View className="mb-5 rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
-                <View className="h-12 w-12 items-center justify-center rounded-2xl bg-[#e4efff]">
-                  <Text className="text-[20px] font-inter-semibold text-[#2563eb]">H</Text>
+              <View className="mb-5 rounded-[22px] border border-[#e5e7eb] bg-white px-4 py-4 shadow-sm">
+                <View className="h-10 w-10 items-center justify-center rounded-2xl bg-[#e4efff]">
+                  <MaterialIcons name="trending-down" size={18} color="#2563eb" />
                 </View>
-                <Text className="mt-4 text-[16px] font-inter-medium text-[#7a8596]">Low Stock Products</Text>
-                <Text className="mt-2 text-[24px] font-inter-bold text-[#171a21]">
-                  {String(dashboardStats?.low_stock_products ?? 0).padStart(2, "0")}
+                <Text className="mt-4 text-[14px] font-inter-medium text-[#7a8596]">Low Stock Products</Text>
+                <Text className="mt-2 text-[22px] font-inter-bold text-[#171a21]">
+                  {dashboardStats?.low_stock_products ?? 0}
                 </Text>
               </View>
 
-              <View className="rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
-                <View className="h-12 w-12 items-center justify-center rounded-2xl bg-[#fce8e8]">
-                  <Text className="text-[20px] font-inter-semibold text-[#b54343]">T</Text>
+              <View className="rounded-[22px] border border-[#e5e7eb] bg-white px-4 py-4 shadow-sm">
+                <View className="h-10 w-10 items-center justify-center rounded-2xl bg-[#fce8e8]">
+                 <MaterialIcons name="hourglass-empty" size={18} color="#b54343" />
                 </View>
-                <Text className="mt-4 text-[16px] font-inter-medium text-[#7a8596]">Out Of Stock</Text>
-                <Text className="mt-2 text-[24px] font-inter-bold text-[#171a21]">
+                <Text className="mt-4 text-[14px] font-inter-medium text-[#7a8596]">Out Of Stock</Text>
+                <Text className="mt-2 text-[22px] font-inter-bold text-[#171a21]">
                   {dashboardStats?.out_of_stock_products}
                 </Text>
               </View>

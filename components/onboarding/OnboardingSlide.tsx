@@ -16,10 +16,10 @@ export default function OnboardingSlide({ slide, width }: OnboardingSlideProps) 
       <Image
         source={slide.image}
         resizeMode="contain"
-        style={{ width: '100%', height: 350 }}
+        style={{ width: '100%', height: 280 }}
       />
 
-      <Text className="mt-5 text-center text-[32px] font-inter-bold leading-[38px] tracking-[-0.5px] text-[#171a21]">
+      <Text className="mt-5 text-center text-[28px] font-inter-bold leading-[38px] tracking-[-0.5px] text-[#171a21]">
         {slide.title}
         {slide.highlight ? (
           <>
@@ -29,7 +29,7 @@ export default function OnboardingSlide({ slide, width }: OnboardingSlideProps) 
         ) : null}
       </Text>
 
-      <Text className="mt-3 text-center text-[16px] font-inter-regular leading-[24px] text-[#7a8596]">
+      <Text className="mt-3 text-center text-[14px] font-inter-medium leading-[24px] text-[#7a8596]">
         {slide.description}
       </Text>
 
@@ -41,9 +41,9 @@ export default function OnboardingSlide({ slide, width }: OnboardingSlideProps) 
                 key={feature.label}
                 className="flex-1 rounded-2xl border border-[#e6ebf1] bg-white px-3 py-4 shadow-sm">
                 <View className="mb-3 h-10 w-10 items-center justify-center rounded-xl bg-[#dff1ea]">
-                  <MaterialIcons name={feature.icon} size={22} color={feature.iconColor} />
+                  <MaterialIcons name={feature.icon} size={24} color={feature.iconColor} />
                 </View>
-                <Text className="text-[15px] font-inter-bold text-[#171a21]">{feature.label}</Text>
+                <Text className="text-[12px] font-inter-bold text-[#171a21]">{feature.label}</Text>
                 {feature.subtitle ? (
                   <Text className="mt-1 text-[12px] font-inter-regular leading-[16px] text-[#7a8596]">
                     {feature.subtitle}
@@ -59,7 +59,7 @@ export default function OnboardingSlide({ slide, width }: OnboardingSlideProps) 
                 key={feature.label}
                 className="flex-1 items-center rounded-2xl bg-[#e8f5ef] py-4">
                 <MaterialIcons name={feature.icon} size={22} color={feature.iconColor} />
-                <Text className="mt-2 text-[14px] font-inter-bold text-[#171a21]">{feature.label}</Text>
+                <Text className="mt-2 text-[12px] font-inter-bold text-[#171a21]">{feature.label}</Text>
               </View>
             ))}
           </View>

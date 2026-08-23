@@ -20,13 +20,15 @@ export default function InventoryScreen() {
 
 
   if (isLoading) {
-    return <SafeAreaView className="flex-1 bg-[#f6f8fb]">
-    <ActivityIndicator size="large" color="#0000ff" />
-</SafeAreaView>
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
+      <ActivityIndicator size="large" color="#0000ff" />
+    </SafeAreaView>
   }
 
   if (error) {
-    return <Text className="font-inter-regular text-[15px] text-[#7a8596]">Error: {error.message}</Text>
+    return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
+      <Text className="font-inter-regular text-[15px] text-[#7a8596]">Error: {error.message}</Text>
+    </SafeAreaView>
   }
 
 
@@ -41,9 +43,9 @@ export default function InventoryScreen() {
           data={inventory ?? []}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View className="mb-5 rounded-[22px] border border-[#e6ebf1] bg-white px-4 py-4">
+            <View className="mb-5 rounded-[22px] border border-[#e6ebf1] bg-white px-5 py-4">
               <View className="flex-row">
-                <View className="mr-4 h-12 w-12 items-center justify-center rounded-xl bg-[#eef2f6]">
+                <View className="mr-4 h-10 w-10 items-center justify-center rounded-xl bg-[#eef2f6]">
                   <Text className="text-[16px] font-inter-semibold text-[#0b7a4d]">
                     {item.product_name.charAt(0)}
                   </Text>
@@ -52,16 +54,16 @@ export default function InventoryScreen() {
                 <View className="flex-1">
                   <View className="flex-row items-start justify-between">
                     <View className="flex-1 pr-3">
-                      <Text className="text-[16px] font-inter-bold text-[#171a21]">
+                      <Text className="text-[14px] font-inter-bold text-[#171a21]">
                         {item.product_name}
                       </Text>
-                      <Text className="mt-2 text-[14px] font-inter-regular text-[#7a8596]">
+                      <Text className="mt-2 text-[12px] font-inter-regular text-[#7a8596]">
                         SKU: {item.sku}
                       </Text>
                     </View>
 
                     <View className="rounded-full bg-[#e8f3ed] px-3 py-2">
-                      <Text className="text-[12px] font-inter-medium text-[#0b7a4d]">
+                      <Text className="text-[10px] font-inter-medium text-[#0b7a4d]">
                         {item.category_name}
                       </Text>
                     </View>
@@ -69,15 +71,17 @@ export default function InventoryScreen() {
 
                   <View className="mt-5 flex-row items-end justify-between">
                     <View>
-                      <Text className="text-[14px] font-inter-medium text-[#7a8596]">Total Stock</Text>
-                      <Text className="mt-1 text-[14px] font-inter-semibold text-[#0b7a4d]">
+                      <Text className="text-[12px] font-inter-medium text-[#7a8596]">Total Stock</Text>
+                      <Text className="mt-1 text-[12px] font-inter-semibold text-[#0b7a4d]">
                         {item.current_stock} <Text className="font-inter-regular text-[#7a8596]">units</Text>
                       </Text>
                     </View>
 
-                    <Text className="text-[15px] font-inter-semibold text-[#0a63d8]">
+                    {/* TODO: Add restock button */}
+                    {/* <Text className="text-[15px] font-inter-semibold text-[#0a63d8]">
                       {item.current_stock <= 20 ? "Restock" : "Details"}
-                    </Text>
+                    </Text>  */}
+
                   </View>
                 </View>
               </View>
@@ -85,9 +89,9 @@ export default function InventoryScreen() {
           )}
           ListHeaderComponent={
             <View>
-              <View className="mb-8 rounded-[24px] bg-[#0b7a4d] px-6 py-14">
-                <Text className="text-[22px] font-inter-bold text-white">Inventory Operations</Text>
-                <Text className="mt-2 max-w-[260px] text-[16px] font-inter-regular leading-6 text-[#d5efe4]">
+              <View className="mt-6 mb-8 rounded-[24px] bg-[#0b7a4d] px-4 py-12">
+                <Text className="text-[20px] font-inter-bold text-white">Inventory Operations</Text>
+                <Text className="mt-2 max-w-[260px] text-[14px] font-inter-medium leading-6 text-[#d5efe4]">
                   Live stock tracking and operational movement history.
                 </Text>
               </View>
@@ -98,7 +102,7 @@ export default function InventoryScreen() {
                   onChangeText={setSearch}
                   placeholder="Search by SKU or Name..."
                   placeholderTextColor="#7a8596"
-                  className="text-[16px] font-inter-regular text-[#171a21]"
+                  className="text-[14px] font-inter-regular text-[#171a21]"
                 />
               </View>
 
@@ -119,10 +123,6 @@ export default function InventoryScreen() {
             ) : null
           }
         />
-
-        <Pressable className="absolute bottom-6 right-6 h-14 w-14 items-center justify-center rounded-full bg-[#0b7a4d] shadow-sm">
-          <Text className="text-[28px] font-inter-regular text-white">+</Text>
-        </Pressable>
       </View>
     </SafeAreaView>
   )
