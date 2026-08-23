@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { editProduct, EditProductRequest } from "@/services/product.service";
+import { editProduct } from "@/services/product.service";
 import { queryClient } from "@/lib/queryclient";
 import { Product } from "@/models/zodSchema/product.schema";
 import { queryKeys } from "@/lib/queryKeys";
+import { EditProductRequest } from "@/models/types/product";
 
 export const useEditProduct = () => {
     return useMutation({

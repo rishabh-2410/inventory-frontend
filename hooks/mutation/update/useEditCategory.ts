@@ -1,19 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/services/category.service";
-import { Category, UpdateCategoryRequest } from "@/models/zodSchema/category.schema";
+import { Category } from "@/models/zodSchema/category.schema";
 import { queryKeys } from "@/lib/queryKeys";
 import { queryClient } from "@/lib/queryclient";
 import { uuidv4 } from "zod";
+import { EditCategoryRequest } from "@/models/types/category.type";
 
 export const useEditCategory = () => {
     return useMutation({
-        mutationFn: ({categoryID, payload}: {categoryID: string, payload: UpdateCategoryRequest}) => updateCategory(categoryID, payload),
-        onMutate: ({categoryID, payload}: {categoryID: string, payload: UpdateCategoryRequest}) => {
+        mutationFn: ({categoryID, payload}: {categoryID: string, payload: EditCategoryRequest}) => updateCategory(categoryID, payload),
+        onMutate: ({categoryID, payload}) => {
             const previousCategories = queryClient.getQueryData<Category[]>(queryKeys.categories);
             const optimisticCategory = {
-                id: uuidv4().toString(),
-                name: payload.name,
-                description: payload.description,
+                ...previousCategories?.find((category) => category.id === categoryID),
+                ...payload,
             };
             queryClient.setQueryData(queryKeys.categories, (old: Category[] = []) => old.map(item => item.id === categoryID ? optimisticCategory : item));
             return { previousCategories, optimisticCategory };

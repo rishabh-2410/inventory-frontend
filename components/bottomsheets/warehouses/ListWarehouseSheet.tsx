@@ -1,10 +1,11 @@
-import {BottomSheetBackdrop,BottomSheetModal,BottomSheetView,} from "@gorhom/bottom-sheet";
+import {BottomSheetBackdrop,BottomSheetFlashList,BottomSheetFlatList,BottomSheetModal,BottomSheetView,} from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback,useEffect,useMemo, useState } from "react";
-import {FlatList, Pressable, StyleSheet,Text, View} from "react-native";
+import {ActivityIndicator, FlatList, Pressable, StyleSheet,Text, View} from "react-native";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
 import { Warehouse } from "@/models/zodSchema/warehouse.schema";
 import { getWarehouses } from "@/services/warehouse.service";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type ListWarehouseSheetProps = {
   onSelectWarehouse: (warehouse: Warehouse) => void;
@@ -16,19 +17,30 @@ type ListWarehouseSheetProps = {
         () => ["60%"],
         []
       );
-
+      
+      const [loading, setLoading] = useState(false);
       const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
 
 
       useEffect(() => {
+        let cancelled = false
         async function fetchWarehouses() {
+          setLoading(true);
+          try {
             const warehouses = await queryClient.ensureQueryData<Warehouse[]>({
-            queryKey: queryKeys.warehouses,
-            queryFn: () => getWarehouses(),
-          });
-          setWarehouses(warehouses);
+              queryKey: queryKeys.warehouses,
+              queryFn: () => getWarehouses(),
+            });
+            if (!cancelled) setWarehouses(warehouses);
+          } catch (error) {
+            console.error(error);
+          } finally {
+            setLoading(false);
+          }
         }
         fetchWarehouses();
+
+        return () => {cancelled = true}
       }, []);
 
 
@@ -45,7 +57,8 @@ type ListWarehouseSheetProps = {
     ),
     []
   );
-  
+
+
       return (
         <BottomSheetModal
           ref={ref}
@@ -59,17 +72,12 @@ type ListWarehouseSheetProps = {
           handleIndicatorStyle={styles.handle}
           backdropComponent={renderBackdrop}
         >
-          <BottomSheetView
-            style={styles.container}
-          >
-            <View className="mb-5">
-              <Text className="text-[22px] font-inter-bold text-[#171a21]">Select Warehouse</Text>
-              <Text className="mt-1 text-[14px] font-inter-regular text-[#7a8596]">
-                Choose a warehouse location for this movement.
-              </Text>
-            </View>
-            <FlatList
-              data={warehouses}
+
+            <BottomSheetFlatList
+              data={loading ? [] : warehouses}
+              contentContainerStyle={styles.scrollContent}
+              style={styles.container}
+              
               renderItem={({ item} : {item: Warehouse}) => {
                 return (
                   <Pressable
@@ -85,13 +93,20 @@ type ListWarehouseSheetProps = {
               }}
               keyExtractor={(item) => item.id}
               ListEmptyComponent={
-                <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
-                  <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No warehouses found</Text>
-                </View>
+               loading ? <ActivityIndicator size="large" color="#0000ff" /> :  <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
+               <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No warehouses found</Text>
+             </View>
               }
               showsVerticalScrollIndicator={false}
+              ListHeaderComponent={
+                <View className="mb-5">
+                <Text className="text-[22px] font-inter-bold text-[#171a21]">Select Warehouse</Text>
+                <Text className="mt-1 text-[14px] font-inter-regular text-[#7a8596]">
+                  Choose a warehouse location for this movement.
+                </Text>
+              </View>
+              }
             />
-          </BottomSheetView>
         </BottomSheetModal>
       );
     }
@@ -113,6 +128,8 @@ type ListWarehouseSheetProps = {
       flex: 1,
       paddingHorizontal: 24,
       paddingTop: 12,
-      paddingBottom: 30,
     },
+    scrollContent: {
+      paddingBottom: 30,
+    }
   });

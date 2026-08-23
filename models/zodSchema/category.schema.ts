@@ -20,11 +20,3 @@ export const addCategorySchema = z.object({
 
 export type AddCategoryRequest = z.infer<typeof addCategorySchema>;
 
-
-/** Update Category Request */
-export const updateCategorySchema = z.object({
-    name: z.string(),
-    description: z.string()
-});
-
-export type UpdateCategoryRequest = z.infer<typeof updateCategorySchema>;

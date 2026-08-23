@@ -6,8 +6,9 @@ import Toast from "react-native-toast-message";
 import { getApiErrorMessage } from "@/lib/api-error";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
-import { Category, UpdateCategoryRequest } from "@/models/zodSchema/category.schema";
+import { Category } from "@/models/zodSchema/category.schema";
 import { useEditCategory } from "@/hooks/mutation/update/useEditCategory";
+import { EditCategoryRequest } from "@/models/types/category.type";
 
 type EditCategorySheetProps = {
   category: Category | null;
@@ -22,7 +23,7 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
       handleSubmit,
       reset,
       formState: { errors, isDirty, dirtyFields },
-    } = useForm<UpdateCategoryRequest>({
+    } = useForm<EditCategoryRequest>({
       defaultValues: {
         name: "",
         description: "",
@@ -62,7 +63,7 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
       []
     );
 
-    const onSubmit = (data: UpdateCategoryRequest) => {
+    const onSubmit = (data: EditCategoryRequest) => {
       Keyboard.dismiss();
 
       if (!category) {
@@ -82,10 +83,10 @@ const EditCategorySheet = forwardRef<BottomSheetModal, EditCategorySheetProps>(
       }
 
 
-      const request: UpdateCategoryRequest = {
-        name: "",
-        description: "",
-      };
+      const request: {
+        name?: string,
+        description?: string,
+      } = {};
   
 
       if (dirtyFields.name) request.name = data.name; 

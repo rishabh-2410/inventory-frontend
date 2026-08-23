@@ -1,12 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { UpdateWarehouseRequest, Warehouse } from "@/models/zodSchema/warehouse.schema";
+import { Warehouse } from "@/models/zodSchema/warehouse.schema";
 import { updateWarehouse } from "@/services/warehouse.service";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
+import { EditWarehouseRequest } from "@/models/types/warehouse.type";
 
 export const useEditWarehouse = () => {
     return useMutation({
-        mutationFn: ({ warehouseID, payload}: {warehouseID: string, payload: UpdateWarehouseRequest}) => updateWarehouse(warehouseID, payload),
+        mutationFn: ({ warehouseID, payload}: {warehouseID: string, payload: EditWarehouseRequest}) => updateWarehouse(warehouseID, payload),
         onMutate: ({ warehouseID, payload}) => {
             const previousWarehouses = queryClient.getQueryData<Warehouse[]>(queryKeys.warehouses);
             const optimisticWarehouse = {

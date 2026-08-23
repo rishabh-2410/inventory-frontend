@@ -17,11 +17,3 @@ export const addWarehouseSchema = z.object({
 });
 
 export type AddWarehouseRequest = z.infer<typeof addWarehouseSchema>;
-
-
-export const updateWarehouseSchema = z.object({
-    name: z.string(),
-    address: z.string()
-});
-
-export type UpdateWarehouseRequest = z.infer<typeof updateWarehouseSchema>;

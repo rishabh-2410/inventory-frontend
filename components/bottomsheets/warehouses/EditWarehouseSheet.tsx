@@ -6,8 +6,9 @@ import Toast from "react-native-toast-message";
 import { getApiErrorMessage } from "@/lib/api-error";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
-import { UpdateWarehouseRequest, Warehouse } from "@/models/zodSchema/warehouse.schema";
+import {  Warehouse } from "@/models/zodSchema/warehouse.schema";
 import { useEditWarehouse } from "@/hooks/mutation/update/useEditWarehouse";
+import { EditWarehouseRequest } from "@/models/types/warehouse.type";
 
 type EditWarehouseSheetProps = {
   warehouse: Warehouse | null;
@@ -22,7 +23,7 @@ const EditWarehouseSheet = forwardRef<BottomSheetModal, EditWarehouseSheetProps>
       handleSubmit,
       reset,
       formState: { errors, isDirty, dirtyFields },
-    } = useForm<UpdateWarehouseRequest>({
+    } = useForm<EditWarehouseRequest>({
       defaultValues: {
         name: "",
         address: "",
@@ -62,7 +63,7 @@ const EditWarehouseSheet = forwardRef<BottomSheetModal, EditWarehouseSheetProps>
       []
     );
 
-    const onSubmit = (data: UpdateWarehouseRequest) => {
+    const onSubmit = (data: EditWarehouseRequest) => {
       Keyboard.dismiss();
 
       if (!warehouse) {
@@ -75,17 +76,17 @@ const EditWarehouseSheet = forwardRef<BottomSheetModal, EditWarehouseSheetProps>
           type: "info",
           text1: "No changes to save",
           position: "bottom",
-          visibilityTime: 3000,
+          visibilityTime: 1500,
           autoHide: true,
         });
         return;
       }
 
 
-      const request: UpdateWarehouseRequest = {
-        name: "",
-        address: "",
-      };
+      const request: {
+        name?: string,
+        address?: string,
+      }={};
   
 
       if (dirtyFields.name) request.name = data.name; 
