@@ -1,11 +1,10 @@
-import {BottomSheetBackdrop,BottomSheetFlashList,BottomSheetFlatList,BottomSheetModal,BottomSheetView,} from "@gorhom/bottom-sheet";
+import {BottomSheetBackdrop,BottomSheetFlatList,BottomSheetModal} from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback,useEffect,useMemo, useState } from "react";
-import {ActivityIndicator, FlatList, Pressable, StyleSheet,Text, View} from "react-native";
+import {ActivityIndicator, Pressable, StyleSheet,Text, View} from "react-native";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
 import { Warehouse } from "@/models/zodSchema/warehouse.schema";
 import { getWarehouses } from "@/services/warehouse.service";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 type ListWarehouseSheetProps = {
   onSelectWarehouse: (warehouse: Warehouse) => void;
