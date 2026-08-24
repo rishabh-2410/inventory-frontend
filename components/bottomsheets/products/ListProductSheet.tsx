@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {BottomSheetBackdrop,BottomSheetModal,BottomSheetScrollView, BottomSheetFlatList, BottomSheetView,} from "@gorhom/bottom-sheet";
 import { forwardRef, useCallback,useEffect,useMemo, useState } from "react";
-import { Pressable, StyleSheet,Text, View} from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet,Text, View} from "react-native";
 import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
 import { Product } from "@/models/zodSchema/product.schema";
 import { getProducts } from "@/services/product.service";
+import { ca } from "zod/v4/locales";
 
 type ListProductSheetProps = {
   onSelectProduct: (product: Product) => void;
@@ -18,25 +20,32 @@ type ListProductSheetProps = {
       );
 
       const [products, setProducts] = useState<Product[]>([]);
-
-
-      const loadProducts = useCallback(async () => {
-        try {
-          const products = await queryClient.ensureQueryData<Product[]>({
-            queryKey: queryKeys.products,
-            queryFn: () => getProducts(),
-            revalidateIfStale: true,
-          });
-          console.log(products);
-          setProducts(products);
-        } catch (error) {
-          console.error("Error loading products", error);
-        } 
-      }, []);
+      const [loading, setLoading] = useState(false); 
 
       useEffect(() => {
+        let cancelled = false;
+        const loadProducts = async() => {
+
+          setLoading(true);
+          try {
+            const products = await queryClient.ensureQueryData<Product[]>({
+              queryKey: queryKeys.products,
+              queryFn: () => getProducts(),
+              revalidateIfStale: true,
+            });
+            console.log(products);
+            if (!cancelled) setProducts(products);
+          } catch (error) {
+            console.error("Error loading products", error);
+          } finally {
+            setLoading(false);
+          }
+        }
+
         loadProducts();
-      }, [loadProducts]);
+
+        return () => {cancelled = true}
+      }, []);
 
 
 
@@ -65,13 +74,10 @@ type ListProductSheetProps = {
           backgroundStyle={styles.background}
           handleIndicatorStyle={styles.handle}
           backdropComponent={renderBackdrop}
-          onChange={(index) => {
-            if (index >= 0) loadProducts();
-          }}
         >
             <BottomSheetFlatList
             style={styles.container}
-              data={products}
+              data={loading ? [] : products}
               renderItem={({ item} : {item: Product}) => {
                 return (
                   <Pressable
@@ -87,9 +93,9 @@ type ListProductSheetProps = {
               }}
               keyExtractor={(item) => item.id}
               ListEmptyComponent={
-                <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
-                  <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No products found</Text>
-                </View>
+                loading ? <ActivityIndicator size="large" color="#0b7a4d" /> :  <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
+                <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No products found</Text>
+              </View>
               }
               contentContainerStyle={styles.scrollContent}
               ListHeaderComponent={
