@@ -5,7 +5,7 @@
     "scheme": "invento-pro",
     "version": "1.0.0",
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/invento.png"
     },
     "experiments": {
       "tsconfigPaths": true
@@ -24,7 +24,7 @@
       "expo-font"
     ],
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/invento.png",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": [
       "**/*"
@@ -39,7 +39,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/invento.png",
         "backgroundColor": "#ffffff"
       }
     },

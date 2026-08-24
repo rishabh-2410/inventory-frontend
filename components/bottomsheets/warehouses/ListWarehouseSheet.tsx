@@ -92,8 +92,8 @@ type ListWarehouseSheetProps = {
                 )
               }}
               keyExtractor={(item) => item.id}
-              ListEmptyComponent={
-               loading ? <ActivityIndicator size="large" color="#0000ff" /> :  <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
+              ListEmptyComponent={  
+               loading ? <ActivityIndicator size="large" color="#fff" /> :  <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
                <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No warehouses found</Text>
              </View>
               }

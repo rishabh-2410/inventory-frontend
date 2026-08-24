@@ -9,7 +9,7 @@ export default function AppIndex() {
     const isSignedIn = !!accessToken
 
     if (isOnboarded === null) {
-        return <ActivityIndicator size="large" color={DefaultTheme.colors.primary} className="flex-1 justify-center items-center" />
+        return <ActivityIndicator size="large" color="#0b7a4d" className="flex-1 justify-center items-center" />
     }
 
     if (!isOnboarded) {

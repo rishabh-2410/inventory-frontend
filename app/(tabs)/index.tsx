@@ -15,7 +15,7 @@ export default function DashboardScreen() {
   const user = useAuthStore.getState().user;
   if (isDashboardStatsPending || isStockMovementHistoryPending) {
     return <SafeAreaView className="flex-1 bg-[#f8fafc] items-center justify-center">
-      <ActivityIndicator size="large" color="#0000ff" />
+      <ActivityIndicator size="large" color="#0b7a4d" />
     </SafeAreaView>;
   }
   // if (isDashboardStatsError || isStockMovementHistoryError) {

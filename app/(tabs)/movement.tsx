@@ -11,8 +11,7 @@ import { Warehouse } from '@/models/zodSchema/warehouse.schema';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
-import { View, Text, Pressable, ScrollView, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler';
+import { View, Text, Pressable, ScrollView, KeyboardAvoidingView, Platform, ActivityIndicator, TextInput, Keyboard } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Toast from 'react-native-toast-message';
 import { getApiErrorMessage } from '@/lib/api-error';
@@ -116,9 +115,10 @@ export default function MovementScreen() {
       >
       <ScrollView
         className="flex-1"
-        contentContainerClassName="pb-10"
+        contentContainerClassName="pb-30"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
+        automaticallyAdjustKeyboardInsets={true}
       >
 {/* 
         <View className="mb-6 flex-row items-center">
@@ -270,6 +270,11 @@ export default function MovementScreen() {
                     onChangeText={field.onChange}
                     multiline
                     textAlignVertical="top"
+                    returnKeyType='done'
+                    blurOnSubmit
+                    onSubmitEditing={() => {
+                      Keyboard.dismiss();
+                    }}
                     className="min-h-[116px] rounded-2xl border border-[#98a2b3] bg-white px-4 py-4 text-[14px] font-inter-regular text-[#171a21]"
                   />
                 )}
@@ -286,7 +291,7 @@ export default function MovementScreen() {
               className="mt-6 flex-row items-center justify-center rounded-2xl bg-[#0b7a4d] px-5 py-5 shadow-sm"
             >
               <Text className="text-[14px] font-inter-semibold text-white">
-                {stockMovementMutation.isPending ? <ActivityIndicator size="small" color="white" /> : "Confirm Movement"}
+                {stockMovementMutation.isPending ? <ActivityIndicator size="small" color="#fff" /> : "Confirm Movement"}
               </Text>
             </Pressable>
           </View>

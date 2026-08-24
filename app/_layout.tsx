@@ -21,6 +21,8 @@ import {
   Inter_600SemiBold,
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
+import { isAxiosError } from "axios";
+import { getApiErrorMessage } from "@/lib/api-error";
 
 
 
@@ -78,6 +80,16 @@ export default function RootLayout() {
       } catch (err) {
         console.error(err);
         useAuthStore.getState().clearSession();
+        if (isAxiosError(err) && err.response?.status === 401) {
+          Toast.show({
+            type: "error",
+            text1: "Your session has Expired",
+            text2: getApiErrorMessage(err, "Please login again"),
+            position: "bottom",
+            visibilityTime: 3000,
+            autoHide: true,
+          });
+        }
       } finally {
         setIsRestoring(false);
       }
@@ -93,7 +105,7 @@ export default function RootLayout() {
   }, [hasHydrated, isRestoring, fontsLoaded])
 
   if (!hasHydrated || isRestoring || !fontsLoaded) {
-    return <ActivityIndicator size="large" color={DefaultTheme.colors.primary} className="flex-1 justify-center items-center" />;
+    return <ActivityIndicator size="large" color="#0b7a4d" className="flex-1 justify-center items-center" />;
   }
 
 

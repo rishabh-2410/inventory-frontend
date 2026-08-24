@@ -19,7 +19,7 @@ export default function HistoryScreen() {
 
   if (isPending) {
     return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#0b7a4d" />
     </SafeAreaView>;
   }
   if (isError) {
@@ -93,7 +93,7 @@ export default function HistoryScreen() {
           }}
           ListFooterComponent={() => {
             if (isFetchingNextPage) {
-              return <ActivityIndicator size="large" color="#0000ff" />;
+              return <ActivityIndicator size="large" color="#0b7a4d" />;
             }
             return null;
           }}

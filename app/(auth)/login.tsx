@@ -82,14 +82,14 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View className="mb-8 items-center pt-2">
+        <View className="mb-8 items-center pt-2 mt-6">
           <View className="h-20 w-20 items-center justify-center rounded-[20px] bg-[#dff1ea]">
             <View className="items-center">
-              <MaterialIcons name="inventory" size={36} color="#0f8f5b" />
+              <MaterialIcons name="login" size={36} color="#0f8f5b" />
             </View>
           </View>
 
-          <Text className="mt-4 text-center text-[22px] font-inter-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
+          <Text className="mt-4 text-center text-[30px] font-inter-bold leading-[42px] tracking-[-0.5px] text-[#171a21]">
             Invento Pro
           </Text>
           <Text className="text-center text-[14px] font-inter-medium leading-[28px] text-[#7a8596]">

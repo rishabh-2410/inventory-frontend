@@ -21,7 +21,7 @@ export default function InventoryScreen() {
 
   if (isLoading) {
     return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
-      <ActivityIndicator size="large" color="#0000ff" />
+      <ActivityIndicator size="large" color="#0b7a4d" />
     </SafeAreaView>
   }
 

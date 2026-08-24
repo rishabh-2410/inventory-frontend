@@ -82,7 +82,7 @@ export default function RegisterScreen() {
           <View className="items-center">
             <View className="mb-4 h-20 w-20 items-center justify-center rounded-[20px] bg-[#dff1ea]">
               <View className="items-center">
-                <MaterialIcons name="person-add-alt-1" size={36} color="#0f8f5b" />
+                <MaterialIcons name="create" size={36} color="#0f8f5b" />
               </View>
             </View>
 
