@@ -102,14 +102,20 @@ export default function DashboardScreen() {
           ) : (
             <View className="mt-4 rounded-[22px] border border-[#e5e7eb] bg-white px-5 py-5 shadow-sm">
               {stockMovementHistory.length > 0 ? stockMovementHistory.map((item, index) => {
-                const isStockIn = item.movement_type === "RECEIVE" || item.movement_type === "RETURN";
-                const isStockOut = item.movement_type === "SALE" || item.movement_type === "DAMAGE";
-                const typeLabel = isStockIn ? "Stock In" : isStockOut ? "Stock Out" : "Transfer";
+                const isStockIn = item.movement_type === "RECEIVE"
+                const isReturn  = item.movement_type === "RETURN";
+                const isStockOut = item.movement_type === "SALE" 
+                const isDamage =  item.movement_type === "DAMAGE";
+                const typeLabel = isStockIn ? "Stock In" : isStockOut ? "Stock Out" : isReturn ? "Return" : isDamage ? "Damage" : "Transfer";
                 const badgeText = isStockIn
-                  ? `+ ${item.movement_quantity} units received`
-                  : isStockOut
-                    ? `- ${item.movement_quantity} units dispatched`
-                    : `${item.movement_quantity} units moved`;
+                  ? `+ ${item.movement_quantity} units received`  
+                  : isReturn
+                    ? `+ ${item.movement_quantity} units returned`
+                    : isDamage
+                      ? `- ${item.movement_quantity} units damaged`
+                      : isStockOut
+                        ? `- ${item.movement_quantity} units dispatched`
+                      : `${item.movement_quantity} units transferred`;
 
                 return (
                   <View key={item.id} className={index > 0 ? "mt-6" : ""}>

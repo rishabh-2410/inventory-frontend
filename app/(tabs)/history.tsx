@@ -15,7 +15,7 @@ export default function HistoryScreen() {
     hasNextPage,
     isFetchingNextPage,
   
-  } = useStockMovmentHistory(businessID, {limit: 2});
+  } = useStockMovmentHistory(businessID, {limit: 10});
 
   if (isPending) {
     return <SafeAreaView className="flex-1 bg-[#f6f8fb] items-center justify-center">
