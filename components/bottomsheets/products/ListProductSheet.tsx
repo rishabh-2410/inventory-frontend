@@ -7,6 +7,7 @@ import { queryKeys } from "@/lib/queryKeys";
 import { Product } from "@/models/zodSchema/product.schema";
 import { getProducts } from "@/services/product.service";
 import { ca } from "zod/v4/locales";
+import { useGetProducts } from "@/hooks/query/useGetProducts";
 
 type ListProductSheetProps = {
   onSelectProduct: (product: Product) => void;
@@ -20,32 +21,11 @@ type ListProductSheetProps = {
       );
 
       const [products, setProducts] = useState<Product[]>([]);
-      const [loading, setLoading] = useState(false); 
+      const {data, isLoading, error} = useGetProducts();
 
       useEffect(() => {
-        let cancelled = false;
-        const loadProducts = async() => {
-
-          setLoading(true);
-          try {
-            const products = await queryClient.ensureQueryData<Product[]>({
-              queryKey: queryKeys.products,
-              queryFn: () => getProducts(),
-              revalidateIfStale: true,
-            });
-            console.log(products);
-            if (!cancelled) setProducts(products);
-          } catch (error) {
-            console.error("Error loading products", error);
-          } finally {
-            setLoading(false);
-          }
-        }
-
-        loadProducts();
-
-        return () => {cancelled = true}
-      }, []);
+        if (data) setProducts(data as Product[]);
+      }, [data]);
 
 
 
@@ -62,6 +42,19 @@ type ListProductSheetProps = {
     []
   );
   
+      if (error) {
+        return (
+        <Pressable 
+            onPress={() => {
+              queryClient.invalidateQueries({ queryKey: queryKeys.products });
+            }}
+            className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6 items-center justify-center"
+          >
+            <Text className="text-[16px] font-inter-semibold text-[#171a21]">Retry</Text>
+          </Pressable>
+        )
+      }
+          
       return (
         <BottomSheetModal
           ref={ref}
@@ -77,7 +70,7 @@ type ListProductSheetProps = {
         >
             <BottomSheetFlatList
             style={styles.container}
-              data={loading ? [] : products}
+              data={isLoading ? [] : products}
               renderItem={({ item} : {item: Product}) => {
                 return (
                   <Pressable
@@ -93,7 +86,7 @@ type ListProductSheetProps = {
               }}
               keyExtractor={(item) => item.id}
               ListEmptyComponent={
-                loading ? <ActivityIndicator size="large" color="#0b7a4d" /> :  <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
+                isLoading ? <ActivityIndicator size="large" color="#0b7a4d" /> :  <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
                 <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No products found</Text>
               </View>
               }

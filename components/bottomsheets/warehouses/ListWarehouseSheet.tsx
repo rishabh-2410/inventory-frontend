@@ -5,6 +5,7 @@ import { queryClient } from "@/lib/queryclient";
 import { queryKeys } from "@/lib/queryKeys";
 import { Warehouse } from "@/models/zodSchema/warehouse.schema";
 import { getWarehouses } from "@/services/warehouse.service";
+import { useGetWarehouses } from "@/hooks/query/useGetWarehouse";
 
 type ListWarehouseSheetProps = {
   onSelectWarehouse: (warehouse: Warehouse) => void;
@@ -17,32 +18,13 @@ type ListWarehouseSheetProps = {
         []
       );
       
-      const [loading, setLoading] = useState(false);
-      const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
 
+      const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
+      const {data, isLoading, error} = useGetWarehouses();
 
       useEffect(() => {
-        let cancelled = false
-        async function fetchWarehouses() {
-          setLoading(true);
-          try {
-            const warehouses = await queryClient.ensureQueryData<Warehouse[]>({
-              queryKey: queryKeys.warehouses,
-              queryFn: () => getWarehouses(),
-            });
-            if (!cancelled) setWarehouses(warehouses);
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setLoading(false);
-          }
-        }
-        fetchWarehouses();
-
-        return () => {cancelled = true}
-      }, []);
-
-
+        if (data) setWarehouses(data as Warehouse[]);
+      }, [data]);
 
     const renderBackdrop = useCallback(
     (props: any) => (
@@ -56,6 +38,20 @@ type ListWarehouseSheetProps = {
     ),
     []
   );
+
+
+  if (error) {
+    return (
+      <Pressable 
+        onPress={() => {
+         queryClient.invalidateQueries({ queryKey: queryKeys.warehouses });
+      }}
+      className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6 items-center justify-center"
+      >
+        <Text className="text-[16px] font-inter-semibold text-[#171a21]">Retry</Text>
+      </Pressable>
+    )
+  }
 
 
       return (
@@ -73,7 +69,7 @@ type ListWarehouseSheetProps = {
         >
 
             <BottomSheetFlatList
-              data={loading ? [] : warehouses}
+              data={isLoading ? [] : warehouses}
               contentContainerStyle={styles.scrollContent}
               style={styles.container}
               
@@ -92,7 +88,7 @@ type ListWarehouseSheetProps = {
               }}
               keyExtractor={(item) => item.id}
               ListEmptyComponent={  
-               loading ? <ActivityIndicator size="large" color="#fff" /> :  <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
+               isLoading ? <ActivityIndicator size="large" color="#fff" /> :  <View className="rounded-2xl border border-[#e6ebf1] bg-[#f8fafc] px-4 py-6">
                <Text className="text-center text-[15px] font-inter-regular text-[#7a8596]">No warehouses found</Text>
              </View>
               }
