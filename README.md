@@ -25,27 +25,33 @@ The Invento support page describes employees as able to log movements and view i
 
 ## Screenshots
 
-Add images here after you capture them. Commit the files under `docs/screenshots/`, then uncomment the matching line.
+### Register
 
-<!--
-![Onboarding](docs/screenshots/onboarding.png)
-![Register and business setup](docs/screenshots/auth.png)
-![Dashboard](docs/screenshots/dashboard.png)
-![Inventory](docs/screenshots/inventory.png)
-![Stock movement](docs/screenshots/movement.png)
-![History](docs/screenshots/history.png)
-![Settings](docs/screenshots/settings.png)
--->
+![Register](docs/screenshots/register/register.png)
 
-| Screen | File to add |
-| --- | --- |
-| Onboarding | `docs/screenshots/onboarding.png` |
-| Register and business setup | `docs/screenshots/auth.png` |
-| Dashboard | `docs/screenshots/dashboard.png` |
-| Inventory | `docs/screenshots/inventory.png` |
-| Stock movement | `docs/screenshots/movement.png` |
-| History | `docs/screenshots/history.png` |
-| Settings | `docs/screenshots/settings.png` |
+### Set up your business
+
+![Set up your business](docs/screenshots/setup-business/setup-business.png)
+
+### Dashboard
+
+![Dashboard](docs/screenshots/dashboard/dashboard.png)
+
+### Inventory
+
+![Inventory](docs/screenshots/inventory/inventory.png)
+
+### Log a movement
+
+![Log a movement](docs/screenshots/movement/movement.png)
+
+### Movement history
+
+![Movement history](docs/screenshots/history/history.png)
+
+### Settings
+
+![Settings](docs/screenshots/settings/settings.png)
 
 ## Tech Stack
 
