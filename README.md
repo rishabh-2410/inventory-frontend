@@ -25,33 +25,17 @@ The Invento support page describes employees as able to log movements and view i
 
 ## Screenshots
 
-### Register
-
-![Register](docs/screenshots/register/register.png)
-
-### Set up your business
-
-![Set up your business](docs/screenshots/setup-business/setup-business.png)
-
-### Dashboard
-
-![Dashboard](docs/screenshots/dashboard/dashboard.png)
-
-### Inventory
-
-![Inventory](docs/screenshots/inventory/inventory.png)
-
-### Log a movement
-
-![Log a movement](docs/screenshots/movement/movement.png)
-
-### Movement history
-
-![Movement history](docs/screenshots/history/history.png)
-
-### Settings
-
-![Settings](docs/screenshots/settings/settings.png)
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/register/register.png" alt="Register" width="150"><br><sub>Register</sub></td>
+    <td align="center"><img src="docs/screenshots/setup-business/setup-business.png" alt="Set up your business" width="150"><br><sub>Set up your business</sub></td>
+    <td align="center"><img src="docs/screenshots/dashboard/dashboard.png" alt="Dashboard" width="150"><br><sub>Dashboard</sub></td>
+    <td align="center"><img src="docs/screenshots/inventory/inventory.png" alt="Inventory" width="150"><br><sub>Inventory</sub></td>
+    <td align="center"><img src="docs/screenshots/movement/movement.png" alt="Log a movement" width="150"><br><sub>Log a movement</sub></td>
+    <td align="center"><img src="docs/screenshots/history/history.png" alt="Movement history" width="150"><br><sub>Movement history</sub></td>
+    <td align="center"><img src="docs/screenshots/settings/settings.png" alt="Settings" width="150"><br><sub>Settings</sub></td>
+  </tr>
+</table>
 
 ## Tech Stack
 
